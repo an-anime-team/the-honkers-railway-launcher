@@ -1,7 +1,7 @@
 welcome = Willkommen
 
 welcome-page-message =
-    Hallo! Willkommen bei An Anime Game Launcher
+    Hallo! Willkommen bei The Honkers Railway Launcher
 
     Wir müssen einige Dinge vorbereiten und Standardkomponenten herunterladen, bevor du das Spiel starten kannst
 

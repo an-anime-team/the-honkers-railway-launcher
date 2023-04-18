@@ -10,8 +10,8 @@
 
 <p align="center">
     <a href="https://discord.gg/ck37X6UWBp">Discord</a> ·
-    <a href="https://matrix.to/#/#an-anime-game:envs.net">Matrix</a> ·
-    <a href="https://github.com/an-anime-team/an-anime-game-launcher/wiki">Wiki</a>
+    <a href="https://matrix.to/#/#the-honkers-railway:envs.net">Matrix</a> ·
+    <a href="https://github.com/an-anime-team/the-honkers-railway-launcher/wiki">Wiki</a>
 </p>
 
 <br>
@@ -34,7 +34,7 @@ instead of the actual name of the game, to avoid search engine parsing.
 
 # Documentation
 
-Documentation for the launcher can be found in the [repository wiki](https://github.com/an-anime-team/an-anime-game-launcher/wiki).
+Documentation for the launcher can be found in the [repository wiki](https://github.com/an-anime-team/the-honkers-railway-launcher/wiki).
 
 # Download
 
@@ -45,7 +45,7 @@ Currently there are 5 options available:
 4. Gentoo/ebuild
 5. NixOS
 
-To see the installation guides, [Please visit the wiki page here](https://github.com/an-anime-team/an-anime-game-launcher/wiki/Installation)
+To see the installation guides, [Please visit the wiki page here](https://github.com/an-anime-team/the-honkers-railway-launcher/wiki/Installation)
 
 ## Chinese version support
 
@@ -63,7 +63,7 @@ This should be automatically enabled if you're using zh_cn (Chinese) as your sys
 ## Clone repo
 
 ```sh
-git clone --recursive https://github.com/an-anime-team/an-anime-game-launcher
+git clone --recursive https://github.com/an-anime-team/the-honkers-railway-launcher
 ```
 
 ## Run app
@@ -80,6 +80,6 @@ cargo build --release
 
 ## Updates strategy
 
-Starting from 3.2.1 ([fcab428](https://github.com/an-anime-team/an-anime-game-launcher/commit/fcab428cb40b1457f41e0856f9d1e1473acbe653)) we have 2 branches: stable ([main](https://github.com/an-anime-team/an-anime-game-launcher/tree/main)) and dev ([next](https://github.com/an-anime-team/an-anime-game-launcher/tree/next)). Code changes will be pushed into dev branch and merged into stable once they're ready for new version release
+Starting from 3.2.1 ([fcab428](https://github.com/an-anime-team/the-honkers-railway-launcher/commit/fcab428cb40b1457f41e0856f9d1e1473acbe653)) we have 2 branches: stable ([main](https://github.com/an-anime-team/the-honkers-railway-launcher/tree/main)) and dev ([next](https://github.com/an-anime-team/the-honkers-railway-launcher/tree/next)). Code changes will be pushed into dev branch and merged into stable once they're ready for new version release
 
 <img src="repository/branches.png" />

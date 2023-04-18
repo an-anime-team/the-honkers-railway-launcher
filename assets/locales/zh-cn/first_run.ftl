@@ -1,7 +1,7 @@
 welcome = 欢迎
 
 welcome-page-message =
-    你好呀～欢迎使用 An Anime Game Launcher
+    你好呀～欢迎使用 The Honkers Railway Launcher
 
     在开始游戏之前，程序需要进行准备，并下载默认组件
 

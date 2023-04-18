@@ -129,8 +129,8 @@ fn main() {
         .expect("Failed to register resources");
 
     // Set application's title
-    gtk::glib::set_application_name("An Anime Game Launcher");
-    gtk::glib::set_program_name(Some("An Anime Game Launcher"));
+    gtk::glib::set_application_name("The Honkers Railway Launcher");
+    gtk::glib::set_program_name(Some("The Honkers Railway Launcher"));
 
     // Set global css
     relm4::set_global_css(&format!("

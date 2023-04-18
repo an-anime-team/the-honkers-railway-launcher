@@ -1,7 +1,7 @@
 [package]
-name = "anime-game-launcher"
-version = "3.5.2"
-description = "Anime Game launcher"
+name = "honkers-railway-launcher"
+version = "1.0.0"
+description = "The Honkers Railway launcher"
 authors = ["Nikita Podvirnyy <suimin.tu.mu.ga.mi@gmail.com>"]
 license = "GPL-3.0"
 edition = "2021"

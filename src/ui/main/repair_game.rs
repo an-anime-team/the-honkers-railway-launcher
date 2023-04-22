@@ -21,19 +21,7 @@ pub fn repair_game(sender: ComponentSender<App>, progress_bar_input: Sender<Prog
 
     std::thread::spawn(move || {
         match repairer::try_get_integrity_files(None) {
-            Ok(mut files) => {
-                // Add voiceovers files
-                let game_path = config.game.path.for_edition(config.launcher.edition).to_path_buf();
-                let game = Game::new(&game_path);
-
-                if let Ok(voiceovers) = game.get_voice_packages() {
-                    for package in voiceovers {
-                        if let Ok(mut voiceover_files) = repairer::try_get_voice_integrity_files(package.locale(), None) {
-                            files.append(&mut voiceover_files);
-                        }
-                    }
-                }
-
+            Ok(files) => {
                 progress_bar_input.send(ProgressBarMsg::UpdateProgress(0, 0));
 
                 let mut total = 0;
@@ -64,7 +52,7 @@ pub fn repair_game(sender: ComponentSender<App>, progress_bar_input: Sender<Prog
 
                     let thread_sender = verify_sender.clone();
 
-                    std::thread::spawn(clone!(@strong game_path => move || {
+                    std::thread::spawn(clone!(@strong config.game.path as game_path => move || {
                         for file in thread_files {
                             let status = if config.launcher.repairer.fast {
                                 file.fast_verify(&game_path)
@@ -105,34 +93,15 @@ pub fn repair_game(sender: ComponentSender<App>, progress_bar_input: Sender<Prog
 
                     let total = broken.len() as f64;
 
-                    let player_patch = UnityPlayerPatch::from_folder(&config.patch.path).unwrap()
-                        .is_applied(&game_path).unwrap();
+                    let main_patch = MainPatch::from_folder(&config.patch.path).unwrap()
+                        .is_applied(&config.game.path).unwrap();
 
-                    let xlua_patch = XluaPatch::from_folder(&config.patch.path).unwrap()
-                        .is_applied(&game_path).unwrap();
+                    tracing::debug!("Patch status: {main_patch}");
 
-                    tracing::debug!("Patches status: player({player_patch}), xlua({xlua_patch})");
-
-                    fn should_ignore(path: &Path, player_patch: bool, xlua_patch: bool) -> bool {
-                        // Files managed by launch.bat file
-                        for part in ["crashreport.exe", "upload_crash.exe"] {
-                            if path.ends_with(part) {
-                                return true;
-                            }
-                        }
-
-                        // UnityPlayer patch related files
-                        if player_patch {
-                            for part in ["UnityPlayer.dll", "vulkan-1.dll"] {
-                                if path.ends_with(part) {
-                                    return true;
-                                }
-                            }
-                        }
-
-                        // Xlua patch related files
-                        if xlua_patch {
-                            for part in ["xlua.dll", "mhypbase.dll"] {
+                    fn should_ignore(path: &Path, main_patch: bool) -> bool {
+                        // Main patch related files
+                        if main_patch {
+                            for part in ["StarRailBase.dll", "UnityPlayer.dll"] {
                                 if path.ends_with(part) {
                                     return true;
                                 }
@@ -143,10 +112,10 @@ pub fn repair_game(sender: ComponentSender<App>, progress_bar_input: Sender<Prog
                     }
 
                     for (i, file) in broken.into_iter().enumerate() {
-                        if !should_ignore(&file.path, player_patch, xlua_patch) {
+                        if !should_ignore(&file.path, main_patch) {
                             tracing::debug!("Repairing file: {}", file.path.to_string_lossy());
 
-                            if let Err(err) = file.repair(&game_path) {
+                            if let Err(err) = file.repair(&config.game.path) {
                                 sender.input(AppMsg::Toast {
                                     title: tr("game-file-repairing-error"),
                                     description: Some(err.to_string())

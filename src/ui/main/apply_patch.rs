@@ -4,11 +4,10 @@ use crate::*;
 use crate::i18n::*;
 use super::{App, AppMsg};
 
-pub fn apply_patch<T: PatchExt + Send + Sync + 'static>(sender: ComponentSender<App>, patch: T) {
+pub fn apply_patch(sender: ComponentSender<App>, patch: MainPatch) {
     match patch.status() {
         PatchStatus::NotAvailable |
-        PatchStatus::Outdated { .. } |
-        PatchStatus::Preparation { .. } => unreachable!(),
+        PatchStatus::Outdated { .. } => unreachable!(),
 
         PatchStatus::Testing { .. } |
         PatchStatus::Available { .. } => {
@@ -19,7 +18,7 @@ pub fn apply_patch<T: PatchExt + Send + Sync + 'static>(sender: ComponentSender<
             std::thread::spawn(move || {
                 let mut apply_patch_if_needed = true;
 
-                if let Err(err) = patch.apply(config.game.path.for_edition(config.launcher.edition), config.patch.root) {
+                if let Err(err) = patch.apply(config.game.path, config.patch.root) {
                     tracing::error!("Failed to patch the game");
 
                     sender.input(AppMsg::Toast {

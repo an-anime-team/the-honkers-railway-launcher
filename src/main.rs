@@ -1,13 +1,13 @@
 use relm4::prelude::*;
 
 use anime_launcher_sdk::config::ConfigExt;
-use anime_launcher_sdk::genshin::config::{Config, Schema};
+use anime_launcher_sdk::star_rail::config::{Config, Schema};
 
-use anime_launcher_sdk::genshin::states::LauncherState;
-use anime_launcher_sdk::genshin::consts::launcher_dir;
+use anime_launcher_sdk::star_rail::states::LauncherState;
+use anime_launcher_sdk::star_rail::consts::launcher_dir;
 
 use anime_launcher_sdk::anime_game_core::prelude::*;
-use anime_launcher_sdk::anime_game_core::genshin::prelude::*;
+use anime_launcher_sdk::anime_game_core::star_rail::prelude::*;
 
 use tracing_subscriber::prelude::*;
 use tracing_subscriber::filter::*;
@@ -22,7 +22,7 @@ pub mod ui;
 use ui::main::*;
 use ui::first_run::main::*;
 
-pub const APP_ID: &str = "moe.launcher.an-anime-game-launcher";
+pub const APP_ID: &str = "moe.launcher.the-honkers-railway-launcher";
 pub const APP_VERSION: &str = env!("CARGO_PKG_VERSION");
 pub const APP_DEBUG: bool = cfg!(debug_assertions);
 
@@ -40,7 +40,7 @@ lazy_static::lazy_static! {
     /// This one is used to prepare some launcher UI components on start
     pub static ref CONFIG: Schema = Config::get().expect("Failed to load config");
 
-    pub static ref GAME: Game = Game::new(CONFIG.game.path.for_edition(CONFIG.launcher.edition));
+    pub static ref GAME: Game = Game::new(&CONFIG.game.path);
 
     /// Path to launcher folder. Standard is `$HOME/.local/share/anime-game-launcher`
     pub static ref LAUNCHER_FOLDER: PathBuf = launcher_dir().expect("Failed to get launcher folder");
@@ -162,9 +162,6 @@ fn main() {
         }}
     ", BACKGROUND_FILE.to_string_lossy()));
 
-    // Set game edition
-    CONFIG.launcher.edition.select();
-
     // Set UI language
     let lang = CONFIG.launcher.language.parse().expect("Wrong language format used in config");
 
@@ -189,16 +186,15 @@ fn main() {
 
             match state {
                 LauncherState::Launch => {
-                    anime_launcher_sdk::genshin::game::run().expect("Failed to run the game");
+                    anime_launcher_sdk::star_rail::game::run().expect("Failed to run the game");
 
                     return;
                 }
 
                 LauncherState::PredownloadAvailable { .. } |
-                LauncherState::UnityPlayerPatchAvailable(UnityPlayerPatch { status: PatchStatus::NotAvailable, .. }) |
-                LauncherState::XluaPatchAvailable(XluaPatch { status: PatchStatus::NotAvailable, .. }) => {
+                LauncherState::MainPatchAvailable(MainPatch { status: PatchStatus::NotAvailable, .. }) => {
                     if just_run_game {
-                        anime_launcher_sdk::genshin::game::run().expect("Failed to run the game");
+                        anime_launcher_sdk::star_rail::game::run().expect("Failed to run the game");
 
                         return;
                     }

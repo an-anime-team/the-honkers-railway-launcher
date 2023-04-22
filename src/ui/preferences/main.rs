@@ -5,11 +5,11 @@ use gtk::prelude::*;
 use adw::prelude::*;
 
 use anime_launcher_sdk::anime_game_core::prelude::*;
-use anime_launcher_sdk::anime_game_core::genshin::prelude::*;
+use anime_launcher_sdk::anime_game_core::star_rail::prelude::*;
 
 use anime_launcher_sdk::config::ConfigExt;
-use anime_launcher_sdk::genshin::config::Config;
-use anime_launcher_sdk::genshin::config::schema::launcher::LauncherStyle;
+use anime_launcher_sdk::star_rail::config::Config;
+use anime_launcher_sdk::star_rail::config::schema::launcher::LauncherStyle;
 
 use crate::i18n::tr;
 
@@ -33,13 +33,9 @@ pub enum PreferencesAppMsg {
     /// was retrieved from the API
     SetGameDiff(Option<VersionDiff>),
 
-    /// Supposed to be called automatically on app's run when the latest UnityPlayer patch version
+    /// Supposed to be called automatically on app's run when the latest main patch version
     /// was retrieved from remote repos
-    SetUnityPlayerPatch(Option<UnityPlayerPatch>),
-
-    /// Supposed to be called automatically on app's run when the latest xlua patch version
-    /// was retrieved from remote repos
-    SetXluaPatch(Option<XluaPatch>),
+    SetMainPatch(Option<MainPatch>),
 
     SetLauncherStyle(LauncherStyle),
 
@@ -138,13 +134,8 @@ impl SimpleAsyncComponent for PreferencesApp {
             }
 
             #[allow(unused_must_use)]
-            PreferencesAppMsg::SetUnityPlayerPatch(patch) => {
-                self.general.sender().send(GeneralAppMsg::SetUnityPlayerPatch(patch));
-            }
-
-            #[allow(unused_must_use)]
-            PreferencesAppMsg::SetXluaPatch(patch) => {
-                self.general.sender().send(GeneralAppMsg::SetXluaPatch(patch));
+            PreferencesAppMsg::SetMainPatch(patch) => {
+                self.general.sender().send(GeneralAppMsg::SetMainPatch(patch));
             }
 
             #[allow(unused_must_use)]

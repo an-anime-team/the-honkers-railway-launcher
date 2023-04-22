@@ -13,7 +13,6 @@ use super::welcome::*;
 use super::tos_warning::*;
 use super::dependencies::*;
 use super::default_paths::*;
-use super::select_voiceovers::*;
 use super::download_components::*;
 use super::finish::*;
 
@@ -26,7 +25,6 @@ pub struct FirstRunApp {
     tos_warning: AsyncController<TosWarningApp>,
     dependencies: AsyncController<DependenciesApp>,
     default_paths: AsyncController<DefaultPathsApp>,
-    select_voiceovers: AsyncController<SelectVoiceoversApp>,
     download_components: AsyncController<DownloadComponentsApp>,
     finish: AsyncController<FinishApp>,
 
@@ -44,7 +42,6 @@ pub enum FirstRunAppMsg {
     ScrollToTosWarning,
     ScrollToDependencies,
     ScrollToDefaultPaths,
-    ScrollToSelectVoiceovers,
     ScrollToDownloadComponents,
     ScrollToFinish,
 
@@ -104,7 +101,6 @@ impl SimpleComponent for FirstRunApp {
                         append = model.tos_warning.widget(),
                         append = model.dependencies.widget(),
                         append = model.default_paths.widget(),
-                        append = model.select_voiceovers.widget(),
                         append = model.download_components.widget(),
                         append = model.finish.widget(),
                     },
@@ -146,10 +142,6 @@ impl SimpleComponent for FirstRunApp {
 
             default_paths: DefaultPathsApp::builder()
                 .launch(false)
-                .forward(sender.input_sender(), std::convert::identity),
-
-            select_voiceovers: SelectVoiceoversApp::builder()
-                .launch(())
                 .forward(sender.input_sender(), std::convert::identity),
 
             download_components: DownloadComponentsApp::builder()
@@ -207,12 +199,6 @@ impl SimpleComponent for FirstRunApp {
                 self.title = tr("default-paths");
 
                 self.carousel.scroll_to(self.default_paths.widget(), true);
-            }
-
-            FirstRunAppMsg::ScrollToSelectVoiceovers => {
-                self.title = tr("select-voice-packages");
-
-                self.carousel.scroll_to(self.select_voiceovers.widget(), true);
             }
 
             FirstRunAppMsg::ScrollToDownloadComponents => {

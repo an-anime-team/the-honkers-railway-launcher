@@ -16,7 +16,7 @@
 
 <br>
 
-# Please don't link to this repository
+# ⚠️ Please don't link to this repository
 
 We understand you want to help people run An Anime Game on Linux. The issue is, the more people know
 of the tools involved in it, the higher the chances The Anime Game Company will notice them, and then
@@ -32,26 +32,38 @@ Or share them and ruin it for the dozens of Linux players. It's up to you.
 Do what you must, but we would respectfully request that you try to label the game as "An Anime Game"
 instead of the actual name of the game, to avoid search engine parsing.
 
-# Documentation
+<br>
 
-Documentation for the launcher can be found in the [repository wiki](https://github.com/an-anime-team/the-honkers-railway-launcher/wiki).
+# ♥️ Useful links and thanks
 
-# Download
+* Original patch project without which this project wouldn't be possible. Link is omitted for "privacy" purposes
+* [macOS launcher](https://github.com/3Shain/yet-another-anime-game-launcher) which contains some additional compatibility components
+* [Wiki](https://github.com/an-anime-team/an-anime-game-launcher/wiki) contains some basic FAQ, installation instructions and more
+* [Releases page](https://github.com/an-anime-team/an-anime-game-launcher/releases) where you can find latest available version
+* [Changelog](CHANGELOG.md) with chronology of the project
 
-Currently there are 5 options available:
-1. Flatpak
-2. AUR
-3. RPM
-4. Gentoo/ebuild
-5. NixOS
+<br>
 
-To see the installation guides, [Please visit the wiki page here](https://github.com/an-anime-team/the-honkers-railway-launcher/wiki/Installation)
+# ⬇️ Download
+
+| Distribution | Format | Wiki | Source |
+| - | - | - | - |
+| Fedora | Flatpak | [link](https://github.com/an-anime-team/an-anime-game-launcher/wiki/Installation#-any-distribution-flatpak) | - |
+| Arch Linux, Manjaro | AUR | [link](https://github.com/an-anime-team/an-anime-game-launcher/wiki/Installation#-arch-linux-aur) | [an-anime-game-launcher-bin](https://aur.archlinux.org/packages/an-anime-game-launcher-bin) |
+| Fedora, OpenSUSE | RPM | [link](https://github.com/an-anime-team/an-anime-game-launcher/wiki/Installation#-fedora-rpm) | [AAGL](https://build.opensuse.org/repositories/home:Maroxy:AAT-Apps/AAGL) |
+| Ubuntu | pacstall | - | [an-anime-game-launcher-bin](https://pacstall.dev/packages/an-anime-game-launcher-bin) |
+| Gentoo | ebuild | [link](https://github.com/an-anime-team/an-anime-game-launcher/wiki/Installation#-gentoo-linux-ebuild) | [aagl-ebuilds](https://github.com/an-anime-team/aagl-ebuilds) |
+| NixOS | nixpkg | [link](https://github.com/an-anime-team/an-anime-game-launcher/wiki/Installation#-nixos-nixpkg) | [aagl-gtk-on-nix](https://github.com/ezKEa/aagl-gtk-on-nix) |
+
+To see the installation guides, please visit the wiki page [here](https://github.com/an-anime-team/an-anime-game-launcher/wiki/Installation)
 
 ## Chinese version support
 
-This should be automatically enabled if you're using zh_cn (Chinese) as your system language. If you're not using it - you'll need to set `China` as your `launcher.edition` in the `config.json` file
+This should be automatically enabled if you're using zh_cn (Chinese) as your system language. If you're not using it - you can change the game edition in the launcher settings
 
-# Development
+<br>
+
+# 💻 Development
 
 | Folder | Description |
 | - | - |

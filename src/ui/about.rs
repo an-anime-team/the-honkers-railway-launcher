@@ -36,8 +36,8 @@ impl SimpleComponent for AboutDialog {
             set_application_name: "The Honkers Railway Launcher",
             set_application_icon: APP_ID,
 
-            set_website: "https://github.com/an-anime-team/an-anime-game-launcher",
-            set_issue_url: "https://github.com/an-anime-team/an-anime-game-launcher/issues",
+            set_website: "https://github.com/an-anime-team/the-honkers-railway-launcher",
+            set_issue_url: "https://github.com/an-anime-team/the-honkers-railway-launcher/issues",
 
             set_license_type: gtk::License::Gpl30,
             set_version: &APP_VERSION,
@@ -47,7 +47,7 @@ impl SimpleComponent for AboutDialog {
             ],
 
             add_credit_section: (Some("Patch developer"), &[
-                "@Krock https://notabug.org/Krock/dawn"
+                "@mkrsym1 https://notabug.org/mkrsym1/dusk"
             ]),
 
             add_credit_section: (Some("An Anime Team"), &[
@@ -56,10 +56,6 @@ impl SimpleComponent for AboutDialog {
                 "@jiro-too https://github.com/jiro-too",
                 "@cybik https://github.com/cybik"
             ]),
-
-            set_artists: &[
-                "@nightany https://pinterest.com/pin/356206651788051017"
-            ],
 
             set_translator_credits: &[
                 "Русский, English — Nikita Podvirnyy https://github.com/krypt0nn",
@@ -81,7 +77,7 @@ impl SimpleComponent for AboutDialog {
             ].join("\n"),
 
             set_release_notes_version: &APP_VERSION,
-            set_release_notes: &[
+            /*set_release_notes: &[
                 "<p>Added</p>",
 
                 "<ul>",
@@ -93,7 +89,7 @@ impl SimpleComponent for AboutDialog {
                 "<ul>",
                     "<li>Fixed game running issue if you have spaces in paths</li>",
                 "</ul>",
-            ].join("\n"),
+            ].join("\n"),*/
 
             set_modal: true,
             set_hide_on_close: true,

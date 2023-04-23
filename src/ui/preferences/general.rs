@@ -311,8 +311,8 @@ impl SimpleAsyncComponent for GeneralApp {
 
                                 PatchStatus::Available { .. } => unsafe {
                                     let path = match Config::get() {
-                                        Ok(config) => config.game.path,
-                                        Err(_) => CONFIG.game.path.clone(),
+                                        Ok(config) => config.game.path.for_edition(config.launcher.edition).to_path_buf(),
+                                        Err(_) => CONFIG.game.path.for_edition(CONFIG.launcher.edition).to_path_buf(),
                                     };
 
                                     if let Ok(true) = model.main_patch.as_ref().unwrap_unchecked().is_applied(path) {
@@ -337,8 +337,8 @@ impl SimpleAsyncComponent for GeneralApp {
                                 PatchStatus::Testing { .. } => tr("patch-testing-tooltip"),
                                 PatchStatus::Available { .. } => unsafe {
                                     let path = match Config::get() {
-                                        Ok(config) => config.game.path,
-                                        Err(_) => CONFIG.game.path.clone(),
+                                        Ok(config) => config.game.path.for_edition(config.launcher.edition).to_path_buf(),
+                                        Err(_) => CONFIG.game.path.for_edition(CONFIG.launcher.edition).to_path_buf(),
                                     };
 
                                     if let Ok(true) = model.main_patch.as_ref().unwrap_unchecked().is_applied(path) {

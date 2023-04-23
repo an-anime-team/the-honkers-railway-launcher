@@ -22,6 +22,8 @@ pub fn repair_game(sender: ComponentSender<App>, progress_bar_input: Sender<Prog
     std::thread::spawn(move || {
         match repairer::try_get_integrity_files(None) {
             Ok(files) => {
+                let game_path = config.game.path.for_edition(config.launcher.edition).to_path_buf();
+
                 progress_bar_input.send(ProgressBarMsg::UpdateProgress(0, 0));
 
                 let mut total = 0;
@@ -52,7 +54,7 @@ pub fn repair_game(sender: ComponentSender<App>, progress_bar_input: Sender<Prog
 
                     let thread_sender = verify_sender.clone();
 
-                    std::thread::spawn(clone!(@strong config.game.path as game_path => move || {
+                    std::thread::spawn(clone!(@strong game_path => move || {
                         for file in thread_files {
                             let status = if config.launcher.repairer.fast {
                                 file.fast_verify(&game_path)
@@ -94,7 +96,7 @@ pub fn repair_game(sender: ComponentSender<App>, progress_bar_input: Sender<Prog
                     let total = broken.len() as f64;
 
                     let main_patch = MainPatch::from_folder(&config.patch.path).unwrap()
-                        .is_applied(&config.game.path).unwrap();
+                        .is_applied(&game_path).unwrap();
 
                     tracing::debug!("Patch status: {main_patch}");
 
@@ -115,7 +117,7 @@ pub fn repair_game(sender: ComponentSender<App>, progress_bar_input: Sender<Prog
                         if !should_ignore(&file.path, main_patch) {
                             tracing::debug!("Repairing file: {}", file.path.to_string_lossy());
 
-                            if let Err(err) = file.repair(&config.game.path) {
+                            if let Err(err) = file.repair(&game_path) {
                                 sender.input(AppMsg::Toast {
                                     title: tr("game-file-repairing-error"),
                                     description: Some(err.to_string())

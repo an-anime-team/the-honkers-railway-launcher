@@ -18,7 +18,9 @@ pub fn apply_patch(sender: ComponentSender<App>, patch: MainPatch) {
             std::thread::spawn(move || {
                 let mut apply_patch_if_needed = true;
 
-                if let Err(err) = patch.apply(config.game.path, config.patch.root) {
+                let game_path = config.game.path.for_edition(config.launcher.edition);
+
+                if let Err(err) = patch.apply(game_path, config.patch.root) {
                     tracing::error!("Failed to patch the game");
 
                     sender.input(AppMsg::Toast {

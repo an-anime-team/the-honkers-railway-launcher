@@ -530,8 +530,8 @@ impl SimpleComponent for App {
 
         group.add_action::<GameFolder>(&RelmAction::new_stateless(clone!(@strong sender => move |_| {
             let path = match Config::get() {
-                Ok(config) => config.game.path,
-                Err(_) => CONFIG.game.path.clone()
+                Ok(config) => config.game.path.for_edition(config.launcher.edition).to_path_buf(),
+                Err(_) => CONFIG.game.path.for_edition(CONFIG.launcher.edition).to_path_buf()
             };
 
             if let Err(err) = open::that(path) {

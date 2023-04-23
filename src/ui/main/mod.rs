@@ -687,7 +687,7 @@ impl SimpleComponent for App {
             }
 
             // Get the main patch status
-            sender.input(AppMsg::SetMainPatch(match patch.main_patch() {
+            sender.input(AppMsg::SetMainPatch(match patch.main_patch(CONFIG.launcher.edition) {
                 Ok(patch) => Some(patch),
 
                 Err(err) => {

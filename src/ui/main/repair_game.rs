@@ -95,7 +95,7 @@ pub fn repair_game(sender: ComponentSender<App>, progress_bar_input: Sender<Prog
 
                     let total = broken.len() as f64;
 
-                    let main_patch = MainPatch::from_folder(&config.patch.path).unwrap()
+                    let main_patch = MainPatch::from_folder(&config.patch.path, config.launcher.edition).unwrap()
                         .is_applied(&game_path).unwrap();
 
                     tracing::debug!("Patch status: {main_patch}");

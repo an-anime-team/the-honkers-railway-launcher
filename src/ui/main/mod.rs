@@ -265,8 +265,13 @@ impl SimpleComponent for App {
                             #[watch]
                             set_visible: !model.downloading,
 
+                            #[watch]
+                            set_margin_bottom: match model.style {
+                                LauncherStyle::Modern => 48,
+                                LauncherStyle::Classic => 0
+                            },
+
                             set_vexpand: true,
-                            set_margin_bottom: 48,
 
                             gtk::Box {
                                 #[watch]

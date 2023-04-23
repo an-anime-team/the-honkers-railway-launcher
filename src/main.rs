@@ -162,6 +162,9 @@ fn main() {
         }}
     ", BACKGROUND_FILE.to_string_lossy()));
 
+    // Set game edition
+    CONFIG.launcher.edition.select();
+
     // Set UI language
     let lang = CONFIG.launcher.language.parse().expect("Wrong language format used in config");
 

@@ -5,6 +5,7 @@ use gtk::prelude::*;
 use adw::prelude::*;
 
 use anime_launcher_sdk::anime_game_core::prelude::*;
+use anime_launcher_sdk::anime_game_core::star_rail::consts::GameEdition;
 
 use anime_launcher_sdk::wincompatlib::prelude::*;
 
@@ -202,6 +203,41 @@ impl SimpleAsyncComponent for GeneralApp {
                                     .unwrap_or(&SUPPORTED_LANGUAGES[0]));
     
                                 Config::update(config);
+                            }
+                        }
+                    }
+                },
+
+                adw::ComboRow {
+                    set_title: &tr("game-edition"),
+
+                    set_model: Some(&gtk::StringList::new(&[
+                        &tr("global"),
+                        &tr("china")
+                    ])),
+
+                    set_selected: match CONFIG.launcher.edition {
+                        GameEdition::Global => 0,
+                        GameEdition::China => 1
+                    },
+
+                    connect_selected_notify[sender] => move |row| {
+                        if is_ready() {
+                            #[allow(unused_must_use)]
+                            if let Ok(mut config) = Config::get() {
+                                config.launcher.edition = match row.selected() {
+                                    0 => GameEdition::Global,
+                                    1 => GameEdition::China,
+
+                                    _ => unreachable!()
+                                };
+
+                                // Select new game edition
+                                config.launcher.edition.select();
+
+                                Config::update(config);
+
+                                sender.output(PreferencesAppMsg::UpdateLauncherState);
                             }
                         }
                     }

@@ -10,7 +10,6 @@ use adw::prelude::*;
 
 use gtk::glib::clone;
 
-mod repair_game;
 mod apply_patch;
 mod download_wine;
 mod create_prefix;
@@ -92,7 +91,6 @@ pub enum AppMsg {
     DisableButtons(bool),
 
     OpenPreferences,
-    RepairGame,
 
     PredownloadUpdate,
     PerformAction,
@@ -841,8 +839,6 @@ impl SimpleComponent for App {
             AppMsg::OpenPreferences => unsafe {
                 PREFERENCES_WINDOW.as_ref().unwrap_unchecked().widget().present();
             }
-
-            AppMsg::RepairGame => repair_game::repair_game(sender, self.progress_bar.sender().to_owned()),
 
             #[allow(unused_must_use)]
             AppMsg::PredownloadUpdate => {

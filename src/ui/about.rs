@@ -80,11 +80,10 @@ impl SimpleComponent for AboutDialog {
             ].join("\n"),
 
             set_release_notes_version: &APP_VERSION,
-            /*set_release_notes: &[
+            set_release_notes: &[
                 "<p>Added</p>",
 
                 "<ul>",
-                    "<li>Added rules approving dialog to the first run window</li>",
                     "<li>Added game settings section</li>",
                     "<li>Added game sessions manager</li>",
                     "<li>Added `LAUNCHER_FOLDER` variable support</li>",
@@ -101,10 +100,9 @@ impl SimpleComponent for AboutDialog {
                 "<p>Fixed</p>",
 
                 "<ul>",
-                    "<li>Fixed wine tools running using proton builds</li>",
                     "<li>Fixed sandboxed game running (sounds are broken for now)</li>",
                 "</ul>",
-            ].join("\n"),*/
+            ].join("\n"),
 
             set_modal: true,
             set_hide_on_close: true,

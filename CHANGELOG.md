@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [1.1.0]
+## [1.1.0] - 06.05.2023
 
 ### Added
 
@@ -26,12 +26,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Fixed sandboxed game running (sounds are broken for now)
 
-## [1.0.0]
+## [1.0.0] - 01.05.2023
 
 🚀 Initial release
 
 <br>
 
 [unreleased]: https://github.com/an-anime-team/the-honkers-railway-launcher/compare/1.1.0...next
-[1.1.0]: https://github.com/an-anime-team/the-honkers-railway-launcher/releases/tag/1.1.0
+[1.1.0]: https://github.com/an-anime-team/the-honkers-railway-launcher/compare/1.0.0...1.1.0
 [1.0.0]: https://github.com/an-anime-team/the-honkers-railway-launcher/releases/tag/1.0.0

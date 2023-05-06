@@ -45,3 +45,11 @@ game-patching-error = Spiel konnte nicht gepatcht werden
 # Sandbox
 
 documentation-url-open-failed = Dokumentations-URL kann nicht geöffnet werden
+
+# Game
+
+game-session-add-failed = Spielsitzung konnte nicht hinzugefügt werden
+game-session-update-failed = Spielsitzung konnte nicht aktualisiert werden
+game-session-remove-failed = Spielsitzung konnte nicht entfernt werden
+game-session-set-current-failed = Aktuelle Spielsitzung konnte nicht eingestellt werden
+game-session-apply-failed = Spielsitzung konnte nicht angewendet werden

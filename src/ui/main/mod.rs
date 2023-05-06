@@ -10,7 +10,6 @@ use adw::prelude::*;
 
 use gtk::glib::clone;
 
-mod repair_game;
 mod apply_patch;
 mod download_wine;
 mod create_prefix;
@@ -40,6 +39,7 @@ relm4::new_stateless_action!(LauncherFolder, WindowActionGroup, "launcher_folder
 relm4::new_stateless_action!(GameFolder, WindowActionGroup, "game_folder");
 relm4::new_stateless_action!(ConfigFile, WindowActionGroup, "config_file");
 relm4::new_stateless_action!(DebugFile, WindowActionGroup, "debug_file");
+relm4::new_stateless_action!(WishUrl, WindowActionGroup, "wish_url");
 
 relm4::new_stateless_action!(About, WindowActionGroup, "about");
 
@@ -92,7 +92,6 @@ pub enum AppMsg {
     DisableButtons(bool),
 
     OpenPreferences,
-    RepairGame,
 
     PredownloadUpdate,
     PerformAction,
@@ -119,6 +118,10 @@ impl SimpleComponent for App {
                 &tr("game-folder") => GameFolder,
                 &tr("config-file") => ConfigFile,
                 &tr("debug-file") => DebugFile,
+            },
+
+            section! {
+                &tr("wish-url") => WishUrl
             },
 
             section! {
@@ -210,6 +213,8 @@ impl SimpleComponent for App {
                         set_visible: model.loading.is_none(),
 
                         add = &adw::PreferencesGroup {
+                            set_margin_top: 48,
+
                             #[watch]
                             set_visible: model.style == LauncherStyle::Modern,
 
@@ -518,11 +523,11 @@ impl SimpleComponent for App {
                 .detach());
         }
 
-        let group = RelmActionGroup::<WindowActionGroup>::new();
+        let mut group = RelmActionGroup::<WindowActionGroup>::new();
 
         // TODO: reduce code somehow
 
-        group.add_action::<LauncherFolder>(&RelmAction::new_stateless(clone!(@strong sender => move |_| {
+        group.add_action::<LauncherFolder>(RelmAction::new_stateless(clone!(@strong sender => move |_| {
             if let Err(err) = open::that(LAUNCHER_FOLDER.as_path()) {
                 sender.input(AppMsg::Toast {
                     title: tr("launcher-folder-opening-error"),
@@ -533,7 +538,7 @@ impl SimpleComponent for App {
             }
         })));
 
-        group.add_action::<GameFolder>(&RelmAction::new_stateless(clone!(@strong sender => move |_| {
+        group.add_action::<GameFolder>(RelmAction::new_stateless(clone!(@strong sender => move |_| {
             let path = match Config::get() {
                 Ok(config) => config.game.path.for_edition(config.launcher.edition).to_path_buf(),
                 Err(_) => CONFIG.game.path.for_edition(CONFIG.launcher.edition).to_path_buf()
@@ -549,7 +554,7 @@ impl SimpleComponent for App {
             }
         })));
 
-        group.add_action::<ConfigFile>(&RelmAction::new_stateless(clone!(@strong sender => move |_| {
+        group.add_action::<ConfigFile>(RelmAction::new_stateless(clone!(@strong sender => move |_| {
             if let Ok(file) = config_file() {
                 if let Err(err) = open::that(file) {
                     sender.input(AppMsg::Toast {
@@ -562,7 +567,7 @@ impl SimpleComponent for App {
             }
         })));
 
-        group.add_action::<DebugFile>(&RelmAction::new_stateless(clone!(@strong sender => move |_| {
+        group.add_action::<DebugFile>(RelmAction::new_stateless(clone!(@strong sender => move |_| {
             if let Err(err) = open::that(crate::DEBUG_FILE.as_os_str()) {
                 sender.input(AppMsg::Toast {
                     title: tr("debug-file-opening-error"),
@@ -573,7 +578,67 @@ impl SimpleComponent for App {
             }
         })));
 
-        group.add_action::<About>(&RelmAction::new_stateless(move |_| {
+        group.add_action::<WishUrl>(RelmAction::new_stateless(clone!(@strong sender => move |_| {
+            std::thread::spawn(clone!(@strong sender => move || {
+                let config = Config::get().unwrap_or_else(|_| CONFIG.clone());
+
+                let web_cache = config.game.path.for_edition(config.launcher.edition)
+                    .join(config.launcher.edition.data_folder())
+                    .join("webCaches/Cache/Cache_Data/data_2");
+
+                if !web_cache.exists() {
+                    tracing::error!("Couldn't find wishes URL: cache file doesn't exist");
+
+                    sender.input(AppMsg::Toast {
+                        title: tr("wish-url-search-failed"),
+                        description: None
+                    });
+                }
+
+                else {
+                    match std::fs::read(&web_cache) {
+                        Ok(web_cache) => {
+                            let web_cache = String::from_utf8_lossy(&web_cache);
+
+                            // https://webstatic-sea.[ho-yo-ver-se].com/hkrpg/event/e20211215gacha-v2/index.html?......
+                            if let Some(url) = web_cache.lines().rev().find(|line| line.contains("gacha-v2/index.html")) {
+                                let url_begin_pos = url.find("https://").unwrap();
+                                let url_end_pos = url_begin_pos + url[url_begin_pos..].find("\0\0\0\0").unwrap();
+
+                                if let Err(err) = open::that(format!("{}#/log", &url[url_begin_pos..url_end_pos])) {
+                                    tracing::error!("Failed to open wishes URL: {err}");
+    
+                                    sender.input(AppMsg::Toast {
+                                        title: tr("wish-url-opening-error"),
+                                        description: Some(err.to_string())
+                                    });
+                                }
+                            }
+
+                            else {
+                                tracing::error!("Couldn't find wishes URL: no url found");
+
+                                sender.input(AppMsg::Toast {
+                                    title: tr("wish-url-search-failed"),
+                                    description: None
+                                });
+                            }
+                        }
+
+                        Err(err) => {
+                            tracing::error!("Couldn't find wishes URL: failed to open cache file: {err}");
+
+                            sender.input(AppMsg::Toast {
+                                title: tr("wish-url-search-failed"),
+                                description: Some(err.to_string())
+                            });
+                        }
+                    }
+                }
+            }));
+        })));
+
+        group.add_action::<About>(RelmAction::new_stateless(move |_| {
             about_dialog_broker.send(AboutDialogMsg::Show);
         }));
 
@@ -620,10 +685,8 @@ impl SimpleComponent for App {
                                     description: if changes.is_empty() {
                                         None
                                     } else {
-                                        let max_len = changes.iter().map(|line| line.len()).max().unwrap_or(80);
-
                                         Some(changes.into_iter()
-                                            .map(|line| format!("- {line}{}", " ".repeat(max_len - line.len())))
+                                            .map(|line| format!("- {line}"))
                                             .collect::<Vec<_>>()
                                             .join("\n"))
                                     }
@@ -841,8 +904,6 @@ impl SimpleComponent for App {
             AppMsg::OpenPreferences => unsafe {
                 PREFERENCES_WINDOW.as_ref().unwrap_unchecked().widget().present();
             }
-
-            AppMsg::RepairGame => repair_game::repair_game(sender, self.progress_bar.sender().to_owned()),
 
             #[allow(unused_must_use)]
             AppMsg::PredownloadUpdate => {

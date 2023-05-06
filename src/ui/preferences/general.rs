@@ -57,7 +57,6 @@ pub enum GeneralAppMsg {
     SetMainPatch(Option<MainPatch>),
 
     OpenMigrateInstallation,
-    RepairGame,
     WineOpen(&'static [&'static str]),
 
     UpdateLauncherStyle(LauncherStyle),
@@ -253,12 +252,6 @@ impl SimpleAsyncComponent for GeneralApp {
                         set_tooltip_text: Some(&tr("migrate-installation-description")),
 
                         connect_clicked => GeneralAppMsg::OpenMigrateInstallation
-                    },
-
-                    gtk::Button {
-                        set_label: &tr("repair-game"),
-
-                        connect_clicked => GeneralAppMsg::RepairGame
                     }
                 }
             },
@@ -720,11 +713,6 @@ impl SimpleAsyncComponent for GeneralApp {
                 }
 
                 self.migrate_installation.widget().show();
-            }
-
-            #[allow(unused_must_use)]
-            GeneralAppMsg::RepairGame => {
-                sender.output(Self::Output::RepairGame);
             }
 
             GeneralAppMsg::WineOpen(executable) => {

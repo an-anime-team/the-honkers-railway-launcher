@@ -15,6 +15,7 @@ use crate::i18n::tr;
 
 use super::general::*;
 use super::enhancements::*;
+use super::game::*;
 use super::sandbox::*;
 use super::environment::*;
 
@@ -23,6 +24,7 @@ pub static mut PREFERENCES_WINDOW: Option<adw::PreferencesWindow> = None;
 pub struct PreferencesApp {
     general: AsyncController<GeneralApp>,
     enhancements: AsyncController<EnhancementsApp>,
+    game: AsyncController<GameApp>,
     sandbox: AsyncController<SandboxApp>,
     environment: AsyncController<EnvironmentApp>
 }
@@ -40,7 +42,6 @@ pub enum PreferencesAppMsg {
     SetLauncherStyle(LauncherStyle),
 
     UpdateLauncherState,
-    RepairGame,
 
     Toast {
         title: String,
@@ -65,6 +66,7 @@ impl SimpleAsyncComponent for PreferencesApp {
 
             add = model.general.widget(),
             add = model.enhancements.widget(),
+            add = model.game.widget(),
             add = model.sandbox.widget(),
             add = model.environment.widget(),
 
@@ -94,6 +96,10 @@ impl SimpleAsyncComponent for PreferencesApp {
                 .forward(sender.input_sender(), std::convert::identity),
 
             enhancements: EnhancementsApp::builder()
+                .launch(())
+                .detach(),
+
+            game: GameApp::builder()
                 .launch(())
                 .detach(),
 
@@ -150,13 +156,6 @@ impl SimpleAsyncComponent for PreferencesApp {
                     apply_patch_if_needed: false,
                     show_status_page: false
                 });
-            }
-
-            #[allow(unused_must_use)]
-            PreferencesAppMsg::RepairGame => unsafe {
-                PREFERENCES_WINDOW.as_ref().unwrap_unchecked().close();
-
-                sender.output(Self::Output::RepairGame);
             }
 
             PreferencesAppMsg::Toast { title, description } => unsafe {

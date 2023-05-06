@@ -1,6 +1,6 @@
 [package]
 name = "honkers-railway-launcher"
-version = "1.0.0"
+version = "1.1.0"
 description = "The Honkers Railway launcher"
 authors = ["Nikita Podvirnyy <suimin.tu.mu.ga.mi@gmail.com>"]
 license = "GPL-3.0"
@@ -17,13 +17,13 @@ glib-build-tools = "0.17"
 
 [dependencies.anime-launcher-sdk]
 git = "https://github.com/an-anime-team/anime-launcher-sdk"
-tag = "1.1.4"
+tag = "1.2.2"
 features = ["all", "star-rail"]
 
 # path = "../anime-launcher-sdk" # ! for dev purposes only
 
 [dependencies]
-relm4 = { version = "0.6.0-alpha.2", features = ["macros", "libadwaita"] }
+relm4 = { version = "0.6.0-beta.1", features = ["macros", "libadwaita"] }
 gtk = { package = "gtk4", version = "0.6", features = ["v4_8"] }
 adw = { package = "libadwaita", version = "0.3", features = ["v1_2"] }
 

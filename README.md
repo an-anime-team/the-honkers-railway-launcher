@@ -56,7 +56,7 @@ instead of the actual name of the game, to avoid search engine parsing.
 
 To see the installation guides, please visit the wiki page [here](https://github.com/an-anime-team/the-honkers-railway-launcher/wiki/Installation)
 
-Lutris integration described [here](https://github.com/an-anime-team/an-anime-game-launcher/wiki/Installation#-lutris)
+Lutris integration described [here](https://github.com/an-anime-team/the-honkers-railway-launcher/wiki/Installation#-lutris)
 
 ## Chinese version support
 

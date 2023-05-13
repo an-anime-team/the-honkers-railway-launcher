@@ -59,6 +59,10 @@ impl SimpleComponent for AboutDialog {
                 "@mkrsym1 https://github.com/mkrsym1"
             ]),
 
+            set_artists: &[
+                "@tapiobanana https://twitter.com/Tapiobanana"
+            ],
+
             set_translator_credits: &[
                 "Русский, English — Nikita Podvirnyy https://github.com/krypt0nn",
                 "Deutsch — @Marie https://github.com/Mar0xy",

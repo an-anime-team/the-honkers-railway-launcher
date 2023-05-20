@@ -316,12 +316,7 @@ impl SimpleComponent for App {
                                             }.into()),
 
                                             ("size", match model.state.as_ref() {
-                                                Some(LauncherState::PredownloadAvailable(game)) => {
-                                                    let size = game.size().unwrap_or((0, 0)).0;
-
-                                                    prettify_bytes(size)
-                                                }
-
+                                                Some(LauncherState::PredownloadAvailable(game)) => prettify_bytes(game.downloaded_size().unwrap_or(0)),
                                                 _ => String::from("?")
                                             }.into())
                                         ])),
@@ -917,7 +912,7 @@ impl SimpleComponent for App {
                     progress_bar_input.send(ProgressBarMsg::UpdateCaption(Some(tr("downloading"))));
 
                     std::thread::spawn(move || {
-                        let result = game.download_in(&tmp, clone!(@strong progress_bar_input => move |curr, total| {
+                        let result = game.download_to(&tmp, clone!(@strong progress_bar_input => move |curr, total| {
                             progress_bar_input.send(ProgressBarMsg::UpdateProgress(curr, total));
                         }));
 

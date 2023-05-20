@@ -4,7 +4,6 @@ use relm4::component::*;
 use gtk::prelude::*;
 use adw::prelude::*;
 
-use anime_launcher_sdk::anime_game_core::prelude::*;
 use anime_launcher_sdk::anime_game_core::star_rail::consts::GameEdition;
 
 use anime_launcher_sdk::wincompatlib::prelude::*;

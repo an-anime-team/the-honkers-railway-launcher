@@ -230,9 +230,6 @@ impl SimpleAsyncComponent for GeneralApp {
                                     _ => unreachable!()
                                 };
 
-                                // Select new game edition
-                                config.launcher.edition.select();
-
                                 Config::update(config);
 
                                 sender.output(PreferencesAppMsg::UpdateLauncherState);
@@ -265,7 +262,7 @@ impl SimpleAsyncComponent for GeneralApp {
                         #[watch]
                         set_text: &match model.game_diff.as_ref() {
                             Some(diff) => match diff {
-                                VersionDiff::Latest(current) |
+                                VersionDiff::Latest { version: current, .. } |
                                 VersionDiff::Predownload { current, .. } |
                                 VersionDiff::Diff { current, .. } |
                                 VersionDiff::Outdated { current, .. } => current.to_string(),
@@ -279,7 +276,7 @@ impl SimpleAsyncComponent for GeneralApp {
                         #[watch]
                         set_css_classes: match model.game_diff.as_ref() {
                             Some(diff) => match diff {
-                                VersionDiff::Latest(_) => &["success"],
+                                VersionDiff::Latest { .. } => &["success"],
                                 VersionDiff::Predownload { .. } => &["accent"],
                                 VersionDiff::Diff { .. } => &["warning"],
                                 VersionDiff::Outdated { .. } => &["error"],
@@ -292,7 +289,7 @@ impl SimpleAsyncComponent for GeneralApp {
                         #[watch]
                         set_tooltip_text: Some(&match model.game_diff.as_ref() {
                             Some(diff) => match diff {
-                                VersionDiff::Latest(_) => String::new(),
+                                VersionDiff::Latest { .. } => String::new(),
                                 VersionDiff::Predownload { current, latest, .. } => tr_args("game-predownload-available", [
                                     ("old", current.to_string().into()),
                                     ("new", latest.to_string().into())

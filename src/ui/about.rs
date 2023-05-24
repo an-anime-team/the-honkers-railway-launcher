@@ -70,6 +70,8 @@ impl SimpleComponent for AboutDialog {
                 "Français — @zeGolem https://github.com/zeGolem",
                 "Türkçe — @Kaozix https://github.com/Kaozix1776",
                 "Türkçe — Kayra Nachfolger https://github.com/kayranachfolger",
+                "Italiano - @QuazarOmega https://github.com/quazar-omega",
+                "Indonesia - @yumekarisu https://github.com/yumekarisu",
                 "简体中文 — Caibin Chen https://github.com/tigersoldier"
             ].join("\n"),
 
@@ -97,11 +99,19 @@ impl SimpleComponent for AboutDialog {
                 "<p>Changed</p>",
 
                 "<ul>",
-                    "<li>Improved launcher logo rendering quality</li>",
-                    "<li>Reworked entry rows in the settings</li>",
+                    "<li>Apply selected session before launching the game. This will properly save your game session when you switch between wine prefixes</li>",
+                    "<li>Redesigned main button</li>",
+                    "<li>Used `whatadistro` to identify recommended package manager in the first run window</li>",
+                    "<li>Moved a lot of settings to separate page</li>",
+                    "<li>Set fsr quality mode in enhancements settings instead of strength</li>",
+                    "<li>Updated fps unlocker data</li>",
+                    "<li>Made temporary workaround to the game API changes</li>",
+                    "<li>Increased default requests timeout to 8 seconds</li>",
+                    "<li>Updated minreq to support `http_proxy`-like variables</li>",
+                    "<li>Disabled xlua patch applying by default</li>",
                 "</ul>",
 
-                "<p>Fixed</p>",
+                "<p>Removed</p>",
 
                 "<ul>",
                     "<li>Fixed sandboxed game running (sounds are broken for now)</li>",

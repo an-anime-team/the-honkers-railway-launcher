@@ -31,6 +31,7 @@ pub static mut READY: bool = false;
 
 // TODO: get rid of using this function in all the components' events
 //       e.g. by converting preferences pages into Relm4 Components
+/// Check if the app is ready
 pub fn is_ready() -> bool {
     unsafe { READY }
 }
@@ -158,7 +159,7 @@ fn main() {
         }}
 
         .round-bin {{
-            border-radius: 8px;
+            border-radius: 24px;
         }}
     ", BACKGROUND_FILE.to_string_lossy()));
 

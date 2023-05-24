@@ -294,19 +294,11 @@ impl SimpleComponent for App {
                                 set_margin_top: 64,
                                 set_spacing: 8,
 
-                                // TODO: add tooltips
-
                                 adw::Bin {
                                     set_css_classes: &["background", "round-bin"],
 
                                     gtk::Button {
-                                        #[watch]
-                                        set_width_request: match model.style {
-                                            LauncherStyle::Modern => -1,
-                                            LauncherStyle::Classic => 40
-                                        },
-
-                                        // TODO: update tooltip for predownloaded update
+                                        set_width_request: 44,
 
                                         #[watch]
                                         set_tooltip_text: Some(&tr_args("predownload-update", [
@@ -316,12 +308,7 @@ impl SimpleComponent for App {
                                             }.into()),
 
                                             ("size", match model.state.as_ref() {
-                                                Some(LauncherState::PredownloadAvailable(game)) => {
-                                                    let size = game.size().unwrap_or((0, 0)).0;
-
-                                                    prettify_bytes(size)
-                                                }
-
+                                                Some(LauncherState::PredownloadAvailable(game)) => prettify_bytes(game.downloaded_size().unwrap_or(0)),
                                                 _ => String::from("?")
                                             }.into())
                                         ])),
@@ -348,13 +335,13 @@ impl SimpleComponent for App {
                                                 let temp = config.launcher.temp.unwrap_or_else(std::env::temp_dir);
 
                                                 if temp.join(game.file_name().unwrap()).exists() {
-                                                    &["success"]
+                                                    &["success", "circular"]
                                                 } else {
-                                                    &["warning"]
+                                                    &["warning", "circular"]
                                                 }
                                             }
 
-                                            _ => &["warning"]
+                                            _ => &["warning", "circular"]
                                         },
 
                                         set_icon_name: "document-save-symbolic",
@@ -368,18 +355,63 @@ impl SimpleComponent for App {
                                     set_css_classes: &["background", "round-bin"],
 
                                     gtk::Button {
-                                        #[watch]
-                                        set_label: &match model.state {
-                                            Some(LauncherState::Launch)                      => tr("launch"),
-                                            Some(LauncherState::PredownloadAvailable { .. }) => tr("launch"),
-                                            Some(LauncherState::MainPatchAvailable(_))       => tr("apply-patch"),
-                                            Some(LauncherState::WineNotInstalled)            => tr("download-wine"),
-                                            Some(LauncherState::PrefixNotExists)             => tr("create-prefix"),
-                                            Some(LauncherState::GameUpdateAvailable(_))      => tr("update"),
-                                            Some(LauncherState::GameOutdated(_))             => tr("update"),
-                                            Some(LauncherState::GameNotInstalled(_))         => tr("download"),
+                                        adw::ButtonContent {
+                                            #[watch]
+                                            set_icon_name: match &model.state {
+                                                Some(LauncherState::Launch) |
+                                                Some(LauncherState::PredownloadAvailable { .. }) => "media-playback-start-symbolic",
 
-                                            None => String::from("...")
+                                                Some(LauncherState::WineNotInstalled) |
+                                                Some(LauncherState::PrefixNotExists) => "document-save-symbolic",
+
+                                                Some(LauncherState::GameUpdateAvailable(_)) |
+                                                Some(LauncherState::GameNotInstalled(_)) => "document-save-symbolic",
+
+                                                Some(LauncherState::MainPatchAvailable(MainPatch { status, .. })) => match status {
+                                                    PatchStatus::NotAvailable |
+                                                    PatchStatus::Outdated { .. } => "window-close-symbolic",
+
+                                                    PatchStatus::Testing { .. } |
+                                                    PatchStatus::Available { .. } => "document-save-symbolic"
+                                                }
+
+                                                Some(LauncherState::GameOutdated(_)) |
+                                                None => "window-close-symbolic"
+                                            },
+
+                                            #[watch]
+                                            set_label: &match &model.state {
+                                                Some(LauncherState::Launch) |
+                                                Some(LauncherState::PredownloadAvailable { .. }) => tr("launch"),
+
+                                                Some(LauncherState::MainPatchAvailable(_)) => tr("apply-patch"),
+
+                                                Some(LauncherState::WineNotInstalled) => tr("download-wine"),
+                                                Some(LauncherState::PrefixNotExists)  => tr("create-prefix"),
+
+                                                Some(LauncherState::GameUpdateAvailable(diff)) |
+                                                Some(LauncherState::GameOutdated(diff)) => {
+                                                    match (Config::get(), diff.file_name()) {
+                                                        (Ok(config), Some(filename)) => {
+                                                            let temp = config.launcher.temp.unwrap_or_else(std::env::temp_dir);
+
+                                                            if temp.join(filename).exists() {
+                                                                tr("resume")
+                                                            }
+
+                                                            else {
+                                                                tr("update")
+                                                            }
+                                                        }
+
+                                                        _ => tr("update")
+                                                    }
+                                                },
+
+                                                Some(LauncherState::GameNotInstalled(_)) => tr("download"),
+
+                                                None => String::from("...")
+                                            }
                                         },
 
                                         #[watch]
@@ -401,19 +433,19 @@ impl SimpleComponent for App {
 
                                         #[watch]
                                         set_css_classes: match &model.state {
-                                            Some(LauncherState::GameOutdated { .. }) => &["warning"],
+                                            Some(LauncherState::GameOutdated { .. }) => &["warning", "pill"],
 
                                             Some(LauncherState::MainPatchAvailable(MainPatch { status, .. })) => match status {
                                                 PatchStatus::NotAvailable |
-                                                PatchStatus::Outdated { .. } => &["error"],
+                                                PatchStatus::Outdated { .. } => &["error", "pill"],
 
-                                                PatchStatus::Testing { .. } => &["warning"],
-                                                PatchStatus::Available { .. } => &["suggested-action"]
+                                                PatchStatus::Testing { .. } => &["warning", "pill"],
+                                                PatchStatus::Available { .. } => &["suggested-action", "pill"]
                                             },
 
-                                            Some(_) => &["suggested-action"],
+                                            Some(_) => &["suggested-action", "pill"],
 
-                                            None => &[]
+                                            None => &["pill"]
                                         },
 
                                         #[watch]
@@ -442,14 +474,11 @@ impl SimpleComponent for App {
 
                                     gtk::Button {
                                         #[watch]
-                                        set_width_request: match model.style {
-                                            LauncherStyle::Modern => -1,
-                                            LauncherStyle::Classic => 40
-                                        },
-
-                                        #[watch]
                                         set_sensitive: !model.disabled_buttons,
 
+                                        set_width_request: 44,
+
+                                        add_css_class: "circular",
                                         set_icon_name: "emblem-system-symbolic",
 
                                         connect_clicked => AppMsg::OpenPreferences
@@ -722,7 +751,7 @@ impl SimpleComponent for App {
             sender.input(AppMsg::SetLoadingStatus(Some(Some(tr("loading-patch-status")))));
 
             // Sync local patch repo
-            let patch = Patch::new(&CONFIG.patch.path);
+            let patch = Patch::new(&CONFIG.patch.path, CONFIG.launcher.edition);
 
             match patch.is_sync(&CONFIG.patch.servers) {
                 Ok(Some(_)) => (),
@@ -755,7 +784,7 @@ impl SimpleComponent for App {
             }
 
             // Get the main patch status
-            sender.input(AppMsg::SetMainPatch(match patch.main_patch(CONFIG.launcher.edition) {
+            sender.input(AppMsg::SetMainPatch(match patch.main_patch() {
                 Ok(patch) => Some(patch),
 
                 Err(err) => {
@@ -917,7 +946,7 @@ impl SimpleComponent for App {
                     progress_bar_input.send(ProgressBarMsg::UpdateCaption(Some(tr("downloading"))));
 
                     std::thread::spawn(move || {
-                        let result = game.download_in(&tmp, clone!(@strong progress_bar_input => move |curr, total| {
+                        let result = game.download_to(&tmp, clone!(@strong progress_bar_input => move |curr, total| {
                             progress_bar_input.send(ProgressBarMsg::UpdateProgress(curr, total));
                         }));
 

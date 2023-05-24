@@ -361,26 +361,20 @@ impl SimpleComponent for App {
                                                 Some(LauncherState::Launch) |
                                                 Some(LauncherState::PredownloadAvailable { .. }) => "media-playback-start-symbolic",
 
-                                                Some(LauncherState::FolderMigrationRequired { .. }) |
                                                 Some(LauncherState::WineNotInstalled) |
                                                 Some(LauncherState::PrefixNotExists) => "document-save-symbolic",
 
                                                 Some(LauncherState::GameUpdateAvailable(_)) |
-                                                Some(LauncherState::GameNotInstalled(_)) |
-                                                Some(LauncherState::VoiceUpdateAvailable(_)) |
-                                                Some(LauncherState::VoiceNotInstalled(_)) => "document-save-symbolic",
+                                                Some(LauncherState::GameNotInstalled(_)) => "document-save-symbolic",
 
-                                                Some(LauncherState::UnityPlayerPatchAvailable(UnityPlayerPatch { status, .. })) |
-                                                Some(LauncherState::XluaPatchAvailable(XluaPatch { status, .. })) => match status {
+                                                Some(LauncherState::MainPatchAvailable(MainPatch { status, .. })) => match status {
                                                     PatchStatus::NotAvailable |
-                                                    PatchStatus::Outdated { .. } |
-                                                    PatchStatus::Preparation { .. } => "window-close-symbolic",
+                                                    PatchStatus::Outdated { .. } => "window-close-symbolic",
 
                                                     PatchStatus::Testing { .. } |
                                                     PatchStatus::Available { .. } => "document-save-symbolic"
                                                 }
 
-                                                Some(LauncherState::VoiceOutdated(_)) |
                                                 Some(LauncherState::GameOutdated(_)) |
                                                 None => "window-close-symbolic"
                                             },
@@ -390,18 +384,13 @@ impl SimpleComponent for App {
                                                 Some(LauncherState::Launch) |
                                                 Some(LauncherState::PredownloadAvailable { .. }) => tr("launch"),
 
-                                                Some(LauncherState::FolderMigrationRequired { .. }) => tr("migrate-folders"),
-
-                                                Some(LauncherState::UnityPlayerPatchAvailable(_)) |
-                                                Some(LauncherState::XluaPatchAvailable(_)) => tr("apply-patch"),
+                                                Some(LauncherState::MainPatchAvailable(_)) => tr("apply-patch"),
 
                                                 Some(LauncherState::WineNotInstalled) => tr("download-wine"),
                                                 Some(LauncherState::PrefixNotExists)  => tr("create-prefix"),
 
                                                 Some(LauncherState::GameUpdateAvailable(diff)) |
-                                                Some(LauncherState::GameOutdated(diff)) |
-                                                Some(LauncherState::VoiceUpdateAvailable(diff)) |
-                                                Some(LauncherState::VoiceOutdated(diff)) => {
+                                                Some(LauncherState::GameOutdated(diff)) => {
                                                     match (Config::get(), diff.file_name()) {
                                                         (Ok(config), Some(filename)) => {
                                                             let temp = config.launcher.temp.unwrap_or_else(std::env::temp_dir);
@@ -419,8 +408,7 @@ impl SimpleComponent for App {
                                                     }
                                                 },
 
-                                                Some(LauncherState::GameNotInstalled(_)) |
-                                                Some(LauncherState::VoiceNotInstalled(_)) => tr("download"),
+                                                Some(LauncherState::GameNotInstalled(_)) => tr("download"),
 
                                                 None => String::from("...")
                                             }
@@ -796,7 +784,7 @@ impl SimpleComponent for App {
             }
 
             // Get the main patch status
-            sender.input(AppMsg::SetMainPatch(match patch.main_patch(CONFIG.launcher.edition) {
+            sender.input(AppMsg::SetMainPatch(match patch.main_patch() {
                 Ok(patch) => Some(patch),
 
                 Err(err) => {

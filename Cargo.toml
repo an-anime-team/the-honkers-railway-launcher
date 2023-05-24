@@ -17,8 +17,8 @@ glib-build-tools = "0.17"
 
 [dependencies.anime-launcher-sdk]
 git = "https://github.com/an-anime-team/anime-launcher-sdk"
-tag = "1.4.5"
-features = ["all", "genshin"]
+tag = "1.4.6"
+features = ["all", "star-rail"]
 
 # path = "../anime-launcher-sdk" # ! for dev purposes only
 

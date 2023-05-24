@@ -15,6 +15,7 @@ use anime_launcher_sdk::star_rail::config::schema::launcher::LauncherStyle;
 pub mod components;
 
 use components::*;
+
 use super::main::PreferencesAppMsg;
 
 use crate::ui::migrate_installation::MigrateInstallationApp;
@@ -42,14 +43,6 @@ pub enum GeneralAppMsg {
     /// Supposed to be called automatically on app's run when the latest UnityPlayer patch version
     /// was retrieved from remote repos
     SetMainPatch(Option<MainPatch>),
-
-    OpenMigrateInstallation,
-    WineOpen(&'static [&'static str]),
-
-    UpdateLauncherStyle(LauncherStyle),
-
-    WineRecommendedOnly(bool),
-    DxvkRecommendedOnly(bool),
 
     UpdateDownloadedWine,
     UpdateDownloadedDxvk,
@@ -498,6 +491,8 @@ impl SimpleAsyncComponent for GeneralApp {
 
             languages: SUPPORTED_LANGUAGES.iter().map(|lang| tr(format_lang(lang).as_str())).collect()
         };
+
+        let components_page = model.components_page.widget();
 
         let widgets = view_output!();
 

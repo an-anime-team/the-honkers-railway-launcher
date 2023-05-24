@@ -90,10 +90,24 @@ impl SimpleComponent for AboutDialog {
                 "<p>Added</p>",
 
                 "<ul>",
-                    "<li>Added game settings section</li>",
-                    "<li>Added game sessions manager</li>",
-                    "<li>Added `LAUNCHER_FOLDER` variable support</li>",
-                    "<li>Added patch repository mirror</li>",
+                    "<li>Added Italian</li>",
+                    "<li>Added Indonesian</li>",
+                    "<li>Added dynamic main button icon switching</li>",
+                    "<li>Set button label as \"Resume\" when the diff is part downloaded</li>",
+                    "<li>Added options to use wine / gstreamer shared libraries from selected wine build. These options will configure `LD_LIBRARY_PATH` and `GST_PLUGIN_PATH` environment variables</li>",
+                    "<li>Added setting of `LC_ALL` in wine lang setting</li>",
+                    "<li>Added `LAUNCHER_REQUESTS_TIMEOUT` environment variable</li>",
+                    "<li>Added option to disable main patch applying</li>",
+                "</ul>",
+
+                "<p>Fixed</p>",
+
+                "<ul>",
+                    "<li>Fixed session applying on each launcher start</li>",
+                    "<li>Fixed predownload button ui</li>",
+                    "<li>Fixed proton builds integration with sandbox</li>",
+                    "<li>Fixed compatibility between sessions manager and sandbox</li>",
+                    "<li>Fixed sandboxing of inexisting folders</li>",
                 "</ul>",
 
                 "<p>Changed</p>",
@@ -114,7 +128,7 @@ impl SimpleComponent for AboutDialog {
                 "<p>Removed</p>",
 
                 "<ul>",
-                    "<li>Fixed sandboxed game running (sounds are broken for now)</li>",
+                    "<li>Removed Futex2 wine sync option</li>",
                 "</ul>",
             ].join("\n"),
 

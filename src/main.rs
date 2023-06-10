@@ -197,7 +197,7 @@ fn main() {
                 }
 
                 LauncherState::PredownloadAvailable { .. } |
-                LauncherState::MainPatchAvailable(MainPatch { status: PatchStatus::NotAvailable, .. }) => {
+                LauncherState::PatchUpdateAvailable => {
                     if just_run_game {
                         anime_launcher_sdk::star_rail::game::run().expect("Failed to run the game");
 

@@ -25,7 +25,6 @@ pub fn download_wine(sender: ComponentSender<App>, progress_bar_input: Sender<Pr
 
                 sender.input(AppMsg::UpdateLauncherState {
                     perform_on_download_needed: false,
-                    apply_patch_if_needed: false,
                     show_status_page: true
                 });
             }
@@ -89,7 +88,6 @@ pub fn download_wine(sender: ComponentSender<App>, progress_bar_input: Sender<Pr
                             sender.input(AppMsg::SetDownloading(false));
                             sender.input(AppMsg::UpdateLauncherState {
                                 perform_on_download_needed: false,
-                                apply_patch_if_needed: false,
                                 show_status_page: true
                             });
                         }));

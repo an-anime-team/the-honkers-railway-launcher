@@ -47,7 +47,8 @@ impl SimpleComponent for AboutDialog {
             ],
 
             add_credit_section: (Some("Patch credits"), &[
-                "@mkrsym1 https://codeberg.org/mkrsym1"
+                "@mkrsym1 https://codeberg.org/mkrsym1",
+                "@EternalStudent https://github.com/EternalStudentDesuKa"
             ]),
 
             add_credit_section: (Some("An Anime Team"), &[

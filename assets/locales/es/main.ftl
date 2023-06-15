@@ -59,10 +59,10 @@ create-prefix = Crear prefijo
 update = Actualizar
 download = Descargar
 predownload-update = Pre-descargar actualización {$version} ({$size})
-download-patch = Download patch
+download-patch = Descargar parche
 
-patch-broken = Patch is broken
-patch-unsafe = Patch is unsafe
+patch-broken = El parche está roto
+patch-unsafe = El parche es inseguro
 
 main-window--patch-unavailable-tooltip = Los servidores del parche no están disponibles y el launcher no puede verificar el estado de parcheo del juego. Puedes ejecutar el juego bajo tu propio riesgo.
 main-window--patch-outdated-tooltip = El parche está desactualizado o en fase de preparación, por lo que no está disponible para usarse. Vuelve pronto para comprobar su estado.

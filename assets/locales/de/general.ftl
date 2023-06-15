@@ -37,9 +37,6 @@ game-outdated = Das Spiel ist zu veraltet und kann nicht mehr aktualisiert werde
 player-patch-version = Hauptpatch-Version
 player-patch-version-description = Hauptpatch, mit dem Sie das Spiel unter Linux spielen können
 
-xlua-patch-version = zusätzliche Patch-Version
-xlua-patch-version-description = Zusätzlicher Patch, der einige Probleme behebt und die Leistung auf Low-End-PCs verbessert
-
 patch-not-available = nicht verfügbar
 patch-not-available-tooltip = Patch-Server sind unerreichbar
 
@@ -51,11 +48,11 @@ patch-preparation-tooltip = Patch ist in Entwicklung
 
 patch-testing-tooltip = Test-Patch ist verfügbar
 patch-not-applied-tooltip = Patch ist nicht angewendet
+patch-broken-tooltip = Current patch version is broken and doesn't work properly
+patch-unsafe-tooltip = Current patch version is unsafe and shouldn't be used
 
 apply-main-patch = Hauptpatch Anwenden
 apply-main-patch-description = Experimentell. Wenn Sie diese Option deaktivieren, können Sie das Spiel ausführen, ohne den Patch anzuwenden. Dies könnte möglicherweise nicht funktionieren oder erfordert manuelle Änderungen an den Dateien. Verwenden Sie dies nur wenn Sie wissen was Sie tun.
-
-apply-xlua-patch = Zusätzlichen Patch anwenden
 
 ask-superuser-permissions = Superuser-Berechtigungen anfordern
 ask-superuser-permissions-description = Launcher benötigt Superuser-Zugriff, um Ihre Hosts-Datei automatisch zu aktualisieren. Dies ist in der Flatpak-Edition nicht erforderlich

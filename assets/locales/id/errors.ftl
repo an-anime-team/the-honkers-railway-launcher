@@ -42,6 +42,10 @@ patch-sync-failed = Gagal mensinkronisasi folder patch
 patch-state-check-failed = Gagal mengecek kondisi folder patch
 game-patching-error = Gagal melakukan patch pada game
 
+# Update main patch
+
+main-patch-update-failed = Failed to download latest patch version
+
 # Sandbox
 
 documentation-url-open-failed = Gagal membuka tautan dokumentasi 

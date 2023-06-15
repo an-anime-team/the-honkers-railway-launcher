@@ -42,6 +42,10 @@ patch-sync-failed = Patch mappa szinkronizálása sikertelen
 patch-state-check-failed = Patch mappa állapota ellenőrzése sikertelen
 game-patching-error = Sikertelen játék patchelés
 
+# Update main patch
+
+main-patch-update-failed = Failed to download latest patch version
+
 # Sandbox
 
 documentation-url-open-failed = Failed to open documentation URL

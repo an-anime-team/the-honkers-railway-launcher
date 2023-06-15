@@ -322,10 +322,8 @@ impl SimpleAsyncComponent for GeneralApp {
                         set_tooltip_text: Some(&match model.main_patch.as_ref() {
                             Some((_, status)) => match status {
                                 JadeitePatchStatusVariant::Unverified => tr("patch-testing-tooltip"),
-
-                                // TODO: add localizaion
-                                JadeitePatchStatusVariant::Broken => String::from("Current patch version doesn't work"),
-                                JadeitePatchStatusVariant::Unsafe => String::from("Current patch version is unsafe to use"),
+                                JadeitePatchStatusVariant::Broken => tr("patch-broken-tooltip"),
+                                JadeitePatchStatusVariant::Unsafe => tr("patch-unsafe-tooltip"),
 
                                 _ => String::new()
                             }

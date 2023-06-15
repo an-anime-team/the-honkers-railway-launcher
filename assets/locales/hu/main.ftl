@@ -54,12 +54,15 @@ components-index-updated = A komponens index frissítve lett
 launch = Indítás
 migrate-folders = Mappák migrálása
 migrate-folders-tooltip = Játékmappa struktúra frissítése
-apply-patch = Patch alkalmazása
 download-wine = Wine letöltése
 create-prefix = Prefix létrehozása
 update = Frissítés
 download = Letöltés
 predownload-update = {$version} verzió előtöltése ({$size})
+download-patch = Download patch
+
+patch-broken = Patch is broken
+patch-unsafe = Patch is unsafe
 
 main-window--patch-unavailable-tooltip = A patch szerverek nem elérhetőek és a launcher nem tudja ellenőrizni a játék patch státuszát. Saját felelősségre futtathatod a játékot
 main-window--patch-outdated-tooltip = A patch jelenleg nem elérhető mert túl elavult, vagy előkészítés alatt áll. Nézz vissza később

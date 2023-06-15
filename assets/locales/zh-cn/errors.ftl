@@ -42,6 +42,10 @@ patch-sync-failed = 同步补丁文件夹失败
 patch-state-check-failed = 检查补丁文件夹失败
 game-patching-error = 应用游戏补丁失败
 
+# Update main patch
+
+main-patch-update-failed = Failed to download latest patch version
+
 # Sandbox
 
 documentation-url-open-failed = Failed to open documentation URL

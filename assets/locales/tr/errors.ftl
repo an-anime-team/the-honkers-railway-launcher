@@ -42,6 +42,10 @@ patch-sync-failed = Yama dosyalarını senkronize etme başarısız oldu
 patch-state-check-failed = Yama dosyalarının durumunu kontrol etme başarısız oldu
 game-patching-error = Yamayı uygulamada sorun çıktı
 
+# Update main patch
+
+main-patch-update-failed = Failed to download latest patch version
+
 # Sandbox
 
 documentation-url-open-failed = Belgelemenin URL'si açılamadı

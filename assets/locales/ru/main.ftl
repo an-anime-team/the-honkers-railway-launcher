@@ -60,12 +60,15 @@ components-index-updated = Индекс компонентов был обнов
 launch = Запустить
 migrate-folders = Переместить папки
 migrate-folders-tooltip = Обновить структуру файлов игры
-apply-patch = Применить патч
 download-wine = Установить Wine
 create-prefix = Создать префикс
 update = Обновить
 download = Установить
 predownload-update = Предустановить обновление {$version} ({$size})
+download-patch = Скачать патч
+
+patch-broken = Патч недоступен
+patch-unsafe = Патч небезопасен
 
 main-window--patch-unavailable-tooltip = Серверы патча недоступны и лаунчер не может проверить статус патча игры. Вам разрешено запустить игру на ваш страх и риск
 main-window--patch-outdated-tooltip = Патч устарел или находится в процессе разработки, поэтому не может быть применен. Возвращайтесь позже чтобы проверить его статус

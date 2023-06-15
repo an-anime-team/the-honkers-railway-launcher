@@ -42,6 +42,10 @@ patch-sync-failed = Sincronizzazione della cartella della patch non riuscita
 patch-state-check-failed = Controllo dello stato della cartella della patch non riuscito
 game-patching-error = Patching del gioco non riuscito
 
+# Update main patch
+
+main-patch-update-failed = Failed to download latest patch version
+
 # Sandbox
 
 documentation-url-open-failed = Apertura dell'URL della documentazione non riuscita

@@ -380,12 +380,11 @@ impl SimpleComponent for App {
                                                 Some(LauncherState::PatchNotVerified) |
                                                 Some(LauncherState::PredownloadAvailable { .. }) => tr("launch"),
 
-                                                // TODO: add localization
                                                 Some(LauncherState::PatchNotInstalled) |
-                                                Some(LauncherState::PatchUpdateAvailable) => String::from("Download patch"),
+                                                Some(LauncherState::PatchUpdateAvailable) => tr("download-patch"),
 
-                                                Some(LauncherState::PatchBroken) => String::from("Patch is broken"),
-                                                Some(LauncherState::PatchUnsafe) => String::from("Patch is unsafe"),
+                                                Some(LauncherState::PatchBroken) => tr("patch-broken"),
+                                                Some(LauncherState::PatchUnsafe) => tr("patch-unsafe"),
 
                                                 Some(LauncherState::WineNotInstalled) => tr("download-wine"),
                                                 Some(LauncherState::PrefixNotExists)  => tr("create-prefix"),
@@ -443,9 +442,8 @@ impl SimpleComponent for App {
                                         set_tooltip_text: Some(&match &model.state {
                                             Some(LauncherState::GameOutdated { .. }) => tr("main-window--version-outdated-tooltip"),
 
-                                            // TODO: add localization
-                                            Some(LauncherState::PatchBroken) => String::from("Current patch version is broken and doesn't work properly"),
-                                            Some(LauncherState::PatchUnsafe) => String::from("Current patch version is unsafe and should not be used"),
+                                            Some(LauncherState::PatchBroken) => tr("patch-broken-tooltip"),
+                                            Some(LauncherState::PatchUnsafe) => tr("patch-unsafe-tooltip"),
 
                                             _ => String::new()
                                         }),

@@ -42,6 +42,10 @@ patch-sync-failed = Failed to sync patch folder
 patch-state-check-failed = Failed to check patch folder state
 game-patching-error = Failed to patch game
 
+# Update main patch
+
+main-patch-update-failed = Failed to download latest patch version
+
 # Sandbox
 
 documentation-url-open-failed = Failed to open documentation URL

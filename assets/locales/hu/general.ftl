@@ -37,9 +37,6 @@ game-outdated = A játékverzió túl régi és nem frissíthető. Legfrissebb: 
 player-patch-version = Játékos patch verzió
 player-patch-version-description = A fő patch amivel játszhatsz Linuxon
 
-xlua-patch-version = Xlua patch verzió
-xlua-patch-version-description =  Extra patch ami javít pár problémán és jobb teljesítményt nyújt gyenge gépeken
-
 patch-not-available = nem elérhető
 patch-not-available-tooltip = A patch szerverek nem elérhetőek
 
@@ -51,11 +48,11 @@ patch-preparation-tooltip = A patch fejlesztés alatt áll
 
 patch-testing-tooltip = Teszt patch elérhető
 patch-not-applied-tooltip = A patch nincs alkalmazva
+patch-broken-tooltip = Current patch version is broken and doesn't work properly
+patch-unsafe-tooltip = Current patch version is unsafe and shouldn't be used
 
 apply-main-patch = Fő patch alkalmazása
 apply-main-patch-description = Kísérleti opció, a kikapcsolásával futtathatod a játékot patch nélkül. Lehet hogy nem fog működni, vagy a fájlokat manuálisan kell szerkesztened, akkor kapcsold ki ha tudod mit csinálsz.
-
-apply-xlua-patch = Xlua patch alkalmazása
 
 ask-superuser-permissions = Superuser engedély kérése
 ask-superuser-permissions-description =  A Launcher autómatikusan használni fogja hogy frissítse a hosts fájlodat. A Flatpak verzióhoz nem kell

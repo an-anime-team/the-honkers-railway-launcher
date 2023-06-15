@@ -37,9 +37,6 @@ game-outdated = Versi game terlalu lama dan tidak dapat diperbarui. Versi terbar
 player-patch-version = Versi patch
 player-patch-version-description = Patch utama yang membuat game bisa dimainkan di Linux
 
-xlua-patch-version = Versi patch Xlua
-xlua-patch-version-description = Patch tambahan yang memperbaiki beberapa isu dan meningkatkan performa di PC low-end
-
 patch-not-available = Tidak tersedia
 patch-not-available-tooltip = Server patch tidak bisa dijangkau
 
@@ -51,11 +48,11 @@ patch-preparation-tooltip = Patch masih dalam pengembangan
 
 patch-testing-tooltip = Patch tes tersedia
 patch-not-applied-tooltip = Patch tidak diterapkan
+patch-broken-tooltip = Current patch version is broken and doesn't work properly
+patch-unsafe-tooltip = Current patch version is unsafe and shouldn't be used
 
 apply-main-patch = Terapkan patch utama
 apply-main-patch-description = Eksperimental. Menonaktifkan opsi ini akan menginzinkan Anda menjalankan game tanpa menerapkan patch. Hal ini mungkin tidak bekerja, atau membutuhkan modifikasi file secara manual. Gunakan jika Anda tahu apa yang Anda lakukan
-
-apply-xlua-patch = Terapkan patch xlua 
 
 ask-superuser-permissions = Minta izin dari admin
 ask-superuser-permissions-description = Launcher akan otomatis memperbarui file hosts Anda. Opsi ini tidak diperlukan jika Anda memakai edisi flatpak 

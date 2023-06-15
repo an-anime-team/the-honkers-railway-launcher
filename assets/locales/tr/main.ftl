@@ -54,12 +54,15 @@ components-index-updated = Bileşenlerin dizini güncellendi
 launch = Çalıştır
 migrate-folders = Dosyaları aktar
 migrate-folders-tooltip = Oyun dosyaları yapısını güncelle
-apply-patch = Yamayı uygula
 download-wine = Wine indir
 create-prefix = Prefix oluştur
 update = Güncelle
 download = İndir
 predownload-update =  Güncellemeyi önceden indir{$version}  ({$size})
+download-patch = Download patch
+
+patch-broken = Patch is broken
+patch-unsafe = Patch is unsafe
 
 main-window--patch-unavailable-tooltip = Yama sunucuları kullanılamıyor ve istemci, oyunun yama durumunu doğrulayamıyor. Oyunu kendi sorumluluğunuzda çalıştırabilirsiniz
 main-window--patch-outdated-tooltip = Yama güncel değil veya hazırlık aşamasında, bu nedenle kullanım için uygun değil. Durumunu görmek için daha sonra geri dönün

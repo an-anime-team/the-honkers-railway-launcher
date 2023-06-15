@@ -47,10 +47,10 @@ pub fn update_patch(sender: ComponentSender<App>, progress_bar_input: Sender<Pro
             })));
 
         if let Err(err) = result {
-            tracing::error!("Failed to download latest patch");
+            tracing::error!("Failed to download latest patch version");
 
             sender.input(AppMsg::Toast {
-                title: String::from("Failed to download latest patch"), // TODO: add localization
+                title: tr("main-patch-update-failed"),
                 description: Some(err.to_string())
             });
         }

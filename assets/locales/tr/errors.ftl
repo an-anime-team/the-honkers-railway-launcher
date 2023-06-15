@@ -42,6 +42,10 @@ patch-sync-failed = Yama dosyalarını senkronize etme başarısız oldu
 patch-state-check-failed = Yama dosyalarının durumunu kontrol etme başarısız oldu
 game-patching-error = Yamayı uygulamada sorun çıktı
 
+# Update main patch
+
+main-patch-update-failed = Güncel yama sürümü indirilemedi
+
 # Sandbox
 
 documentation-url-open-failed = Belgelemenin URL'si açılamadı
@@ -53,3 +57,8 @@ game-session-update-failed = Oyun oturumu güncellenemedi
 game-session-remove-failed = Oyun oturumu kaldırılamadı
 game-session-set-current-failed = Oyun oturumu seçilemedi
 game-session-apply-failed = Oyun oturumu uygulanamadı
+
+# Enhancements
+
+discord-rpc-icons-fetch-failed = Discord RPC ikonları alınamadı
+discord-rpc-icon-download-failed = Discord RPC ikonları indirilemedi

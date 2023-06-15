@@ -10,6 +10,7 @@ use anime_launcher_sdk::components::wine;
 use crate::*;
 use crate::i18n::*;
 use crate::ui::components::*;
+
 use super::{App, AppMsg};
 
 pub fn download_wine(sender: ComponentSender<App>, progress_bar_input: Sender<ProgressBarMsg>) {
@@ -25,7 +26,6 @@ pub fn download_wine(sender: ComponentSender<App>, progress_bar_input: Sender<Pr
 
                 sender.input(AppMsg::UpdateLauncherState {
                     perform_on_download_needed: false,
-                    apply_patch_if_needed: false,
                     show_status_page: true
                 });
             }
@@ -89,7 +89,6 @@ pub fn download_wine(sender: ComponentSender<App>, progress_bar_input: Sender<Pr
                             sender.input(AppMsg::SetDownloading(false));
                             sender.input(AppMsg::UpdateLauncherState {
                                 perform_on_download_needed: false,
-                                apply_patch_if_needed: false,
                                 show_status_page: true
                             });
                         }));

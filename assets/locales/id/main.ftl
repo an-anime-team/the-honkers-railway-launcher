@@ -2,7 +2,7 @@ custom = Kustom
 none = Kosong
 default = Standar
 details = Detail
-options = Options
+options = Opsi
 
 width = Lebar
 height = Tinggi 
@@ -54,12 +54,15 @@ components-index-updated = Index komponen baru saja diperbarui
 launch = Luncurkan
 migrate-folders = Pindahkan folder 
 migrate-folders-tooltip = Perbarui struktur folder game 
-apply-patch = Terapkan patch 
 download-wine = Unduh wine
 create-prefix = Buat prefix
 update = Perbarui
 download = Unduh 
 predownload-update = Pra-unduh pembaruan versi {$version} ({$size})
+download-patch = Unduh patch
+
+patch-broken = Patch rusak
+patch-unsafe = Patch tidak aman
 
 main-window--patch-unavailable-tooltip = Server patch tidak tersedia dan launcher tidak bisa memverifikasi status patch game. Anda bisa menjalankan game dengan resiko sendiri 
 main-window--patch-outdated-tooltip = Patch kadaluarsa atau sedang dalam persiapan sehingga tidak tersedia. Kembali lagi nanti untuk melihat status patch

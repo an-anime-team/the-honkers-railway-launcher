@@ -42,6 +42,10 @@ patch-sync-failed = Fallo al sincronizar carpeta del parche
 patch-state-check-failed = Fallo al comprobar estado de carpeta del parche
 game-patching-error = Fallo al parchear el juego
 
+# Update main patch
+
+main-patch-update-failed = Fallo al descargar la última versión del parche
+
 # Sandbox
 
 documentation-url-open-failed = Failed to open documentation URL
@@ -53,3 +57,8 @@ game-session-update-failed = Fallo al actualizar sesión de juego
 game-session-remove-failed = Fallo al eliminar sesión de juego
 game-session-set-current-failed = Fallo al establecer sesión de juego actual
 game-session-apply-failed = Fallo al aplicar sesión de juego
+
+# Enhancements
+
+discord-rpc-icons-fetch-failed = Fallo al traer íconos para RPC de Discord
+discord-rpc-icon-download-failed = Fallo al descargar ícono para RPC de Discord

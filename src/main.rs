@@ -4,7 +4,7 @@ use anime_launcher_sdk::config::ConfigExt;
 use anime_launcher_sdk::star_rail::config::{Config, Schema};
 
 use anime_launcher_sdk::star_rail::states::LauncherState;
-use anime_launcher_sdk::star_rail::consts::launcher_dir;
+use anime_launcher_sdk::star_rail::consts::*;
 
 use anime_launcher_sdk::anime_game_core::prelude::*;
 use anime_launcher_sdk::anime_game_core::star_rail::prelude::*;
@@ -43,23 +43,26 @@ lazy_static::lazy_static! {
 
     pub static ref GAME: Game = Game::new(CONFIG.game.path.for_edition(CONFIG.launcher.edition), CONFIG.launcher.edition);
 
-    /// Path to launcher folder. Standard is `$HOME/.local/share/anime-game-launcher`
+    /// Path to launcher folder. Standard is `$HOME/.local/share/honkers-railway-launcher`
     pub static ref LAUNCHER_FOLDER: PathBuf = launcher_dir().expect("Failed to get launcher folder");
 
-    /// Path to `debug.log` file. Standard is `$HOME/.local/share/anime-game-launcher/debug.log`
+    /// Path to launcher's cache folder. Standard is `$HOME/.cache/honkers-railway-launcher`
+    pub static ref CACHE_FOLDER: PathBuf = cache_dir().expect("Failed to get launcher's cache folder");
+
+    /// Path to `debug.log` file. Standard is `$HOME/.local/share/honkers-railway-launcher/debug.log`
     pub static ref DEBUG_FILE: PathBuf = LAUNCHER_FOLDER.join("debug.log");
 
-    /// Path to `background` file. Standard is `$HOME/.local/share/anime-game-launcher/background`
-    pub static ref BACKGROUND_FILE: PathBuf = LAUNCHER_FOLDER.join("background");
+    /// Path to `background` file. Standard is `$HOME/.cache/honkers-railway-launcher/background`
+    pub static ref BACKGROUND_FILE: PathBuf = CACHE_FOLDER.join("background");
 
     /// Path to `.keep-background` file. Used to mark launcher that it shouldn't update background picture
-    /// 
-    /// Standard is `$HOME/.local/share/anime-game-launcher/.keep-background`
+    ///
+    /// Standard is `$HOME/.local/share/honkers-railway-launcher/.keep-background`
     pub static ref KEEP_BACKGROUND_FILE: PathBuf = LAUNCHER_FOLDER.join(".keep-background");
 
     /// Path to `.first-run` file. Used to mark launcher that it should run FirstRun window
-    /// 
-    /// Standard is `$HOME/.local/share/anime-game-launcher/.first-run`
+    ///
+    /// Standard is `$HOME/.local/share/honkers-railway-launcher/.first-run`
     pub static ref FIRST_RUN_FILE: PathBuf = LAUNCHER_FOLDER.join(".first-run");
 }
 
@@ -72,6 +75,7 @@ fn main() {
         std::fs::write(FIRST_RUN_FILE.as_path(), "").expect("Failed to create .first-run file");
 
         // Set initial launcher language based on system language
+        // CONFIG is initialized lazily so it will contain following changes as well
         let mut config = Config::get().expect("Failed to get config");
 
         config.launcher.language = i18n::format_lang(&i18n::get_default_lang());
@@ -193,7 +197,7 @@ fn main() {
                 }
 
                 LauncherState::PredownloadAvailable { .. } |
-                LauncherState::MainPatchAvailable(MainPatch { status: PatchStatus::NotAvailable, .. }) => {
+                LauncherState::PatchUpdateAvailable => {
                     if just_run_game {
                         anime_launcher_sdk::star_rail::game::run().expect("Failed to run the game");
 

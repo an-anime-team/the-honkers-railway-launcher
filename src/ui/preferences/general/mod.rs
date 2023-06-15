@@ -4,9 +4,10 @@ use relm4::component::*;
 use gtk::prelude::*;
 use adw::prelude::*;
 
-use anime_launcher_sdk::anime_game_core::star_rail::consts::GameEdition;
-
 use anime_launcher_sdk::wincompatlib::prelude::*;
+
+use anime_launcher_sdk::anime_game_core::prelude::*;
+use anime_launcher_sdk::anime_game_core::star_rail::consts::GameEdition;
 
 use anime_launcher_sdk::config::ConfigExt;
 use anime_launcher_sdk::star_rail::config::Config;
@@ -27,7 +28,7 @@ pub struct GeneralApp {
     components_page: AsyncController<ComponentsPage>,
 
     game_diff: Option<VersionDiff>,
-    main_patch: Option<MainPatch>,
+    main_patch: Option<(Version, JadeitePatchStatusVariant)>,
 
     style: LauncherStyle,
 
@@ -42,7 +43,7 @@ pub enum GeneralAppMsg {
 
     /// Supposed to be called automatically on app's run when the latest UnityPlayer patch version
     /// was retrieved from remote repos
-    SetMainPatch(Option<MainPatch>),
+    SetMainPatch(Option<(Version, JadeitePatchStatusVariant)>),
 
     UpdateDownloadedWine,
     UpdateDownloadedDxvk,
@@ -301,36 +302,17 @@ impl SimpleAsyncComponent for GeneralApp {
                     add_suffix = &gtk::Label {
                         #[watch]
                         set_text: &match model.main_patch.as_ref() {
-                            Some(patch) => match patch.status() {
-                                PatchStatus::NotAvailable => tr("patch-not-available"),
-                                PatchStatus::Outdated { current, .. } => tr_args("patch-outdated", [("current", current.to_string().into())]),
-                                PatchStatus::Testing { version, .. } |
-                                PatchStatus::Available { version, .. } => version.to_string()
-                            }
-
+                            Some((version, _)) => version.to_string(),
                             None => String::from("?")
                         },
 
                         #[watch]
                         set_css_classes: match model.main_patch.as_ref() {
-                            Some(patch) => match patch.status() {
-                                PatchStatus::NotAvailable => &["error"],
-
-                                PatchStatus::Outdated { .. } |
-                                PatchStatus::Testing { .. } => &["warning"],
-
-                                PatchStatus::Available { .. } => unsafe {
-                                    let path = match Config::get() {
-                                        Ok(config) => config.game.path.for_edition(config.launcher.edition).to_path_buf(),
-                                        Err(_) => CONFIG.game.path.for_edition(CONFIG.launcher.edition).to_path_buf(),
-                                    };
-
-                                    if let Ok(true) = model.main_patch.as_ref().unwrap_unchecked().is_applied(path) {
-                                        &["success"]
-                                    } else {
-                                        &["warning"]
-                                    }
-                                }
+                            Some((_, status)) => match status {
+                                JadeitePatchStatusVariant::Verified => &["success"],
+                                JadeitePatchStatusVariant::Unverified => &["warning"],
+                                JadeitePatchStatusVariant::Broken => &["error"],
+                                JadeitePatchStatusVariant::Unsafe => &["error"]
                             }
 
                             None => &[]
@@ -338,52 +320,16 @@ impl SimpleAsyncComponent for GeneralApp {
 
                         #[watch]
                         set_tooltip_text: Some(&match model.main_patch.as_ref() {
-                            Some(patch) => match patch.status() {
-                                PatchStatus::NotAvailable => tr("patch-not-available-tooltip"),
-                                PatchStatus::Outdated { current, latest, .. } => tr_args("patch-outdated-tooltip", [
-                                    ("current", current.to_string().into()),
-                                    ("latest", latest.to_string().into())
-                                ]),
-                                PatchStatus::Testing { .. } => tr("patch-testing-tooltip"),
-                                PatchStatus::Available { .. } => unsafe {
-                                    let path = match Config::get() {
-                                        Ok(config) => config.game.path.for_edition(config.launcher.edition).to_path_buf(),
-                                        Err(_) => CONFIG.game.path.for_edition(CONFIG.launcher.edition).to_path_buf(),
-                                    };
+                            Some((_, status)) => match status {
+                                JadeitePatchStatusVariant::Unverified => tr("patch-testing-tooltip"),
+                                JadeitePatchStatusVariant::Broken => tr("patch-broken-tooltip"),
+                                JadeitePatchStatusVariant::Unsafe => tr("patch-unsafe-tooltip"),
 
-                                    if let Ok(true) = model.main_patch.as_ref().unwrap_unchecked().is_applied(path) {
-                                        String::new()
-                                    } else {
-                                        tr("patch-not-applied-tooltip")
-                                    }
-                                }
+                                _ => String::new()
                             }
 
                             None => String::new()
                         })
-                    }
-                }
-            },
-
-            add = &adw::PreferencesGroup {
-                adw::ActionRow {
-                    set_title: &tr("ask-superuser-permissions"),
-                    set_subtitle: &tr("ask-superuser-permissions-description"),
-
-                    add_suffix = &gtk::Switch {
-                        set_valign: gtk::Align::Center,
-
-                        set_state: CONFIG.patch.root,
-
-                        connect_state_notify => |switch| {
-                            if is_ready() {
-                                if let Ok(mut config) = Config::get() {
-                                    config.patch.root = switch.state();
-
-                                    Config::update(config);
-                                }
-                            }
-                        }
                     }
                 }
             },

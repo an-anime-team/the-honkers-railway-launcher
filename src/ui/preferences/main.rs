@@ -4,6 +4,7 @@ use relm4::component::*;
 use gtk::prelude::*;
 use adw::prelude::*;
 
+use anime_launcher_sdk::anime_game_core::prelude::*;
 use anime_launcher_sdk::anime_game_core::star_rail::prelude::*;
 
 use anime_launcher_sdk::config::ConfigExt;
@@ -30,7 +31,7 @@ pub enum PreferencesAppMsg {
 
     /// Supposed to be called automatically on app's run when the latest main patch version
     /// was retrieved from remote repos
-    SetMainPatch(Option<MainPatch>),
+    SetMainPatch(Option<(Version, JadeitePatchStatusVariant)>),
 
     SetLauncherStyle(LauncherStyle),
 
@@ -131,7 +132,6 @@ impl SimpleAsyncComponent for PreferencesApp {
             PreferencesAppMsg::UpdateLauncherState => {
                 sender.output(Self::Output::UpdateLauncherState {
                     perform_on_download_needed: false,
-                    apply_patch_if_needed: false,
                     show_status_page: false
                 });
             }

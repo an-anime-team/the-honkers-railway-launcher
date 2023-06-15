@@ -42,6 +42,10 @@ patch-sync-failed = Failed to sync patch folder
 patch-state-check-failed = Failed to check patch folder state
 game-patching-error = Failed to patch game
 
+# Update main patch
+
+main-patch-update-failed = Failed to download latest patch version
+
 # Sandbox
 
 documentation-url-open-failed = Failed to open documentation URL
@@ -53,3 +57,8 @@ game-session-update-failed = Failed to update game session
 game-session-remove-failed = Failed to remove game session
 game-session-set-current-failed = Failed to set current game session
 game-session-apply-failed = Failed to apply game session
+
+# Enhancements
+
+discord-rpc-icons-fetch-failed = Failed to fetch Discord RPC icons
+discord-rpc-icon-download-failed = Failed to download Discord RPC icon

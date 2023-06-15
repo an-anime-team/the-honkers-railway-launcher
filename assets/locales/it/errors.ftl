@@ -42,6 +42,10 @@ patch-sync-failed = Sincronizzazione della cartella della patch non riuscita
 patch-state-check-failed = Controllo dello stato della cartella della patch non riuscito
 game-patching-error = Patching del gioco non riuscito
 
+# Update main patch
+
+main-patch-update-failed = Scaricamento dell'ultima patch non riuscito
+
 # Sandbox
 
 documentation-url-open-failed = Apertura dell'URL della documentazione non riuscita
@@ -53,3 +57,8 @@ game-session-update-failed = Aggiornamento della sessione di gioco non riuscito
 game-session-remove-failed = Rimozione della sessione di gioco non riuscita
 game-session-set-current-failed = Impostazione della sessione di gioco attuale non riuscita
 game-session-apply-failed = Applicazione della sessione di gioco non riuscita
+
+# Enhancements
+
+discord-rpc-icons-fetch-failed = Acquisizione della lista delle icone RPC di Discord non riuscita
+discord-rpc-icon-download-failed = Scaricamento dell'icona RPC di Discord non riuscito

@@ -37,9 +37,6 @@ game-outdated = Oyun çok eski, bu yüzden güncellenemez. En son sürüm: {$lat
 player-patch-version = Ana yama versiyonu
 player-patch-version-description = Oyunu Linux'ta oynamanıza izin veren ana yama
 
-xlua-patch-version = Xlua yama versiyonu
-xlua-patch-version-description = Eski bilgisayarlarda performansı arttıran ve birkaç sorunu düzelten ekstra yama
-
 patch-not-available = Mevcut değil
 patch-not-available-tooltip = Yama sunucularına erişilemiyor
 
@@ -51,13 +48,11 @@ patch-preparation-tooltip = Yama hala geliştiriliyor
 
 patch-testing-tooltip = Test yaması mevcut
 patch-not-applied-tooltip = Yama uygulanmamış
+patch-broken-tooltip = Geçerli yama sürümü bozuk ve düzgün çalışmıyor
+patch-unsafe-tooltip = Geçerli yama sürümü güvensiz ve kullanılmamalı
 
 apply-main-patch = Ana yamayı uygula
-apply-main-patch-description =
-    Deneysel. Bunu devre dışı bırakmak yamayı uygulamadan oyunu çalıştırmanızı sağlar.
-    Bu çalışmayabilir, ya da elle dosyaları değiştirmeyi gerektirebilir. Ne yaptığınızı biliyorsanız kullanın.
-
-apply-xlua-patch = Xlua yamasını uygula
+apply-main-patch-description = Deneysel. Bunu devre dışı bırakmak yamayı uygulamadan oyunu çalıştırmanızı sağlar. Bu çalışmayabilir, ya da elle dosyaları değiştirmeyi gerektirebilir. Ne yaptığınızı biliyorsanız kullanın.
 
 ask-superuser-permissions = Yönetici izinlerini sor
 ask-superuser-permissions-description = İstemci yönetici iznini hostunuzun dosyalarını güncellemek için otomatik olarak kullanacaktır. Buna flatpak versiyonunda gerek yoktur

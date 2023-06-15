@@ -7,6 +7,33 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Added Discord RPC icon selection
+- Added Japanese
+- Added Hungarian
+- Integrated Jadeite patch
+
+### Fixed
+
+- Fixed default launcher language selection at the first start
+- Fixed some installer updates reporting (including "checking free space")
+- Fixed check button style for newly made sessions
+- Fixed repairer's NaN progress
+- Fixed game session selection when current one is removed
+
+### Changed
+
+- Reworked game sessions selection
+- Updated Indonesian
+- Updated French
+- Made initial tasks async which has decreased startup time
+- Updated Spanish
+
+### Removed
+
+- Removed patch mirror migration
+
 ## [1.2.0] - 24.05.2023
 
 ### Added
@@ -19,7 +46,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   These options will configure `LD_LIBRARY_PATH` and `GST_PLUGIN_PATH` environment variables
 - Added setting of `LC_ALL` in wine lang setting
 - Added `LAUNCHER_REQUESTS_TIMEOUT` environment variable
-- Added option to disable main patch applying
 
 ### Fixed
 
@@ -41,7 +67,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Made temporary workaround to the game API changes
 - Increased default requests timeout to 8 seconds
 - Updated minreq to support `http_proxy`-like variables
-- Disabled xlua patch applying by default
 
 ### Removed
 

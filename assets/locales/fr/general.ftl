@@ -37,9 +37,6 @@ game-outdated = La version du jeu installée est trop ancienne et ne peut pas ê
 player-patch-version = Player patch version
 player-patch-version-description = Main patch that lets you play the game on Linux
 
-xlua-patch-version = Xlua patch version
-xlua-patch-version-description = Additional patch that fixes some issues and improves performance on low-end PCs
-
 patch-not-available = patch non disponible
 patch-not-available-tooltip = Impossible d'accéder aux serveurs de patch
 
@@ -52,12 +49,10 @@ patch-preparation-tooltip = Le patch est en développement
 patch-testing-tooltip = Patch de test disponible
 patch-not-applied-tooltip = Patch is not applied
 
-apply-main-patch = Apply main patch
-apply-main-patch-description =
-    Experimental. Disabling this allows you to run the game without applying the patch.
-    This may not work, or require manual files modifications. Use if you know what you're doing
-
-apply-xlua-patch = Apply xlua patch
+apply-main-patch = Appliquer le patch principal
+apply-main-patch-description = Expériment. Désactiver cette option permet de lancer le jeu sans le patch. Il n'est pas garanti que cette option marche, et des modifications manuelles seront potentiellement nécessaires. À n'utiliser que si vous savez ce que vous faites
+patch-broken-tooltip = La version actuelle du patch ne fonctionne pas correctement
+patch-unsafe-tooltip = La version actuelle du patch n'est pas safe, et ne doit pas être utilisée
 
 ask-superuser-permissions = Ask superuser permissions
 ask-superuser-permissions-description = Launcher will use them to automatically update your hosts file. This is not needed in flatpak edition

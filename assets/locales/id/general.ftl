@@ -37,9 +37,6 @@ game-outdated = Versi game terlalu lama dan tidak dapat diperbarui. Versi terbar
 player-patch-version = Versi patch
 player-patch-version-description = Patch utama yang membuat game bisa dimainkan di Linux
 
-xlua-patch-version = Versi patch Xlua
-xlua-patch-version-description = Patch tambahan yang memperbaiki beberapa isu dan meningkatkan performa di PC low-end
-
 patch-not-available = Tidak tersedia
 patch-not-available-tooltip = Server patch tidak bisa dijangkau
 
@@ -51,13 +48,11 @@ patch-preparation-tooltip = Patch masih dalam pengembangan
 
 patch-testing-tooltip = Patch tes tersedia
 patch-not-applied-tooltip = Patch tidak diterapkan
+patch-broken-tooltip = Patch versi saat ini rusak dan tidak dapat bekerja dengan semestinya
+patch-unsafe-tooltip = Patch versi saat ini tidak aman dan sebaiknya tidak digunakan
 
-apply-main-patch = Apply main patch
-apply-main-patch-description =
-    Experimental. Disabling this allows you to run the game without applying the patch.
-    This may not work, or require manual files modifications. Use if you know what you're doing
-
-apply-xlua-patch = Terapkan patch xlua 
+apply-main-patch = Terapkan patch utama
+apply-main-patch-description = Eksperimental. Menonaktifkan opsi ini akan menginzinkan Anda menjalankan game tanpa menerapkan patch. Hal ini mungkin tidak bekerja, atau membutuhkan modifikasi file secara manual. Gunakan jika Anda tahu apa yang Anda lakukan
 
 ask-superuser-permissions = Minta izin dari admin
 ask-superuser-permissions-description = Launcher akan otomatis memperbarui file hosts Anda. Opsi ini tidak diperlukan jika Anda memakai edisi flatpak 

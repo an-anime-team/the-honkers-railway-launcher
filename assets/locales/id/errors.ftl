@@ -42,6 +42,10 @@ patch-sync-failed = Gagal mensinkronisasi folder patch
 patch-state-check-failed = Gagal mengecek kondisi folder patch
 game-patching-error = Gagal melakukan patch pada game
 
+# Update main patch
+
+main-patch-update-failed = Gagal mengunduh patch versi terbaru
+
 # Sandbox
 
 documentation-url-open-failed = Gagal membuka tautan dokumentasi 
@@ -53,3 +57,8 @@ game-session-update-failed = Gagal memperbarui sesi game
 game-session-remove-failed = Gagal menghapus sesi game
 game-session-set-current-failed = Gagal menerapkan sesi game saat ini
 game-session-apply-failed = Gagal menerapkan sesi game
+
+# Enhancements
+
+discord-rpc-icons-fetch-failed = Gagal mendapatkan icon untuk Discord RPC
+discord-rpc-icon-download-failed = Gagal mengunduh icon untuk Discord RPC

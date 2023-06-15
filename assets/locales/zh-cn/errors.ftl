@@ -42,6 +42,10 @@ patch-sync-failed = 同步补丁文件夹失败
 patch-state-check-failed = 检查补丁文件夹失败
 game-patching-error = 应用游戏补丁失败
 
+# Update main patch
+
+main-patch-update-failed = Failed to download latest patch version
+
 # Sandbox
 
 documentation-url-open-failed = Failed to open documentation URL
@@ -53,3 +57,8 @@ game-session-update-failed = Failed to update game session
 game-session-remove-failed = Failed to remove game session
 game-session-set-current-failed = Failed to set current game session
 game-session-apply-failed = Failed to apply game session
+
+# Enhancements
+
+discord-rpc-icons-fetch-failed = Failed to fetch Discord RPC icons
+discord-rpc-icon-download-failed = Failed to download Discord RPC icon

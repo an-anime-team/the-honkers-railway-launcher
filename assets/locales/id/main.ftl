@@ -59,10 +59,10 @@ create-prefix = Buat prefix
 update = Perbarui
 download = Unduh 
 predownload-update = Pra-unduh pembaruan versi {$version} ({$size})
-download-patch = Download patch
+download-patch = Unduh patch
 
-patch-broken = Patch is broken
-patch-unsafe = Patch is unsafe
+patch-broken = Patch rusak
+patch-unsafe = Patch tidak aman
 
 main-window--patch-unavailable-tooltip = Server patch tidak tersedia dan launcher tidak bisa memverifikasi status patch game. Anda bisa menjalankan game dengan resiko sendiri 
 main-window--patch-outdated-tooltip = Patch kadaluarsa atau sedang dalam persiapan sehingga tidak tersedia. Kembali lagi nanti untuk melihat status patch

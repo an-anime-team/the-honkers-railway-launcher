@@ -90,6 +90,15 @@ impl SimpleComponent for AboutDialog {
 
             set_release_notes_version: &APP_VERSION,
             set_release_notes: &[
+                "<p>Added</p>",
+
+                "<ul>",
+                    "<li>Added Discord RPC icon selection</li>",
+                    "<li>Added Japanese</li>",
+                    "<li>Added Hungarian</li>",
+                    "<li>Integrated Jadeite patch</li>",
+                "</ul>",
+
                 "<p>Fixed</p>",
 
                 "<ul>",

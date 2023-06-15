@@ -89,19 +89,14 @@ impl SimpleComponent for AboutDialog {
 
             set_release_notes_version: &APP_VERSION,
             set_release_notes: &[
-                "<p>Added</p>",
-
-                "<ul>",
-                    "<li>Added Discord RPC icon selection</li>",
-                    "<li>Added Japanese</li>",
-                    "<li>Added Hungarian</li>",
-                "</ul>",
-
                 "<p>Fixed</p>",
 
                 "<ul>",
                     "<li>Fixed default launcher language selection at the first start</li>",
                     "<li>Fixed some installer updates reporting (including \"checking free space\")</li>",
+                    "<li>Fixed check button style for newly made sessions</li>",
+                    "<li>Fixed repairer's NaN progress</li>",
+                    "<li>Fixed game session selection when current one is removed</li>",
                 "</ul>",
 
                 "<p>Changed</p>",
@@ -111,6 +106,7 @@ impl SimpleComponent for AboutDialog {
                     "<li>Updated Indonesian</li>",
                     "<li>Updated French</li>",
                     "<li>Made initial tasks async which has decreased startup time</li>",
+                    "<li>Updated Spanish</li>",
                 "</ul>",
 
                 "<p>Removed</p>",

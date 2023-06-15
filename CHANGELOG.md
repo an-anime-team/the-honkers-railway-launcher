@@ -17,6 +17,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Fixed default launcher language selection at the first start
 - Fixed some installer updates reporting (including "checking free space")
+- Fixed check button style for newly made sessions
+- Fixed repairer's NaN progress
+- Fixed game session selection when current one is removed
 
 ### Changed
 
@@ -24,6 +27,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Updated Indonesian
 - Updated French
 - Made initial tasks async which has decreased startup time
+- Updated Spanish
 
 ### Removed
 

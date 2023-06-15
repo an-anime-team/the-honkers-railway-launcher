@@ -44,7 +44,7 @@ game-patching-error = Yamayı uygulamada sorun çıktı
 
 # Update main patch
 
-main-patch-update-failed = Failed to download latest patch version
+main-patch-update-failed = Güncel yama sürümü indirilemedi
 
 # Sandbox
 

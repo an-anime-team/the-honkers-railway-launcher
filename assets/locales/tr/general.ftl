@@ -48,8 +48,8 @@ patch-preparation-tooltip = Yama hala geliştiriliyor
 
 patch-testing-tooltip = Test yaması mevcut
 patch-not-applied-tooltip = Yama uygulanmamış
-patch-broken-tooltip = Current patch version is broken and doesn't work properly
-patch-unsafe-tooltip = Current patch version is unsafe and shouldn't be used
+patch-broken-tooltip = Geçerli yama sürümü bozuk ve düzgün çalışmıyor
+patch-unsafe-tooltip = Geçerli yama sürümü güvensiz ve kullanılmamalı
 
 apply-main-patch = Ana yamayı uygula
 apply-main-patch-description = Deneysel. Bunu devre dışı bırakmak yamayı uygulamadan oyunu çalıştırmanızı sağlar. Bu çalışmayabilir, ya da elle dosyaları değiştirmeyi gerektirebilir. Ne yaptığınızı biliyorsanız kullanın.

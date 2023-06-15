@@ -59,10 +59,10 @@ create-prefix = Prefix oluştur
 update = Güncelle
 download = İndir
 predownload-update =  Güncellemeyi önceden indir{$version}  ({$size})
-download-patch = Download patch
+download-patch = Yamayı indir
 
-patch-broken = Patch is broken
-patch-unsafe = Patch is unsafe
+patch-broken = Yama bozuk
+patch-unsafe = Yama güvensiz
 
 main-window--patch-unavailable-tooltip = Yama sunucuları kullanılamıyor ve istemci, oyunun yama durumunu doğrulayamıyor. Oyunu kendi sorumluluğunuzda çalıştırabilirsiniz
 main-window--patch-outdated-tooltip = Yama güncel değil veya hazırlık aşamasında, bu nedenle kullanım için uygun değil. Durumunu görmek için daha sonra geri dönün

@@ -48,8 +48,8 @@ patch-preparation-tooltip = Patch ist in Entwicklung
 
 patch-testing-tooltip = Test-Patch ist verfügbar
 patch-not-applied-tooltip = Patch ist nicht angewendet
-patch-broken-tooltip = Current patch version is broken and doesn't work properly
-patch-unsafe-tooltip = Current patch version is unsafe and shouldn't be used
+patch-broken-tooltip = Der aktuelle Patch funktioniert derzeit nicht
+patch-unsafe-tooltip = Der aktuelle Patch ist derzeit nicht sicher und sollte nicht genutzt werden
 
 apply-main-patch = Hauptpatch Anwenden
 apply-main-patch-description = Experimentell. Wenn Sie diese Option deaktivieren, können Sie das Spiel ausführen, ohne den Patch anzuwenden. Dies könnte möglicherweise nicht funktionieren oder erfordert manuelle Änderungen an den Dateien. Verwenden Sie dies nur wenn Sie wissen was Sie tun.

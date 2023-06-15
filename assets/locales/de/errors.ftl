@@ -44,7 +44,7 @@ game-patching-error = Spiel konnte nicht gepatcht werden
 
 # Update main patch
 
-main-patch-update-failed = Failed to download latest patch version
+main-patch-update-failed = Die neuste Version des Patches konnte nicht heruntergeladen werden
 
 # Sandbox
 

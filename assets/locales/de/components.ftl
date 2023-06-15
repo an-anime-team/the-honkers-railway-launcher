@@ -9,7 +9,7 @@ wine-recommended-description = Nur empfohlene Wine-Versionen anzeigen
 
 wine-options = Wine-Optionen
 
-wine-use-shared-libraries = Gemeinsame Wine-Bibliotheken verwenden
+wine-use-shared-libraries = Geteilte Wine-Bibliotheken verwenden
 wine-use-shared-libraries-description = Setzt die LD_LIBRARY_PATH-Variable, um Systembibliotheken aus dem ausgewählten Wine-Build zu laden
 
 gstreamer-use-shared-libraries = Gemeinsame gstreamer-Bibliotheken verwenden

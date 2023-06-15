@@ -442,6 +442,7 @@ impl SimpleComponent for App {
                                         set_tooltip_text: Some(&match &model.state {
                                             Some(LauncherState::GameOutdated { .. }) => tr("main-window--version-outdated-tooltip"),
 
+                                            Some(LauncherState::PatchNotVerified) => tr("patch-testing-tooltip"),
                                             Some(LauncherState::PatchBroken) => tr("patch-broken-tooltip"),
                                             Some(LauncherState::PatchUnsafe) => tr("patch-unsafe-tooltip"),
 

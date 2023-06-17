@@ -187,7 +187,7 @@ fn main() {
     else {
         if run_game || just_run_game {
             let state = LauncherState::get_from_config(|_| {})
-                .expect("Failed to get launcher state");
+                .expect("Failed to get launcher state :P");
 
             match state {
                 LauncherState::Launch => {

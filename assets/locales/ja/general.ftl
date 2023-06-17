@@ -48,8 +48,8 @@ patch-preparation-tooltip = パッチは開発中
 
 patch-testing-tooltip = テストパッチがあります
 patch-not-applied-tooltip = パッチが適用されませんでした。
-patch-broken-tooltip = Current patch version is broken and doesn't work properly
-patch-unsafe-tooltip = Current patch version is unsafe and shouldn't be used
+patch-broken-tooltip = 現在のパッチは、壊れているため正しく動作しない場合があります。
+patch-unsafe-tooltip = 現在のパッチは、安全ではないので使わないほうが良いでしょう。
 
 apply-main-patch = メインパッチを適用
 apply-main-patch-description = 実験的です。これを無効にするとパッチ無しでゲームを起動することができます。これが機能しない場合、手動でパッチを適用する必要があります。これが何を意味するのかを理解できない人は無効にするべきではないでしょう。

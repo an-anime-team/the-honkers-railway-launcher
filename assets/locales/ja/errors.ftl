@@ -44,7 +44,7 @@ game-patching-error = ゲームのパッチに失敗しました。
 
 # Update main patch
 
-main-patch-update-failed = Failed to download latest patch version
+main-patch-update-failed = 最新のパッチのダウンロードに失敗しました。
 
 # Sandbox
 

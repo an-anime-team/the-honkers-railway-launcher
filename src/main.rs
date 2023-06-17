@@ -189,13 +189,21 @@ fn main() {
             let state = LauncherState::get_from_config(|_| {})
                 .expect("Failed to get launcher state");
 
-            match (state, just_run_game) {
-                (LauncherState::Launch, _) |
-                (LauncherState::PatchNotVerified, true) |
-                (LauncherState::PredownloadAvailable { .. }, true) |
-                (LauncherState::PatchUpdateAvailable, true) => {
+            match state {
+                LauncherState::Launch => {
                     anime_launcher_sdk::star_rail::game::run().expect("Failed to run the game");
+
                     return;
+                }
+
+                LauncherState::PatchNotVerified |
+                LauncherState::PredownloadAvailable { .. } |
+                LauncherState::PatchUpdateAvailable => {
+                    if just_run_game {
+                        anime_launcher_sdk::star_rail::game::run().expect("Failed to run the game");
+
+                        return;
+                    }
                 }
 
                 _ => ()

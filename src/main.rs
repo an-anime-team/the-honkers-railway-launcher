@@ -213,8 +213,15 @@ fn main() {
 
         // Patch was renaming crash reporter to disable it
         if game_path.join("UnityCrashHandler64.exe.bak").exists() {
-            std::fs::remove_file(game_path.join("UnityCrashHandler64.exe.bak"))
-                .expect("Failed to delete 'UnityCrashHandler64.exe.bak' file");
+            if game_path.join("UnityCrashHandler64.exe").exists() {
+                std::fs::remove_file(game_path.join("UnityCrashHandler64.exe.bak"))
+                    .expect("Failed to delete 'UnityCrashHandler64.exe.bak' file");
+            }
+
+            else {
+                std::fs::rename(game_path.join("UnityCrashHandler64.exe.bak"), game_path.join("UnityCrashHandler64.exe"))
+                    .expect("Failed to rename 'UnityCrashHandler64.exe.bak' file to 'UnityCrashHandler64.exe'");
+            }
         }
 
         // End of temporary workaround ^

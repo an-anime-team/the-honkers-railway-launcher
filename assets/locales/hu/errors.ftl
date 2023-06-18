@@ -46,6 +46,10 @@ game-patching-error = Sikertelen játék patchelés
 
 main-patch-update-failed = Failed to download latest patch version
 
+# Disable telemetry
+
+telemetry-servers-disabling-error = Failed to disable telemetry servers
+
 # Sandbox
 
 documentation-url-open-failed = Failed to open documentation URL

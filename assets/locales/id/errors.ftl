@@ -46,6 +46,10 @@ game-patching-error = Gagal melakukan patch pada game
 
 main-patch-update-failed = Gagal mengunduh patch versi terbaru
 
+# Disable telemetry
+
+telemetry-servers-disabling-error = Failed to disable telemetry servers
+
 # Sandbox
 
 documentation-url-open-failed = Gagal membuka tautan dokumentasi 

@@ -46,6 +46,10 @@ game-patching-error = Fallo al parchear el juego
 
 main-patch-update-failed = Fallo al descargar la última versión del parche
 
+# Disable telemetry
+
+telemetry-servers-disabling-error = Failed to disable telemetry servers
+
 # Sandbox
 
 documentation-url-open-failed = Failed to open documentation URL

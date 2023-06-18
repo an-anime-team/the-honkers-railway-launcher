@@ -46,6 +46,10 @@ game-patching-error = Yamayı uygulamada sorun çıktı
 
 main-patch-update-failed = Güncel yama sürümü indirilemedi
 
+# Disable telemetry
+
+telemetry-servers-disabling-error = Failed to disable telemetry servers
+
 # Sandbox
 
 documentation-url-open-failed = Belgelemenin URL'si açılamadı

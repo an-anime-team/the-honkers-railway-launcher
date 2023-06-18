@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Added deletion of old patch files (just in case)
+- Added telemetry disabling state support
+- Added Discord RPC icons updating
+
+### Changed
+
+- Replaced xlua patch by "disable mhypbase" option
+- Returned back old `background` file path
+
 ## [1.2.1] - 15.06.2023
 
 ### Added

@@ -93,36 +93,16 @@ impl SimpleComponent for AboutDialog {
                 "<p>Added</p>",
 
                 "<ul>",
-                    "<li>Added Discord RPC icon selection</li>",
-                    "<li>Added Japanese</li>",
-                    "<li>Added Hungarian</li>",
-                    "<li>Integrated Jadeite patch</li>",
-                "</ul>",
-
-                "<p>Fixed</p>",
-
-                "<ul>",
-                    "<li>Fixed default launcher language selection at the first start</li>",
-                    "<li>Fixed some installer updates reporting (including \"checking free space\")</li>",
-                    "<li>Fixed check button style for newly made sessions</li>",
-                    "<li>Fixed repairer's NaN progress</li>",
-                    "<li>Fixed game session selection when current one is removed</li>",
+                    "<li>Added deletion of old patch files</li>",
+                    "<li>Added telemetry disabling state support</li>",
+                    "<li>Added Discord RPC icons updating</li>",
                 "</ul>",
 
                 "<p>Changed</p>",
 
                 "<ul>",
-                    "<li>Reworked game sessions selection</li>",
-                    "<li>Updated Indonesian</li>",
-                    "<li>Updated French</li>",
-                    "<li>Made initial tasks async which has decreased startup time</li>",
-                    "<li>Updated Spanish</li>",
-                "</ul>",
-
-                "<p>Removed</p>",
-
-                "<ul>",
-                    "<li>Removed patch mirror migration</li>",
+                    "<li>Replaced xlua patch by \"disable mhypbase\" option</li>",
+                    "<li>Returned back old background file path</li>",
                 "</ul>",
             ].join("\n"),
 

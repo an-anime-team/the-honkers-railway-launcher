@@ -185,6 +185,40 @@ fn main() {
 
     // Run the app if everything's ready
     else {
+        // Temporary workaround for old patches which HAVE to be reverted
+        // I don't believe to users to read announcements so better do this
+        // 
+        // There's 2 files which were modified by the old patch, but since the game
+        // was updated those files were updated as well, so no need for additional actions
+        // 
+        // Should be removed in future
+        let game_path = CONFIG.game.path.for_edition(CONFIG.launcher.edition);
+
+        if game_path.join("Generated").exists() {
+            std::fs::remove_dir_all(game_path.join("Generated"))
+                .expect("Failed to delete 'Generated' folder");
+        }
+
+        if game_path.join("TVMBootstrap.dll").exists() {
+            std::fs::remove_file(game_path.join("TVMBootstrap.dll"))
+                .expect("Failed to delete 'TVMBootstrap.dll' file");
+        }
+
+        // AC won't say a thing about this file anyway but for consistency I decided
+        // to delete it as well
+        if game_path.join("launch.bat").exists() {
+            std::fs::remove_file(game_path.join("launch.bat"))
+                .expect("Failed to delete 'launch.bat' file");
+        }
+
+        // Patch was renaming crash reporter to disable it
+        if game_path.join("UnityCrashHandler64.exe.bak").exists() {
+            std::fs::remove_file(game_path.join("UnityCrashHandler64.exe.bak"))
+                .expect("Failed to delete 'UnityCrashHandler64.exe.bak' file");
+        }
+
+        // End of temporary workaround ^
+
         if run_game || just_run_game {
             let state = LauncherState::get_from_config(|_| {})
                 .expect("Failed to get launcher state");

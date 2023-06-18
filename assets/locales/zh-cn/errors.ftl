@@ -46,6 +46,10 @@ game-patching-error = 应用游戏补丁失败
 
 main-patch-update-failed = Failed to download latest patch version
 
+# Disable telemetry
+
+telemetry-servers-disabling-error = Failed to disable telemetry servers
+
 # Sandbox
 
 documentation-url-open-failed = Failed to open documentation URL

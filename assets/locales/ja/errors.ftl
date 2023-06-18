@@ -46,6 +46,10 @@ game-patching-error = ゲームのパッチに失敗しました。
 
 main-patch-update-failed = 最新のパッチのダウンロードに失敗しました。
 
+# Disable telemetry
+
+telemetry-servers-disabling-error = Failed to disable telemetry servers
+
 # Sandbox
 
 documentation-url-open-failed = ドキュメントページを開けませんでした。

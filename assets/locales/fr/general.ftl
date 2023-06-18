@@ -48,11 +48,11 @@ patch-preparation-tooltip = Le patch est en développement
 
 patch-testing-tooltip = Patch de test disponible
 patch-not-applied-tooltip = Patch is not applied
+patch-broken-tooltip = La version actuelle du patch ne fonctionne pas correctement
+patch-unsafe-tooltip = La version actuelle du patch n'est pas safe, et ne doit pas être utilisée
 
 apply-main-patch = Appliquer le patch principal
 apply-main-patch-description = Expériment. Désactiver cette option permet de lancer le jeu sans le patch. Il n'est pas garanti que cette option marche, et des modifications manuelles seront potentiellement nécessaires. À n'utiliser que si vous savez ce que vous faites
-patch-broken-tooltip = La version actuelle du patch ne fonctionne pas correctement
-patch-unsafe-tooltip = La version actuelle du patch n'est pas safe, et ne doit pas être utilisée
 
 ask-superuser-permissions = Ask superuser permissions
 ask-superuser-permissions-description = Launcher will use them to automatically update your hosts file. This is not needed in flatpak edition

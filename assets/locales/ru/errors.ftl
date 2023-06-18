@@ -46,6 +46,10 @@ game-patching-error = Не удалось установить патч игры
 
 main-patch-update-failed = Не удалось скачать последнюю версию патча
 
+# Disable telemetry
+
+telemetry-servers-disabling-error = Не удалось отключить серверы телеметрии
+
 # Sandbox
 
 documentation-url-open-failed = Не удалось открыть ссылку с документацией

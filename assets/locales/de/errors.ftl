@@ -46,6 +46,10 @@ game-patching-error = Spiel konnte nicht gepatcht werden
 
 main-patch-update-failed = Die neuste Version des Patches konnte nicht heruntergeladen werden
 
+# Disable telemetry
+
+telemetry-servers-disabling-error = Telemetrie server konnten nicht geblockt werden
+
 # Sandbox
 
 documentation-url-open-failed = Dokumentations-URL kann nicht geöffnet werden

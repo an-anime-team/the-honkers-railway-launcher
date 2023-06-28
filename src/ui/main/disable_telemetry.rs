@@ -23,7 +23,7 @@ pub fn disable_telemetry(sender: ComponentSender<App>) {
         let output = Command::new("pkexec")
             .arg("sh")
             .arg("-c")
-            .arg(format!("echo \"\\n{telemetry}\\n\" >> /etc/hosts"))
+            .arg(format!("echo -e \"\\n{telemetry}\\n\" >> /etc/hosts"))
             .spawn();
 
         match output.and_then(|child| child.wait_with_output()) {

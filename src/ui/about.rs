@@ -90,7 +90,7 @@ impl SimpleComponent for AboutDialog {
 
             set_release_notes_version: &APP_VERSION,
             set_release_notes: &[
-                "<p>Added</p>",
+                "<p>Fixed</p>",
 
                 "<ul>",
                     "<li>Added deletion of old patch files</li>",

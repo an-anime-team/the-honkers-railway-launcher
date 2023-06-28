@@ -48,7 +48,7 @@ main-patch-update-failed = Güncel yama sürümü indirilemedi
 
 # Disable telemetry
 
-telemetry-servers-disabling-error = Failed to disable telemetry servers
+telemetry-servers-disabling-error = Bilgi toplama devre dışı bırakılamadı
 
 # Sandbox
 

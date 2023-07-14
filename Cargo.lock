@@ -1407,7 +1407,7 @@ dependencies = [
 
 [[package]]
 name = "honkers-railway-launcher"
-version = "1.2.2"
+version = "1.2.3"
 dependencies = [
  "anime-launcher-sdk",
  "anyhow",

@@ -61,10 +61,10 @@ create-prefix = 创建 Wine prefix
 update = 更新
 download = 下载
 predownload-update = 预下载版本更新 {$version} ({$size})
-download-patch = Download patch
+download-patch = 下载补丁
 
-patch-broken = Patch is broken
-patch-unsafe = Patch is unsafe
+patch-broken = 补丁已损坏
+patch-unsafe = 补丁不安全
 
 main-window--patch-unavailable-tooltip = 补丁服务器不可用，启动器无法验证游戏补丁状态。你可以运行游戏，但是有出问题的风险
 main-window--patch-outdated-tooltip = 补丁版本太旧，新版补丁可能还没制作完成，无法使用。请过段时间再回来查看最新状态

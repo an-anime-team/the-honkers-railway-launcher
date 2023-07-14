@@ -44,7 +44,7 @@ game-patching-error = 应用游戏补丁失败
 
 # Update main patch
 
-main-patch-update-failed = Failed to download latest patch version
+main-patch-update-failed = 下载最新补丁版本失败
 
 # Disable telemetry
 

@@ -7,6 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Fixed telemetry disabling
+
+### Changed
+
+- Updated Italian
+- Updated Hungarian
+- Updated Japanese
+- Updated Indonesian
+- Updated Spanish
+- Updated Turkish
+- Updated Chinese
+
 ## [1.2.2] - 18.06.2023
 
 ### Added

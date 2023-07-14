@@ -51,16 +51,16 @@ patch-not-applied-tooltip = 补丁未应用
 patch-broken-tooltip = Current patch version is broken and doesn't work properly
 patch-unsafe-tooltip = Current patch version is unsafe and shouldn't be used
 
-apply-main-patch = Apply main patch
-apply-main-patch-description = Experimental. Disabling this allows you to run the game without applying the patch. This may not work, or require manual files modifications. Use if you know what you're doing
+apply-main-patch = 应用主补丁
+apply-main-patch-description = 实验性功能。禁用此选项可以允许在没有打补丁的情况下尝试运行游戏。此时游戏可能无法正常运行，或者需要手动修改文件。请确保你知道自己在做什么
 
 ask-superuser-permissions = 请求超级用户权限
-ask-superuser-permissions-description = 启动器需要超级用户权限来修改 hosts 文件。flatpak 版无需此权限
+ask-superuser-permissions-description = 启动器需要超级用户权限来修改 hosts 文件。Flatpak 版无需此权限
 
 wine-tools = Wine 工具
 command-line = 命令行
 registry-editor = 注册表编辑器
 explorer = 资源管理器
 task-manager = 任务管理器
-configuration = wine 设置
+configuration = Wine 设置
 debugger = 调试器 

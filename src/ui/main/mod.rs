@@ -628,7 +628,7 @@ impl SimpleComponent for App {
 
                                 if let Err(err) = open::that(format!("{}#/log", &url[url_begin_pos..url_end_pos])) {
                                     tracing::error!("Failed to open wishes URL: {err}");
-    
+
                                     sender.input(AppMsg::Toast {
                                         title: tr("wish-url-opening-error"),
                                         description: Some(err.to_string())
@@ -813,9 +813,7 @@ impl SimpleComponent for App {
             });
 
             // Mark app as loaded
-            unsafe {
-                crate::READY = true;
-            }
+            crate::READY.store(true, Ordering::Relaxed);
 
             tracing::info!("App is ready");
         });

@@ -48,7 +48,7 @@ main-patch-update-failed = Failed to download latest patch version
 
 # Disable telemetry
 
-telemetry-servers-disabling-error = Failed to disable telemetry servers
+telemetry-servers-disabling-error = Telemetria kikapcsolása sikertelen
 
 # Sandbox
 

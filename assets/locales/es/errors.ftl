@@ -48,7 +48,7 @@ main-patch-update-failed = Fallo al descargar la última versión del parche
 
 # Disable telemetry
 
-telemetry-servers-disabling-error = Failed to disable telemetry servers
+telemetry-servers-disabling-error = Fallo al desactivar servidores de telemetría
 
 # Sandbox
 

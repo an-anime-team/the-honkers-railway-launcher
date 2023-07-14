@@ -48,7 +48,7 @@ main-patch-update-failed = Gagal mengunduh patch versi terbaru
 
 # Disable telemetry
 
-telemetry-servers-disabling-error = Failed to disable telemetry servers
+telemetry-servers-disabling-error = Gagal menonaktifkan server telemetri
 
 # Sandbox
 

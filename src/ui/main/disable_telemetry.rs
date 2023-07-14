@@ -16,16 +16,14 @@ pub fn disable_telemetry(sender: ComponentSender<App>) {
         let telemetry = config.launcher.edition
             .telemetry_servers()
             .iter()
-            .map(|server| format!("0.0.0.0 {server}"))
+            .map(|server| format!("echo '0.0.0.0 {server}' >> /etc/hosts"))
             .collect::<Vec<String>>()
-            .join("\\n");
+            .join(" ; ");
 
         let output = Command::new("pkexec")
-            .arg("echo")
-            .arg("-e")
-            .arg(format!("\\n{telemetry}\\n"))
-            .arg(">>")
-            .arg("/etc/hosts")
+            .arg("bash")
+            .arg("-c")
+            .arg(format!("echo '' >> /etc/hosts ; {telemetry} ; echo '' >> /etc/hosts"))
             .spawn();
 
         match output.and_then(|child| child.wait_with_output()) {

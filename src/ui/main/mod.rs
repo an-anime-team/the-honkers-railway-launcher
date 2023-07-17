@@ -320,7 +320,9 @@ impl SimpleComponent for App {
                                                 let config = Config::get().unwrap();
                                                 let temp = config.launcher.temp.unwrap_or_else(std::env::temp_dir);
 
-                                                !temp.join(diff.file_name().unwrap()).exists()
+                                                temp.join(diff.file_name().unwrap()).metadata()
+                                                    .map(|metadata| Some(metadata.len()) == diff.downloaded_size())
+                                                    .unwrap_or(false)
                                             }
 
                                             _ => false
@@ -332,7 +334,11 @@ impl SimpleComponent for App {
                                                 let config = Config::get().unwrap();
                                                 let temp = config.launcher.temp.unwrap_or_else(std::env::temp_dir);
 
-                                                if temp.join(diff.file_name().unwrap()).exists() {
+                                                let downloaded = temp.join(diff.file_name().unwrap()).metadata()
+                                                    .map(|metadata| Some(metadata.len()) == diff.downloaded_size())
+                                                    .unwrap_or(false);
+
+                                                if downloaded {
                                                     &["success", "circular"]
                                                 } else {
                                                     &["warning", "circular"]

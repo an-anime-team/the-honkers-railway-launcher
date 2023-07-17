@@ -440,7 +440,9 @@ impl SimpleComponent for App {
                                         set_sensitive: !model.disabled_buttons && match &model.state {
                                             Some(LauncherState::GameOutdated { .. }) |
                                             Some(LauncherState::PatchBroken) |
-                                            Some(LauncherState::PatchUnsafe) => false,
+                                            Some(LauncherState::PatchUnsafe) |
+                                            Some(LauncherState::PredownloadAvailable { patch: JadeitePatchStatusVariant::Broken, .. }) |
+                                            Some(LauncherState::PredownloadAvailable { patch: JadeitePatchStatusVariant::Unsafe, .. }) => false,
 
                                             Some(_) => true,
 

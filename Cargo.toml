@@ -1,6 +1,6 @@
 [package]
 name = "honkers-railway-launcher"
-version = "1.2.3"
+version = "1.2.4"
 description = "The Honkers Railway launcher"
 authors = ["Nikita Podvirnyy <suimin.tu.mu.ga.mi@gmail.com>"]
 license = "GPL-3.0"

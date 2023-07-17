@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Fixed jadeite patch state handling from the metadata file
+- Fixed game pre-downloading button sensitivity when the update was partially downloaded, but then interrupted
+- Fixed game pre-downloading button visibility when jadeite patch state is not "verified"
+
 ## [1.2.3] - 14.07.2023
 
 ### Fixed

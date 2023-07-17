@@ -320,7 +320,7 @@ impl SimpleComponent for App {
                                                 let config = Config::get().unwrap();
                                                 let temp = config.launcher.temp.unwrap_or_else(std::env::temp_dir);
 
-                                                temp.join(diff.file_name().unwrap()).metadata()
+                                                !temp.join(diff.file_name().unwrap()).metadata()
                                                     .map(|metadata| Some(metadata.len()) == diff.downloaded_size())
                                                     .unwrap_or(false)
                                             }

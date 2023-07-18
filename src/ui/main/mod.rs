@@ -771,30 +771,17 @@ impl SimpleComponent for App {
 
             tasks.push(std::thread::spawn(clone!(@strong sender => move || {
                 // Get main patch status
-                sender.input(AppMsg::SetMainPatch(match jadeite::get_latest() {
-                    Ok(latest) => match jadeite::get_metadata() {
-                        Ok(metadata) => {
-                            let status = GAME.get_version()
-                                .map(|version| metadata.games.hsr.global.get_status(version))
-                                .unwrap_or(metadata.games.hsr.global.status);
+                sender.input(AppMsg::SetMainPatch(match jadeite::get_metadata() {
+                    Ok(metadata) => {
+                        let status = GAME.get_version()
+                            .map(|version| metadata.games.hsr.global.get_status(version))
+                            .unwrap_or(metadata.games.hsr.global.status);
 
-                            Some((latest.version, status))
-                        }
-
-                        Err(err) => {
-                            tracing::error!("Failed to fetch patch metadata: {err}");
-
-                            sender.input(AppMsg::Toast {
-                                title: tr("patch-info-fetching-error"),
-                                description: Some(err.to_string())
-                            });
-
-                            None
-                        }
-                    },
+                        Some((metadata.jadeite.version, status))
+                    }
 
                     Err(err) => {
-                        tracing::error!("Failed to fetch latest patch version: {err}");
+                        tracing::error!("Failed to fetch patch metadata: {err}");
 
                         sender.input(AppMsg::Toast {
                             title: tr("patch-info-fetching-error"),

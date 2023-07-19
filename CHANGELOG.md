@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.2.5] - 19.07.2023
+
 ### Fixed
 
 - Added a workaround to remove outdated `Telemetry.dll` file which fixes login error 400 in game login screen
@@ -140,7 +142,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 <br>
 
-[unreleased]: https://github.com/an-anime-team/the-honkers-railway-launcher/compare/1.2.4...next
+[unreleased]: https://github.com/an-anime-team/the-honkers-railway-launcher/compare/1.2.5...next
+[1.2.5]: https://github.com/an-anime-team/the-honkers-railway-launcher/compare/1.2.4...1.2.5
 [1.2.4]: https://github.com/an-anime-team/the-honkers-railway-launcher/compare/1.2.3...1.2.4
 [1.2.3]: https://github.com/an-anime-team/the-honkers-railway-launcher/compare/1.2.2...1.2.3
 [1.2.2]: https://github.com/an-anime-team/the-honkers-railway-launcher/compare/1.2.1...1.2.2

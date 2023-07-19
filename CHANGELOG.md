@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Added a workaround to remove outdated `Telemetry.dll` file which fixes login error 400 in game login screen
+
 ## [1.2.4] - 17.07.2023
 
 ### Fixed

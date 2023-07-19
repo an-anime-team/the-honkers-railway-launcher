@@ -93,9 +93,7 @@ impl SimpleComponent for AboutDialog {
                 "<p>Fixed</p>",
 
                 "<ul>",
-                    "<li>Fixed jadeite patch state handling from the metadata file</li>",
-                    "<li>Fixed game pre-downloading button sensitivity when the update was partially downloaded, but then interrupted</li>",
-                    "<li>Fixed game pre-downloading button visibility when jadeite patch state is not \"verified\"</li>",
+                    "<li>Added a workaround to remove outdated `Telemetry.dll` file which fixes login error 400 in game login screen</li>",
                 "</ul>",
             ].join("\n"),
 

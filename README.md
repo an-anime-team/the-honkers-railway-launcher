@@ -34,18 +34,6 @@ instead of the actual name of the game, to avoid search engine parsing.
 
 <br>
 
-# ⚠️ Experimental patch warning
-
-Current launcher implementation uses experimental patch called jadeite. After the latest ban wave (which wasn't addressed to the linux users themselves and was just a coincidence) we for now force people to agree that they want to play the game on current patch even though that there's a high chance of being banned.
-
-To skip the warning dialogue (which refers to the patch's readme) add this environment variable in the launcher's settings:
-
-- `I_WANT_A_BAN=1`
-
-More details can be found in the patch's repo, or you can ask the dev directly in our discord server.
-
-<br>
-
 # ♥️ Useful links and thanks
 
 * Original patch project without which this project wouldn't be possible. Link is omitted for "privacy" purposes

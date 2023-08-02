@@ -6,7 +6,6 @@ use relm4::{
 use gtk::glib::clone;
 
 use crate::*;
-use crate::i18n::*;
 use crate::ui::components::*;
 
 use super::{App, AppMsg};
@@ -24,7 +23,7 @@ pub fn update_patch(sender: ComponentSender<App>, progress_bar_input: Sender<Pro
                         tracing::error!("Downloading failed: {err}");
 
                         sender.input(AppMsg::Toast {
-                            title: tr("downloading-failed"),
+                            title: tr!("downloading-failed"),
                             description: Some(err.to_string())
                         });
                     }
@@ -33,7 +32,7 @@ pub fn update_patch(sender: ComponentSender<App>, progress_bar_input: Sender<Pro
                         tracing::error!("Unpacking failed: {err}");
 
                         sender.input(AppMsg::Toast {
-                            title: tr("unpacking-failed"),
+                            title: tr!("unpacking-failed"),
                             description: Some(err.clone())
                         });
                     }
@@ -50,7 +49,7 @@ pub fn update_patch(sender: ComponentSender<App>, progress_bar_input: Sender<Pro
             tracing::error!("Failed to download latest patch version");
 
             sender.input(AppMsg::Toast {
-                title: tr("main-patch-update-failed"),
+                title: tr!("main-patch-update-failed"),
                 description: Some(err.to_string())
             });
         }

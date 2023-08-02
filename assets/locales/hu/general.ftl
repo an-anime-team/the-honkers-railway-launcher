@@ -57,6 +57,9 @@ apply-main-patch-description = Kísérleti opció, a kikapcsolásával futtathat
 ask-superuser-permissions = Superuser engedély kérése
 ask-superuser-permissions-description =  A Launcher autómatikusan használni fogja hogy frissítse a hosts fájlodat. A Flatpak verzióhoz nem kell
 
+launcher-behavior = Launcher behavior
+launcher-behavior-description = What should launcher window do when it starts the game
+
 wine-tools = Wine eszközök
 command-line = Parancssor
 registry-editor = Registry szerksztő

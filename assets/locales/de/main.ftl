@@ -18,6 +18,8 @@ about = Über
 
 
 close = Schließen
+hide = Verstecken
+nothing = Nichts
 save = Speichern
 continue = Weiter
 resume = Fortsetzen
@@ -65,6 +67,8 @@ download-patch = Patch herunterladen
 
 patch-broken = Der Patch funktioniert nicht
 patch-unsafe = Der Patch ist nicht sicher
+
+kill-game-process = Spielprozesse terminieren
 
 main-window--patch-unavailable-tooltip = Die Patch-Server sind nicht verfügbar und der Launcher kann den Patch-Status des Spiels nicht überprüfen. Sie können das Spiel auf eigene Gefahr spielen.
 main-window--patch-outdated-tooltip = Der Patch ist veraltet oder befindet sich in Vorbereitung und kann daher nicht verwendet werden. Kehren Sie später zurück, um den Status zu sehen.

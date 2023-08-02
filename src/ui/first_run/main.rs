@@ -6,7 +6,6 @@ use adw::prelude::*;
 
 use anime_launcher_sdk::components::loader::ComponentsLoader;
 
-use crate::i18n::tr;
 use crate::*;
 
 use super::welcome::*;
@@ -74,7 +73,7 @@ impl SimpleComponent for FirstRunApp {
                     },
 
                     adw::StatusPage {
-                        set_title: &tr("loading-data"),
+                        set_title: &tr!("loading-data"),
                         set_icon_name: Some(APP_ID),
                         set_vexpand: true,
 
@@ -156,7 +155,7 @@ impl SimpleComponent for FirstRunApp {
             carousel,
 
             loading: None,
-            title: tr("welcome")
+            title: tr!("welcome")
         };
 
         let toast_overlay = &model.toast_overlay;
@@ -184,26 +183,26 @@ impl SimpleComponent for FirstRunApp {
             }
 
             FirstRunAppMsg::ScrollToTosWarning => {
-                self.title = tr("tos-violation-warning");
+                self.title = tr!("tos-violation-warning");
 
                 self.carousel.scroll_to(self.tos_warning.widget(), true);
             }
 
             FirstRunAppMsg::ScrollToDependencies => {
-                self.title = tr("dependencies");
+                self.title = tr!("dependencies");
 
                 self.carousel.scroll_to(self.dependencies.widget(), true);
             }
 
             FirstRunAppMsg::ScrollToDefaultPaths => {
-                self.title = tr("default-paths");
+                self.title = tr!("default-paths");
 
                 self.carousel.scroll_to(self.default_paths.widget(), true);
             }
 
             FirstRunAppMsg::ScrollToDownloadComponents => {
                 // Update components index
-                sender.input(FirstRunAppMsg::SetLoadingStatus(Some(Some(tr("updating-components-index")))));
+                sender.input(FirstRunAppMsg::SetLoadingStatus(Some(Some(tr!("updating-components-index")))));
 
                 let config = Config::get().unwrap_or_else(|_| CONFIG.clone());
 
@@ -224,7 +223,7 @@ impl SimpleComponent for FirstRunApp {
                                         tracing::error!("Failed to sync components index");
 
                                         sender.input(FirstRunAppMsg::Toast {
-                                            title: tr("components-index-sync-failed"),
+                                            title: tr!("components-index-sync-failed"),
                                             description: Some(err.to_string())
                                         });
                                     }
@@ -236,7 +235,7 @@ impl SimpleComponent for FirstRunApp {
                             tracing::error!("Failed to verify that components index synced");
 
                             sender.input(FirstRunAppMsg::Toast {
-                                title: tr("components-index-verify-failed"),
+                                title: tr!("components-index-verify-failed"),
                                 description: Some(err.to_string())
                             });
                         }
@@ -251,13 +250,13 @@ impl SimpleComponent for FirstRunApp {
 
                 // Scroll to download components page
                 // This will happen in background behind StatusPage
-                self.title = tr("download-components");
+                self.title = tr!("download-components");
 
                 self.carousel.scroll_to(self.download_components.widget(), true);
             }
 
             FirstRunAppMsg::ScrollToFinish => {
-                self.title = tr("finish");
+                self.title = tr!("finish");
 
                 self.carousel.scroll_to(self.finish.widget(), true);
             }
@@ -268,12 +267,12 @@ impl SimpleComponent for FirstRunApp {
                 toast.set_timeout(4);
 
                 if let Some(description) = description {
-                    toast.set_button_label(Some(&tr("details")));
+                    toast.set_button_label(Some(&tr!("details")));
 
                     let dialog = adw::MessageDialog::new(MAIN_WINDOW.as_ref(), Some(&title), Some(&description));
 
-                    dialog.add_response("close", &tr("close"));
-                    dialog.add_response("save", &tr("save"));
+                    dialog.add_response("close", &tr!("close", { "form" = "noun" }));
+                    dialog.add_response("save", &tr!("save"));
 
                     dialog.set_response_appearance("save", adw::ResponseAppearance::Suggested);
 

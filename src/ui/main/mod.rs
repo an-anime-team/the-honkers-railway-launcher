@@ -527,7 +527,7 @@ impl SimpleComponent for App {
                                             }));
 
                                             let result = std::process::Command::new("pkill")
-                                                .arg("GenshinImpact|YuanShen|unlocker\\.exe")
+                                                .arg("StarRail\\.exe")
                                                 .spawn();
 
                                             if let Err(err) = result {

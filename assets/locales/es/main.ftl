@@ -18,6 +18,8 @@ about = Acerca de
 
 
 close = Cerrar
+hide = Hide
+nothing = Nothing
 save = Guardar
 continue = Continuar
 resume = Reanudar
@@ -65,6 +67,8 @@ download-patch = Descargar parche
 
 patch-broken = El parche está roto
 patch-unsafe = El parche es inseguro
+
+kill-game-process = Kill game process
 
 main-window--patch-unavailable-tooltip = Los servidores del parche no están disponibles y el launcher no puede verificar el estado de parcheo del juego. Puedes ejecutar el juego bajo tu propio riesgo.
 main-window--patch-outdated-tooltip = El parche está desactualizado o en fase de preparación, por lo que no está disponible para usarse. Vuelve pronto para comprobar su estado.

@@ -18,6 +18,8 @@ about = À propos
 
 
 close = Fermer
+hide = Hide
+nothing = Nothing
 save = Sauvegarder
 continue = Continuer
 resume = Reprendre
@@ -65,6 +67,8 @@ download-patch = Télécharger le patch
 
 patch-broken = Le patch ne fonctionne pas
 patch-unsafe = Le patch n'est pas safe
+
+kill-game-process = Kill game process
 
 main-window--patch-unavailable-tooltip = Les serveurs de patch ne sont pas disponible, et le launcher ne peut pas vérifier l'état de patch du jeu. Lancez le jeu à vos risques et périls
 main-window--patch-outdated-tooltip = Le patch n'est pas à jour ou encore en train d'être préparé. Il n'est donc pas encore disponible. Revenez plus tard pour voir son état

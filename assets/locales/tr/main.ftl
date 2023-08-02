@@ -18,6 +18,8 @@ about = Hakkında
 
 
 close = Kapat
+hide = Hide
+nothing = Nothing
 save = Kaydet
 continue = Devam et
 resume = Sürdürmek
@@ -65,6 +67,8 @@ download-patch = Yamayı indir
 
 patch-broken = Yama bozuk
 patch-unsafe = Yama güvensiz
+
+kill-game-process = Kill game process
 
 main-window--patch-unavailable-tooltip = Yama sunucuları kullanılamıyor ve istemci, oyunun yama durumunu doğrulayamıyor. Oyunu kendi sorumluluğunuzda çalıştırabilirsiniz
 main-window--patch-outdated-tooltip = Yama güncel değil veya hazırlık aşamasında, bu nedenle kullanım için uygun değil. Durumunu görmek için daha sonra geri dönün

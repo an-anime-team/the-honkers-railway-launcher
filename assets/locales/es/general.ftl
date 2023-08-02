@@ -57,6 +57,9 @@ apply-main-patch-description = Experimental. Deshabilitar esta opción te permit
 ask-superuser-permissions = Pedir permisos de superusuario
 ask-superuser-permissions-description = El launcher usará los permisos para actualizar automáticamente tu archivo hosts. Esto no es necesario en la versión de Flatpak
 
+launcher-behavior = Launcher behavior
+launcher-behavior-description = What should launcher window do when it starts the game
+
 wine-tools = Herramientas de Wine
 command-line = Línea de Comandos
 registry-editor = Editor del Registro

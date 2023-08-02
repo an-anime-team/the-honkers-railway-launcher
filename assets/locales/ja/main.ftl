@@ -18,6 +18,8 @@ about = "An anime Game launcher"について
 
 
 close = 閉じる
+hide = Hide
+nothing = Nothing
 save = 保存
 continue = 続行
 resume = 一時停止
@@ -65,6 +67,8 @@ download-patch = パッチをダウンロードする。
 
 patch-broken = パッチが壊れています。
 patch-unsafe = パッチは安全ではないです。
+
+kill-game-process = Kill game process
 
 main-window--patch-unavailable-tooltip = パッチサーバーが利用できないため、パッチの状態を確認することができません。リスクを理解した上で実行することができます。
 main-window--patch-outdated-tooltip = パッチは期限切れか準備中のため利用できません。しばらく立ってからパッチステータスを確認してください。

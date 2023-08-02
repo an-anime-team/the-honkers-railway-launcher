@@ -11,7 +11,7 @@ use anime_launcher_sdk::anime_game_core::star_rail::consts::GameEdition;
 
 use anime_launcher_sdk::config::ConfigExt;
 use anime_launcher_sdk::star_rail::config::Config;
-use anime_launcher_sdk::star_rail::config::schema::launcher::LauncherStyle;
+use anime_launcher_sdk::star_rail::config::schema::launcher::{LauncherStyle, LauncherBehavior};
 
 pub mod components;
 

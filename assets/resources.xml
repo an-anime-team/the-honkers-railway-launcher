@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gresources>
-  <gresource prefix="/moe/launcher/an-anime-game-launcher">
+  <gresource prefix="/moe/launcher/the-honkers-railway-launcher">
     <file preprocess="xml-stripblanks">images/modern.svg</file>
     <file preprocess="xml-stripblanks">images/classic.svg</file>
   </gresource>
 
-  <gresource prefix="/moe/launcher/an-anime-game-launcher/icons/hicolor/scalable/apps">
-    <file alias="moe.launcher.an-anime-game-launcher.png">images/icon.png</file>
+  <gresource prefix="/moe/launcher/the-honkers-railway-launcher/icons/hicolor/scalable/apps">
+    <file alias="moe.launcher.the-honkers-railway-launcher.png">images/icon.png</file>
   </gresource>
 
-  <gresource prefix="/moe/launcher/an-anime-game-launcher/icons/scalable/actions">
+  <gresource prefix="/moe/launcher/the-honkers-railway-launcher/icons/scalable/actions">
     <!-- Standard icons -->
 
     <file preprocess="xml-stripblanks" alias="document-save-symbolic.svg">images/icons/document-save-symbolic.svg</file>

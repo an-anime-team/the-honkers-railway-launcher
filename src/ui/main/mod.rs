@@ -728,19 +728,28 @@ impl SimpleComponent for App {
 
                 let web_cache = config.game.path.for_edition(config.launcher.edition)
                     .join(config.launcher.edition.data_folder())
-                    .join("webCaches/Cache/Cache_Data/data_2");
+                    .join("webCaches");
 
-                if !web_cache.exists() {
-                    tracing::error!("Couldn't find wishes URL: cache file doesn't exist");
+                // Find newest cache folder
+                let mut web_cache_id = None;
 
-                    sender.input(AppMsg::Toast {
-                        title: tr!("wish-url-search-failed"),
-                        description: None
-                    });
+                if let Ok(entries) = web_cache.read_dir() {
+                    for entry in entries.flatten() {
+                        if entry.path().is_dir() &&
+                           entry.file_name().to_string_lossy().trim_matches(|c| "0123456789.".contains(c)).is_empty() &&
+                           Some(entry.file_name()) > web_cache_id
+                        {
+                            web_cache_id = Some(entry.file_name());
+                        }
+                    }
                 }
 
-                else {
-                    match std::fs::read(&web_cache) {
+                if let Some(web_cache_id) = web_cache_id {
+                    let web_cache = web_cache
+                        .join(web_cache_id)
+                        .join("Cache/Cache_Data/data_2");
+
+                    match std::fs::read(web_cache) {
                         Ok(web_cache) => {
                             let web_cache = String::from_utf8_lossy(&web_cache);
 
@@ -778,6 +787,15 @@ impl SimpleComponent for App {
                             });
                         }
                     }
+                }
+
+                else {
+                    tracing::error!("Couldn't find wishes URL: cache file doesn't exist");
+
+                    sender.input(AppMsg::Toast {
+                        title: tr!("wish-url-search-failed"),
+                        description: None
+                    });
                 }
             }));
         })));

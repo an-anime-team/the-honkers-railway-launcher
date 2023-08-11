@@ -9,6 +9,7 @@ use anime_launcher_sdk::star_rail::config::Config;
 use anime_launcher_sdk::config::schema_blanks::prelude::*;
 
 use anime_launcher_sdk::anime_game_core::installer::downloader::Downloader;
+use anime_launcher_sdk::config::schema_blanks::fps_star_rail::FpsStarRail;
 
 use anime_launcher_sdk::discord_rpc::DiscordRpc;
 use anime_launcher_sdk::is_available;
@@ -417,6 +418,38 @@ impl SimpleAsyncComponent for EnhancementsApp {
             },
 
             add = &adw::PreferencesGroup {
+                set_title: &tr!("fps-unlocker"),
+
+                adw::ComboRow {
+                    set_title: &tr!("enabled"),
+                    set_subtitle: &tr!("fps-unlocker-description"),
+
+                    #[wrap(Some)]
+                    set_model = &gtk::StringList::new(&[
+                        "30",
+                        "60",
+                        "120"
+                    ]),
+
+                    set_selected: match FpsStarRail::from_num(CONFIG.game.enhancements.fps_unlocker.config.fps) {
+                        FpsStarRail::Thirty => 0,
+                        FpsStarRail::Sixty => 1,
+                        FpsStarRail::HundredTwenty => 2
+                    },
+
+                    connect_selected_notify => |row| {
+                        if is_ready() && row.selected() < FpsStarRail::list().len() as u32 {
+                            if let Ok(mut config) = Config::get() {
+                                config.game.enhancements.fps_unlocker.config.fps = FpsStarRail::list()[row.selected() as usize].to_num();
+
+                                Config::update(config);
+                            }
+                        }
+                    }
+                }
+            },
+
+            add = &adw::PreferencesGroup {
                 set_title: &tr!("discord-rpc"),
 
                 adw::ActionRow {
@@ -498,29 +531,29 @@ impl SimpleAsyncComponent for EnhancementsApp {
             discord_rpc_root_check_button: gtk::CheckButton::new(),
 
             gamescope: GamescopeApp::builder()
-                .launch(())
-                .detach(),
+              .launch(())
+              .detach(),
 
             game_page: GamePage::builder()
-                .launch(())
-                .forward(sender.input_sender(), std::convert::identity),
+              .launch(())
+              .forward(sender.input_sender(), std::convert::identity),
 
             sandbox_page: SandboxPage::builder()
-                .launch(())
-                .forward(sender.input_sender(), std::convert::identity),
+              .launch(())
+              .forward(sender.input_sender(), std::convert::identity),
 
             environment_page: EnvironmentPage::builder()
-                .launch(())
-                .forward(sender.input_sender(), std::convert::identity)
+              .launch(())
+              .forward(sender.input_sender(), std::convert::identity)
         };
 
         match DiscordRpc::get_assets(CONFIG.launcher.discord_rpc.app_id) {
             Ok(icons) => {
                 for icon in icons {
                     let cache_file = CACHE_FOLDER
-                        .join("discord-rpc")
-                        .join(&icon.name)
-                        .join(&icon.id);
+                      .join("discord-rpc")
+                      .join(&icon.name)
+                      .join(&icon.id);
 
                     // let sender = sender.clone();
 
@@ -538,11 +571,11 @@ impl SimpleAsyncComponent for EnhancementsApp {
                     if !cache_file.exists() {
                         std::thread::spawn(move || {
                             Downloader::new(icon.get_uri())
-                                .expect("Failed to init Discord RPC icon downloader")
-                                .with_continue_downloading(false)
-                                .with_free_space_check(false)
-                                .download(cache_file, |_, _| {})
-                                .expect("Failed to download Discord RPC icon");
+                              .expect("Failed to init Discord RPC icon downloader")
+                              .with_continue_downloading(false)
+                              .with_free_space_check(false)
+                              .download(cache_file, |_, _| {})
+                              .expect("Failed to download Discord RPC icon");
 
                             /*if let Err(err) = result {
                                 sender.input(EnhancementsAppMsg::Toast {
@@ -613,30 +646,30 @@ impl SimpleAsyncComponent for EnhancementsApp {
 
             EnhancementsAppMsg::OpenMainPage => unsafe {
                 PREFERENCES_WINDOW.as_ref()
-                    .unwrap_unchecked()
-                    .widget()
-                    .close_subpage();
+                  .unwrap_unchecked()
+                  .widget()
+                  .close_subpage();
             }
 
             EnhancementsAppMsg::OpenGameSettingsPage => unsafe {
                 PREFERENCES_WINDOW.as_ref()
-                    .unwrap_unchecked()
-                    .widget()
-                    .present_subpage(self.game_page.widget());
+                  .unwrap_unchecked()
+                  .widget()
+                  .present_subpage(self.game_page.widget());
             }
 
             EnhancementsAppMsg::OpenSandboxSettingsPage => unsafe {
                 PREFERENCES_WINDOW.as_ref()
-                    .unwrap_unchecked()
-                    .widget()
-                    .present_subpage(self.sandbox_page.widget());
+                  .unwrap_unchecked()
+                  .widget()
+                  .present_subpage(self.sandbox_page.widget());
             }
 
             EnhancementsAppMsg::OpenEnvironmentSettingsPage => unsafe {
                 PREFERENCES_WINDOW.as_ref()
-                    .unwrap_unchecked()
-                    .widget()
-                    .present_subpage(self.environment_page.widget());
+                  .unwrap_unchecked()
+                  .widget()
+                  .present_subpage(self.environment_page.widget());
             }
 
             EnhancementsAppMsg::Toast { title, description } => {

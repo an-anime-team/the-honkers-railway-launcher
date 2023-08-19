@@ -3,8 +3,6 @@ use relm4::component::*;
 
 use adw::prelude::*;
 
-use anime_launcher_sdk::is_available;
-
 use crate::*;
 
 use super::main::FirstRunAppMsg;
@@ -85,11 +83,7 @@ impl SimpleAsyncComponent for WelcomeApp {
         match msg {
             #[allow(unused_must_use)]
             WelcomeAppMsg::Continue => {
-                if is_available("git") && is_available("xdelta3") {
-                    sender.output(Self::Output::ScrollToDefaultPaths);
-                } else {
-                    sender.output(Self::Output::ScrollToDependencies);
-                }
+                sender.output(Self::Output::ScrollToTosWarning);
             }
         }
     }

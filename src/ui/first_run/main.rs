@@ -9,7 +9,6 @@ use anime_launcher_sdk::components::loader::ComponentsLoader;
 use crate::*;
 
 use super::welcome::*;
-use super::tos_warning::*;
 use super::dependencies::*;
 use super::default_paths::*;
 use super::download_components::*;
@@ -21,7 +20,6 @@ pub static mut MAIN_WINDOW: Option<adw::ApplicationWindow> = None;
 
 pub struct FirstRunApp {
     welcome: AsyncController<WelcomeApp>,
-    tos_warning: AsyncController<TosWarningApp>,
     dependencies: AsyncController<DependenciesApp>,
     default_paths: AsyncController<DefaultPathsApp>,
     download_components: AsyncController<DownloadComponentsApp>,
@@ -38,7 +36,6 @@ pub struct FirstRunApp {
 pub enum FirstRunAppMsg {
     SetLoadingStatus(Option<Option<String>>),
 
-    ScrollToTosWarning,
     ScrollToDependencies,
     ScrollToDefaultPaths,
     ScrollToDownloadComponents,
@@ -97,7 +94,6 @@ impl SimpleComponent for FirstRunApp {
                         set_allow_scroll_wheel: false,
 
                         append = model.welcome.widget(),
-                        append = model.tos_warning.widget(),
                         append = model.dependencies.widget(),
                         append = model.default_paths.widget(),
                         append = model.download_components.widget(),
@@ -128,10 +124,6 @@ impl SimpleComponent for FirstRunApp {
 
         let model = Self {
             welcome: WelcomeApp::builder()
-                .launch(())
-                .forward(sender.input_sender(), std::convert::identity),
-
-            tos_warning: TosWarningApp::builder()
                 .launch(())
                 .forward(sender.input_sender(), std::convert::identity),
 
@@ -180,12 +172,6 @@ impl SimpleComponent for FirstRunApp {
         match msg {
             FirstRunAppMsg::SetLoadingStatus(status) => {
                 self.loading = status;
-            }
-
-            FirstRunAppMsg::ScrollToTosWarning => {
-                self.title = tr!("tos-violation-warning");
-
-                self.carousel.scroll_to(self.tos_warning.widget(), true);
             }
 
             FirstRunAppMsg::ScrollToDependencies => {

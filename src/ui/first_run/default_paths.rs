@@ -24,7 +24,6 @@ pub struct DefaultPathsApp {
     game_global: PathBuf,
     game_china: PathBuf,
     components: PathBuf,
-    patch: PathBuf,
     temp: PathBuf
 }
 
@@ -37,7 +36,6 @@ pub enum Folders {
     GameGlobal,
     GameChina,
     Components,
-    Patch,
     Temp
 }
 
@@ -182,17 +180,6 @@ impl SimpleAsyncComponent for DefaultPathsApp {
                 },
 
                 adw::ActionRow {
-                    set_title: &tr!("patch-folder"),
-                    set_icon_name: Some("folder-symbolic"),
-                    set_activatable: true,
-
-                    #[watch]
-                    set_subtitle: model.patch.to_str().unwrap(),
-
-                    connect_activated => DefaultPathsAppMsg::ChoosePath(Folders::Patch)
-                },
-
-                adw::ActionRow {
                     set_title: &tr!("temp-folder"),
                     set_icon_name: Some("folder-symbolic"),
                     set_activatable: true,
@@ -288,7 +275,6 @@ impl SimpleAsyncComponent for DefaultPathsApp {
             game_global: CONFIG.game.path.global.clone(),
             game_china: CONFIG.game.path.china.clone(),
             components: CONFIG.components.path.clone(),
-            patch: CONFIG.patch.path.clone(),
 
             #[allow(clippy::or_fun_call)]
             temp: CONFIG.launcher.temp.clone().unwrap_or(std::env::temp_dir())
@@ -368,7 +354,7 @@ impl SimpleAsyncComponent for DefaultPathsApp {
                                 )));
 
                                 if &from != to && from.exists() {
-                                    move_folder::move_folder(from, to).expect(&format!("Failed to move folder: {:?} -> {:?}", from, to));
+                                    move_files::move_files(from, to).expect(&format!("Failed to move folder: {:?} -> {:?}", from, to));
                                 }
 
                                 self.progress_bar.sender().send(ProgressBarMsg::UpdateProgress(i as u64 + 1, folders.len() as u64));
@@ -419,7 +405,6 @@ impl DefaultPathsApp {
         config.game.path.global = self.game_global.clone();
         config.game.path.china  = self.game_china.clone();
         config.components.path  = self.components.clone();
-        config.patch.path       = self.patch.clone();
         config.launcher.temp    = Some(self.temp.clone());
 
         Config::update_raw(config)

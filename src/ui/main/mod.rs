@@ -451,7 +451,6 @@ impl SimpleComponent for App {
                                             Some(LauncherState::PredownloadAvailable { patch: JadeitePatchStatusVariant::Unsafe, .. }) => false,
 
                                             Some(_) => true,
-
                                             None => false
                                         },
 
@@ -466,7 +465,6 @@ impl SimpleComponent for App {
                                             Some(LauncherState::PredownloadAvailable { patch: JadeitePatchStatusVariant::Unsafe, .. }) => &["error", "pill"],
 
                                             Some(_) => &["suggested-action", "pill"],
-
                                             None => &["pill"]
                                         },
 

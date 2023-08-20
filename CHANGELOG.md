@@ -7,7 +7,29 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [1.3.0]
+### Added
+
+- Added feature to map wine drives
+- Added `%launch_args%` magic word for game launching command.
+  Now you can use `%bash_command% <script> %launch_args%` to run custom script
+- Added `--session <name>` flag to switch active session
+- Added Portuguese
+- Added Polish
+
+### Fixed
+
+- Fixed logo size in the first run window
+
+### Changed
+
+- Updated Turkish
+- Updated Italian
+- Updated Japanese
+- Updated Swedish
+- Improved files migration code. In the best case scenarios, it will work immediately now
+- Updated wishes url extractor to use new cache storage
+
+## [1.3.0] - 02.08.2023
 
 ### Added
 

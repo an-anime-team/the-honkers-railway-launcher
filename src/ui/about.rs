@@ -67,6 +67,7 @@ impl SimpleComponent for AboutDialog {
             set_translator_credits: &[
                 "Русский, English — Nikita Podvirnyy https://github.com/krypt0nn",
                 "Deutsch — Marie Piontek https://github.com/Mar0xy",
+                "Deutsch — @caem",
                 "Français — @zeGolem https://github.com/zeGolem",
                 "Español — Lautaro Garavano https://github.com/Rattlehead15",
                 "Türkçe — @Kaozix https://github.com/Kaozix1776",
@@ -77,6 +78,8 @@ impl SimpleComponent for AboutDialog {
                 "日本語 — @zozonteq https://github.com/zozonteq",
                 // Hungarian?
                 "Svenska — Jakob Fridesjö https://github.com/jakobfridesjo",
+                "Português — @kafushy",
+                "Polski — Dominik Opyd https://github.com/oritwoen"
             ].join("\n"),
 
             set_debug_info: &[
@@ -94,26 +97,28 @@ impl SimpleComponent for AboutDialog {
                 "<p>Added</p>",
 
                 "<ul>",
-                    "<li>Added new gamescope version compatibility</li>",
-                    "<li>Added \"launcher behavior\" option</li>",
-                    "<li>Added \"kill game process\" button when chosen behavior keeps launcher window open</li>",
-                    "<li>Bundled some icons into the app for consistency across the systems</li>",
-                    "<li>Added better panics handler</li>",
-                    "<li>Added Swedish</li>",
+                    "<li>Added feature to map wine drives</li>",
+                    "<li>Added `%launch_args%` magic word for game launching command</li>",
+                    "<li>Added `--session <name>` flag to switch active session</li>",
+                    "<li>Added Portuguese</li>",
+                    "<li>Added Polish</li>",
                 "</ul>",
 
                 "<p>Fixed</p>",
 
                 "<ul>",
-                    "<li>Fixed predownload button sensitivity</li>",
+                    "<li>Fixed logo size in the first run window</li>",
                 "</ul>",
 
                 "<p>Changed</p>",
 
                 "<ul>",
-                    "<li>Improved pre-downloads state checking</li>",
-                    "<li>Replaced translation functions by `tr!` macro</li>",
-                    "<li>Reworked app resources structure</li>",
+                    "<li>Updated Turkish</li>",
+                    "<li>Updated Italian</li>",
+                    "<li>Updated Japanese</li>",
+                    "<li>Updated Swedish</li>",
+                    "<li>Improved files migration code</li>",
+                    "<li>Updated wishes url extractor to use new cache storage</li>",
                 "</ul>",
             ].join("\n"),
 

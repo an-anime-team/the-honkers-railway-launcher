@@ -13,7 +13,7 @@ use anime_launcher_sdk::anime_game_core::prelude::*;
 use anime_launcher_sdk::anime_game_core::star_rail::prelude::*;
 
 use anime_launcher_sdk::sessions::SessionsExt;
-use anime_launcher_sdk::genshin::sessions::Sessions;
+use anime_launcher_sdk::star_rail::sessions::Sessions;
 
 use tracing_subscriber::prelude::*;
 use tracing_subscriber::filter::*;

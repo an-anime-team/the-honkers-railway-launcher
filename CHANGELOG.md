@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.4.0] - 20.08.2023
+
 ### Added
 
 - Added feature to map wine drives
@@ -185,7 +187,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 <br>
 
-[unreleased]: https://github.com/an-anime-team/the-honkers-railway-launcher/compare/1.3.0...next
+[unreleased]: https://github.com/an-anime-team/the-honkers-railway-launcher/compare/1.4.0...next
+[1.4.0]: https://github.com/an-anime-team/the-honkers-railway-launcher/compare/1.3.0...1.4.0
 [1.3.0]: https://github.com/an-anime-team/the-honkers-railway-launcher/compare/1.2.5...1.3.0
 [1.2.5]: https://github.com/an-anime-team/the-honkers-railway-launcher/compare/1.2.4...1.2.5
 [1.2.4]: https://github.com/an-anime-team/the-honkers-railway-launcher/compare/1.2.3...1.2.4

@@ -1,6 +1,6 @@
 [package]
 name = "honkers-railway-launcher"
-version = "1.3.0"
+version = "1.4.0"
 description = "The Honkers Railway launcher"
 authors = ["Nikita Podvirnyy <suimin.tu.mu.ga.mi@gmail.com>"]
 homepage = "https://github.com/an-anime-team/the-honkers-railway-launcher"

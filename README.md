@@ -1,3 +1,8 @@
+<picture>
+    <source media="(prefers-color-scheme: dark)" srcset="repository/logo-dark.png">
+    <img src="repository/logo-light.png">
+</picture>
+
 | Modern style | Classic style |
 | :-: | :-: |
 | <picture><source media="(prefers-color-scheme: dark)" srcset="repository/main-modern-dark.png"><img src="repository/main-modern.png"></picture> | <picture><source media="(prefers-color-scheme: dark)" srcset="repository/main-classic-dark.png"><img src="repository/main-classic.png"></picture> |
@@ -31,6 +36,7 @@ instead of the actual name of the game, to avoid search engine parsing.
 
 # ♥️ Useful links and thanks
 
+* Original patch project without which this project wouldn't be possible. Link is omitted for "privacy" purposes
 * [macOS launcher](https://github.com/3Shain/yet-another-anime-game-launcher) which contains some additional compatibility components
 * [Wiki](https://github.com/an-anime-team/the-honkers-railway-launcher/wiki) contains some basic FAQ, installation instructions and more
 * [Releases page](https://github.com/an-anime-team/the-honkers-railway-launcher/releases) where you can find latest available version

@@ -99,7 +99,6 @@ impl SimpleComponent for AboutDialog {
                 "<ul>",
                     "<li>Added feature to map wine drives</li>",
                     "<li>Added `%launch_args%` magic word for game launching command</li>",
-                    "<li>Added 4.0.0 voiceovers sizes</li>",
                     "<li>Added `--session <name>` flag to switch active session</li>",
                     "<li>Added Portuguese</li>",
                     "<li>Added Polish</li>",
@@ -119,12 +118,7 @@ impl SimpleComponent for AboutDialog {
                     "<li>Updated Japanese</li>",
                     "<li>Updated Swedish</li>",
                     "<li>Improved files migration code</li>",
-                "</ul>",
-
-                "<p>Removed</p>",
-
-                "<ul>",
-                    "<li>Removed patch integration</li>",
+                    "<li>Updated wishes url extractor to use new cache storage</li>",
                 "</ul>",
             ].join("\n"),
 

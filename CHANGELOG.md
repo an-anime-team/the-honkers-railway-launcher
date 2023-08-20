@@ -27,6 +27,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Updated Japanese
 - Updated Swedish
 - Improved files migration code. In the best case scenarios, it will work immediately now
+- Updated wishes url extractor to use new cache storage
 
 ## [1.3.0] - 02.08.2023
 

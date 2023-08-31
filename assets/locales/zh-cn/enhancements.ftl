@@ -39,7 +39,7 @@ gamescope-description = Gamescope 是 Valve 开发的工具，可以让游戏运
 
 discord-rpc = Discord RPC
 discord-rpc-description = Discord RPC 可以设置 Discord 状态，让你的好友知道你正在玩游戏
-icon = Icon
+icon = 图标
 title = 标题
 description = 描述
 

@@ -14,11 +14,11 @@ system = 系统
 borderless-window = 无边框窗口
 virtual-desktop = 虚拟桌面
 
-map-drive-c = Map drive C:
-map-drive-c-description = Automatically symlink drive_c folder from the wine prefix to the dosdevices
+map-drive-c = 映射 C 盘
+map-drive-c-description = 自动将 Wine prefix 里的 drive_c 文件夹符号链接至 Wine 的 dosdevices 目录里
 
-map-game-folder = Map game folder
-map-game-folder-description = Automatically symlink game folder to the dosdevices
+map-game-folder = 映射游戏文件夹
+map-game-folder-description = 自动将游戏文件夹映射到 Wine 的 dosdevices 目录里
 
 game = 游戏
 

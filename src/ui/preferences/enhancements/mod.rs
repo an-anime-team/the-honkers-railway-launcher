@@ -492,6 +492,38 @@ impl SimpleAsyncComponent for EnhancementsApp {
                 }
             },
 
+                        add = &adw::PreferencesGroup {
+                set_title: &tr!("fps-unlocker"),
+
+                adw::ComboRow {
+                    set_title: &tr!("enabled"),
+                    set_subtitle: &tr!("fps-unlocker-description"),
+
+                    #[wrap(Some)]
+                    set_model = &gtk::StringList::new(&[
+                        "30",
+                        "60",
+                        "120"
+                    ]),
+
+                    set_selected: match FpsStarRail::from_num(CONFIG.game.enhancements.fps_unlocker.config.fps) {
+                        FpsStarRail::Thirty => 0,
+                        FpsStarRail::Sixty => 1,
+                        FpsStarRail::HundredTwenty => 2
+                    },
+
+                    connect_selected_notify => |row| {
+                        if is_ready() && row.selected() < FpsStarRail::list().len() as u32 {
+                            if let Ok(mut config) = Config::get() {
+                                config.game.enhancements.fps_unlocker.config.fps = FpsStarRail::list()[row.selected() as usize].to_num();
+
+                                Config::update(config);
+                            }
+                        }
+                    }
+                }
+            },
+
             add = &adw::PreferencesGroup {
                 set_title: &tr!("discord-rpc"),
 

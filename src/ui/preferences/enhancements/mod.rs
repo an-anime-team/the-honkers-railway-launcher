@@ -14,6 +14,7 @@ use anime_launcher_sdk::star_rail::config::Config;
 use anime_launcher_sdk::config::schema_blanks::prelude::*;
 
 use anime_launcher_sdk::anime_game_core::installer::downloader::Downloader;
+use anime_launcher_sdk::config::schema_blanks::fps_star_rail::FpsStarRail;
 
 use anime_launcher_sdk::discord_rpc::DiscordRpc;
 use anime_launcher_sdk::is_available;

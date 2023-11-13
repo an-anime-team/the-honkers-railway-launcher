@@ -5,15 +5,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [3.9.1] - 28.09.2023
+## [Unreleased]
 
 ### Added
 
 - Added Vietnamese
-- Added support for segmented zip archives (fixed initial game downloading)
+- Added Korean
+- Added Dutch
+- Made free space checks resolve symlinks
+- Added voiceovers support
 
 ### Changed
 
+- Updated development libraries versions
+- Updated Japanese
 - Updated Chinese
 
 ## [1.4.0] - 20.08.2023

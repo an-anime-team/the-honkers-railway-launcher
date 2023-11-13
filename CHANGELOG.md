@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added Dutch
 - Made free space checks resolve symlinks
 - Added voiceovers support
+- Added new `Concerning` patch status
 
 ### Changed
 

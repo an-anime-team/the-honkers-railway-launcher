@@ -105,6 +105,7 @@ impl SimpleComponent for AboutDialog {
                     "<li>Added Dutch</li>",
                     "<li>Made free space checks resolve symlinks</li>",
                     "<li>Added voiceovers support</li>",
+                    "<li>Added new *Concerning* patch status</li>",
                 "</ul>",
 
                 "<p>Changed</p>",

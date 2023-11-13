@@ -7,6 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Added Vietnamese
+- Added Korean
+- Added Dutch
+- Made free space checks resolve symlinks
+- Added voiceovers support
+- Added new `Concerning` patch status
+
+### Changed
+
+- Updated development libraries versions
+- Updated Japanese
+- Updated Chinese
+
 ## [1.4.0] - 20.08.2023
 
 ### Added

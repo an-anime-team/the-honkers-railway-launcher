@@ -401,7 +401,8 @@ impl SimpleAsyncComponent for GeneralApp {
                                 JadeitePatchStatusVariant::Verified => &["success"],
                                 JadeitePatchStatusVariant::Unverified => &["warning"],
                                 JadeitePatchStatusVariant::Broken => &["error"],
-                                JadeitePatchStatusVariant::Unsafe => &["error"]
+                                JadeitePatchStatusVariant::Unsafe => &["error"],
+                                JadeitePatchStatusVariant::Concerning => &["error"]
                             }
 
                             None => &[]
@@ -413,6 +414,9 @@ impl SimpleAsyncComponent for GeneralApp {
                                 JadeitePatchStatusVariant::Unverified => tr!("patch-testing-tooltip"),
                                 JadeitePatchStatusVariant::Broken => tr!("patch-broken-tooltip"),
                                 JadeitePatchStatusVariant::Unsafe => tr!("patch-unsafe-tooltip"),
+
+                                // TODO: special tooltip for concerning status
+                                JadeitePatchStatusVariant::Concerning => tr!("patch-unsafe-tooltip"),
 
                                 _ => String::new()
                             }

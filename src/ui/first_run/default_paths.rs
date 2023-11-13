@@ -202,13 +202,16 @@ impl SimpleAsyncComponent for DefaultPathsApp {
 
                 adw::ActionRow {
                     set_title: &tr!("patch-folder"),
-                    set_icon_name: Some("folder-symbolic"),
                     set_activatable: true,
 
                     #[watch]
                     set_subtitle: model.patch.to_str().unwrap(),
 
-                    connect_activated => DefaultPathsAppMsg::ChoosePath(Folders::Patch)
+                    connect_activated => DefaultPathsAppMsg::ChoosePath(Folders::Patch),
+
+                    add_prefix = &gtk::Image {
+                        set_icon_name: Some("folder-symbolic")
+                    }
                 },
 
                 adw::ActionRow {

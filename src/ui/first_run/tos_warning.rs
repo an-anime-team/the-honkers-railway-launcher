@@ -1,6 +1,4 @@
 use relm4::prelude::*;
-use relm4::component::*;
-
 use adw::prelude::*;
 
 use anime_launcher_sdk::is_available;
@@ -116,7 +114,7 @@ impl SimpleAsyncComponent for TosWarningApp {
                     }
                 });
 
-                dialog.show();
+                dialog.present();
             }
 
             TosWarningAppMsg::Exit => relm4::main_application().quit()

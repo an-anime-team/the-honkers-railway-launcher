@@ -79,7 +79,8 @@ impl SimpleComponent for AboutDialog {
                 // Hungarian?
                 "Svenska — Jakob Fridesjö https://github.com/jakobfridesjo",
                 "Português — @kafushy",
-                "Polski — Dominik Opyd https://github.com/oritwoen"
+                "Polski — Dominik Opyd https://github.com/oritwoen",
+                "Tiếng Việt — Nguyễn Hữu Chánh https://github.com/Chanhnh"
             ].join("\n"),
 
             set_debug_info: &[
@@ -131,7 +132,7 @@ impl SimpleComponent for AboutDialog {
             connect_close_request[sender] => move |_| {
                 sender.input(AboutDialogMsg::Hide);
 
-                gtk::Inhibit(false)
+                gtk::glib::Propagation::Proceed
             }
         }
     }

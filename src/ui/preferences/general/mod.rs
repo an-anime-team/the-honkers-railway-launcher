@@ -1,5 +1,10 @@
 use relm4::prelude::*;
-use relm4::component::*;
+
+use relm4::factory::{
+    AsyncFactoryVecDeque,
+    AsyncFactoryComponent,
+    AsyncFactorySender
+};
 
 use gtk::prelude::*;
 use adw::prelude::*;
@@ -23,7 +28,81 @@ use crate::ui::preferences::main::PreferencesAppMsg;
 use crate::i18n::*;
 use crate::*;
 
+#[derive(Debug)]
+struct VoicePackageComponent {
+    locale: VoiceLocale,
+    installed: bool,
+    sensitive: bool
+}
+
+#[relm4::factory(async)]
+impl AsyncFactoryComponent for VoicePackageComponent {
+    type Init = (VoiceLocale, bool);
+    type Input = GeneralAppMsg;
+    type Output = GeneralAppMsg;
+    type CommandOutput = ();
+    type ParentWidget = adw::ExpanderRow;
+
+    view! {
+        root = adw::ActionRow {
+            set_title: &tr!(&self.locale.to_name().to_ascii_lowercase()),
+
+            add_suffix = &gtk::Button {
+                #[watch]
+                set_visible: self.installed,
+
+                #[watch]
+                set_sensitive: self.sensitive,
+
+                set_icon_name: "user-trash-symbolic",
+                add_css_class: "flat",
+                set_valign: gtk::Align::Center,
+
+                connect_clicked[sender, index] => move |_| {
+                    sender.input(GeneralAppMsg::RemoveVoicePackage(index.clone()));
+                }
+            },
+
+            add_suffix = &gtk::Button {
+                #[watch]
+                set_visible: !self.installed,
+
+                #[watch]
+                set_sensitive: self.sensitive,
+
+                set_icon_name: "document-save-symbolic",
+                add_css_class: "flat",
+                set_valign: gtk::Align::Center,
+
+                connect_clicked[sender, index] => move |_| {
+                    sender.input(GeneralAppMsg::AddVoicePackage(index.clone()));
+                }
+            }
+        }
+    }
+
+    async fn init_model(
+        init: Self::Init,
+        _index: &DynamicIndex,
+        _sender: AsyncFactorySender<Self>,
+    ) -> Self {
+        Self {
+            locale: init.0,
+            installed: init.1,
+            sensitive: true
+        }
+    }
+
+    async fn update(&mut self, msg: Self::Input, sender: AsyncFactorySender<Self>) {
+        self.installed = !self.installed;
+
+        sender.output(msg)
+            .unwrap();
+    }
+}
+
 pub struct GeneralApp {
+    voice_packages: AsyncFactoryVecDeque<VoicePackageComponent>,
     migrate_installation: Controller<MigrateInstallationApp>,
     components_page: AsyncController<ComponentsPage>,
 
@@ -451,7 +530,11 @@ impl SimpleAsyncComponent for GeneralApp {
     ) -> AsyncComponentParts<Self> {
         tracing::info!("Initializing general settings");
 
-        let model = Self {
+        let mut model = Self {
+            voice_packages: AsyncFactoryVecDeque::builder()
+                .launch_default()
+                .forward(sender.input_sender(), std::convert::identity),
+
             migrate_installation: MigrateInstallationApp::builder()
                 .launch(())
                 .detach(),
@@ -503,7 +586,7 @@ impl SimpleAsyncComponent for GeneralApp {
                     self.migrate_installation.widget().set_transient_for(Some(window.widget()));
                 }
 
-                self.migrate_installation.widget().show();
+                self.migrate_installation.widget().present();
             }
 
             GeneralAppMsg::OpenMainPage => unsafe {

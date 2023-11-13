@@ -1,6 +1,5 @@
 use relm4::{
     prelude::*,
-    component::*,
     actions::*,
     MessageBroker
 };
@@ -609,7 +608,7 @@ impl SimpleComponent for App {
                     });
                 }
 
-                gtk::Inhibit::default()
+                gtk::glib::Propagation::Proceed
             }
         }
     }

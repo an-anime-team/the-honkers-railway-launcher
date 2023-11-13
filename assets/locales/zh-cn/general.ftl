@@ -57,8 +57,8 @@ apply-main-patch-description = 实验性功能。禁用此选项可以允许在�
 ask-superuser-permissions = 请求超级用户权限
 ask-superuser-permissions-description = 启动器需要超级用户权限来修改 hosts 文件。Flatpak 版无需此权限
 
-launcher-behavior = Launcher behavior
-launcher-behavior-description = What should launcher window do when it starts the game
+launcher-behavior = 启动器行为
+launcher-behavior-description = 设定游戏开始后启动器的行为
 
 wine-tools = Wine 工具
 command-line = 命令行

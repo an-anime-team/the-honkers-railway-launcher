@@ -123,6 +123,13 @@ pub enum GeneralAppMsg {
     /// was retrieved from remote repos
     SetMainPatch(Option<(Version, JadeitePatchStatusVariant)>),
 
+    // If one ever wish to change it to accept VoiceLocale
+    // I'd recommend to use clone!(@strong self.locale as locale => move |_| { .. })
+    // in the VoicePackage component
+    AddVoicePackage(DynamicIndex),
+    RemoveVoicePackage(DynamicIndex),
+    SetVoicePackageSensitivity(DynamicIndex, bool),
+
     UpdateDownloadedWine,
     UpdateDownloadedDxvk,
 
@@ -294,6 +301,12 @@ impl SimpleAsyncComponent for GeneralApp {
                             }
                         }
                     }
+                },
+
+                #[local_ref]
+                voice_packages -> adw::ExpanderRow {
+                    set_title: &tr!("game-voiceovers"),
+                    set_subtitle: &tr!("game-voiceovers-description")
                 },
 
                 gtk::Box {
@@ -550,6 +563,14 @@ impl SimpleAsyncComponent for GeneralApp {
             languages: SUPPORTED_LANGUAGES.iter().map(|lang| tr!(format_lang(lang).as_str())).collect()
         };
 
+        for package in VoiceLocale::list() {
+            model.voice_packages.guard().push_back((
+                *package,
+                CONFIG.game.voices.iter().any(|voice| VoiceLocale::from_str(voice) == Some(*package))
+            ));
+        }
+
+        let voice_packages = model.voice_packages.widget();
         let components_page = model.components_page.widget();
 
         let widgets = view_output!();
@@ -567,6 +588,63 @@ impl SimpleAsyncComponent for GeneralApp {
 
             GeneralAppMsg::SetMainPatch(patch) => {
                 self.main_patch = patch;
+            }
+
+            #[allow(unused_must_use)]
+            GeneralAppMsg::AddVoicePackage(index) => {
+                if let Some(package) = self.voice_packages.get(index.current_index()) {
+                    if let Ok(mut config) = Config::get() {
+                        if !config.game.voices.iter().any(|voice| VoiceLocale::from_str(voice) == Some(package.locale)) {
+                            config.game.voices.push(package.locale.to_code().to_string());
+
+                            Config::update(config);
+    
+                            sender.output(PreferencesAppMsg::UpdateLauncherState);
+                        }
+                    }
+                }
+            }
+
+            #[allow(unused_must_use)]
+            GeneralAppMsg::RemoveVoicePackage(index) => {
+                if let Some(package) = self.voice_packages.guard().get_mut(index.current_index()) {
+                    if let Ok(mut config) = Config::get() {
+                        package.sensitive = false;
+
+                        config.game.voices.retain(|voice| VoiceLocale::from_str(voice) != Some(package.locale));
+
+                        Config::update(config.clone());
+
+                        let package = VoicePackage::with_locale(package.locale, config.launcher.edition).unwrap();
+                        let game_path = config.game.path.for_edition(config.launcher.edition).to_path_buf();
+
+                        if package.is_installed_in(&game_path) {
+                            std::thread::spawn(move || {
+                                if let Err(err) = package.delete_in(game_path) {
+                                    tracing::error!("Failed to delete voice package: {:?}", package.locale());
+
+                                    sender.input(GeneralAppMsg::Toast {
+                                        title: tr!("voice-package-deletion-error"),
+                                        description: Some(err.to_string())
+                                    });
+                                }
+
+                                sender.input(GeneralAppMsg::SetVoicePackageSensitivity(index, true));
+                                sender.output(PreferencesAppMsg::UpdateLauncherState);
+                            });
+                        }
+
+                        else {
+                            sender.input(GeneralAppMsg::SetVoicePackageSensitivity(index, true));
+                        }
+                    }
+                }
+            }
+
+            GeneralAppMsg::SetVoicePackageSensitivity(index, sensitive) => {
+                if let Some(package) = self.voice_packages.guard().get_mut(index.current_index()) {
+                    package.sensitive = sensitive;
+                }
             }
 
             GeneralAppMsg::UpdateDownloadedWine => {

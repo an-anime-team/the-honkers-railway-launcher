@@ -1054,7 +1054,9 @@ impl SimpleComponent for App {
                 if let Some(state) = state {
                     match state {
                         LauncherState::GameUpdateAvailable(_) |
-                        LauncherState::GameNotInstalled(_) if perform_on_download_needed => {
+                        LauncherState::GameNotInstalled(_) |
+                        LauncherState::VoiceUpdateAvailable(_) |
+                        LauncherState::VoiceNotInstalled(_) if perform_on_download_needed => {
                             sender.input(AppMsg::PerformAction);
                         }
 

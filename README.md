@@ -1,7 +1,7 @@
-<picture>
-    <source media="(prefers-color-scheme: dark)" srcset="repository/logo-dark.png">
-    <img src="repository/logo-light.png">
-</picture>
+<div float="left" align="center">
+    <img src="repository/logo.png" width="200px" height="200px">
+    <img src="repository/patchstatus.svg" height="200px">
+</div>
 
 | Modern style | Classic style |
 | :-: | :-: |

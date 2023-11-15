@@ -107,6 +107,12 @@ impl SimpleComponent for AboutDialog {
                     "<li>Added special tooltips for concerning patch status</li>",
                 "</ul>",
 
+                "<p>Fixed</p>",
+
+                "<ul>",
+                    "<li>Fixed launch button color in concerning patches</li>",
+                "</ul>",
+
                 "<p>Changed</p>",
 
                 "<ul>",

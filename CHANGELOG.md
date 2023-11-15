@@ -15,6 +15,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added voiceovers repairing support
 - Added special tooltips for concerning patch status
 
+### Fixed
+
+- Fixed launch button color in concerning patches
+
 ### Changed
 
 - Increased voiceovers version prediction error

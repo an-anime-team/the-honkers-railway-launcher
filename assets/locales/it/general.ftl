@@ -50,6 +50,7 @@ patch-testing-tooltip = La patch di test è disponibile
 patch-not-applied-tooltip = La patch non è applicata
 patch-broken-tooltip = L'attuale versione della patch è difettosa e non funziona correttamente
 patch-unsafe-tooltip = L'attuale versione della patch non è sicura e non dovrebbe essere usata
+patch-concerning-tooltip = Abbiamo alcuni timori sulla versione attuale della patch
 
 apply-main-patch = Applica la patch principale
 apply-main-patch-description = Sperimentale. Disabilitandola ti permette di eseguite il gioco senza applicare la patch. Ciò potrebbe non funzionare o richiedere modifiche manuali ai file. Usala se sai cosa stai facendo

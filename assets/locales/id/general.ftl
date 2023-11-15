@@ -50,6 +50,7 @@ patch-testing-tooltip = Patch tes tersedia
 patch-not-applied-tooltip = Patch tidak diterapkan
 patch-broken-tooltip = Patch versi saat ini rusak dan tidak dapat bekerja dengan semestinya
 patch-unsafe-tooltip = Patch versi saat ini tidak aman dan sebaiknya tidak digunakan
+patch-concerning-tooltip = Kami khawatir dengan kondisi patch versi saat ini
 
 apply-main-patch = Terapkan patch utama
 apply-main-patch-description = Eksperimental. Menonaktifkan opsi ini akan menginzinkan Anda menjalankan game tanpa menerapkan patch. Hal ini mungkin tidak bekerja, atau membutuhkan modifikasi file secara manual. Gunakan jika Anda tahu apa yang Anda lakukan

@@ -7,6 +7,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Added `UpdatingPermissions` installation step
+- Downloaders now will skip finished files and truncate them if needed
+- Added new fix for the API responses
+- Added voiceovers repairing support
+- Added special tooltips for concerning patch status
+
+### Fixed
+
+- Fixed launch button color in concerning patches
+
+### Changed
+
+- Increased voiceovers version prediction error
+
 ## [1.5.0] - 13.11.2023
 
 ### Added

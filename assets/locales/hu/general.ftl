@@ -50,6 +50,7 @@ patch-testing-tooltip = Teszt patch elérhető
 patch-not-applied-tooltip = A patch nincs alkalmazva
 patch-broken-tooltip = Current patch version is broken and doesn't work properly
 patch-unsafe-tooltip = Current patch version is unsafe and shouldn't be used
+patch-concerning-tooltip = A jelenlegi patch verzióval van pár aggodalmunk
 
 apply-main-patch = Fő patch alkalmazása
 apply-main-patch-description = Kísérleti opció, a kikapcsolásával futtathatod a játékot patch nélkül. Lehet hogy nem fog működni, vagy a fájlokat manuálisan kell szerkesztened, akkor kapcsold ki ha tudod mit csinálsz.

@@ -100,20 +100,23 @@ impl SimpleComponent for AboutDialog {
                 "<p>Added</p>",
 
                 "<ul>",
-                    "<li>Added Vietnamese</li>",
-                    "<li>Added Korean</li>",
-                    "<li>Added Dutch</li>",
-                    "<li>Made free space checks resolve symlinks</li>",
-                    "<li>Added voiceovers support</li>",
-                    "<li>Added new *Concerning* patch status</li>",
+                    "<li>Added `UpdatingPermissions` installation step</li>",
+                    "<li>Downloaders now will skip finished files and truncate them if needed</li>",
+                    "<li>Added new fix for the API responses</li>",
+                    "<li>Added voiceovers repairing support</li>",
+                    "<li>Added special tooltips for concerning patch status</li>",
+                "</ul>",
+
+                "<p>Fixed</p>",
+
+                "<ul>",
+                    "<li>Fixed launch button color in concerning patches</li>",
                 "</ul>",
 
                 "<p>Changed</p>",
 
                 "<ul>",
-                    "<li>Updated development libraries versions</li>",
-                    "<li>Updated Japanese</li>",
-                    "<li>Updated Chinese</li>",
+                    "<li>Increased voiceovers version prediction error</li>",
                 "</ul>",
             ].join("\n"),
 

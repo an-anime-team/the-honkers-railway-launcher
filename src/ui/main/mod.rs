@@ -9,6 +9,7 @@ use adw::prelude::*;
 
 use gtk::glib::clone;
 
+mod repair_game;
 mod update_patch;
 mod download_wine;
 mod create_prefix;
@@ -92,6 +93,7 @@ pub enum AppMsg {
     DisableKillGameButton(bool),
 
     OpenPreferences,
+    RepairGame,
 
     PredownloadUpdate,
     PerformAction,
@@ -507,6 +509,7 @@ impl SimpleComponent for App {
 
                                             Some(LauncherState::PatchBroken) |
                                             Some(LauncherState::PatchUnsafe) |
+                                            Some(LauncherState::PatchConcerning) |
                                             Some(LauncherState::PredownloadAvailable { patch: JadeitePatchStatusVariant::Broken, .. }) |
                                             Some(LauncherState::PredownloadAvailable { patch: JadeitePatchStatusVariant::Unsafe, .. }) |
                                             Some(LauncherState::PredownloadAvailable { patch: JadeitePatchStatusVariant::Concerning, .. })
@@ -530,10 +533,12 @@ impl SimpleComponent for App {
                                             // TODO: a special tooltip for concerning patch state
 
                                             Some(LauncherState::PatchUnsafe) |
-                                            Some(LauncherState::PatchConcerning) |
-                                            Some(LauncherState::PredownloadAvailable { patch: JadeitePatchStatusVariant::Unsafe, .. }) |
-                                            Some(LauncherState::PredownloadAvailable { patch: JadeitePatchStatusVariant::Concerning, .. })
+                                            Some(LauncherState::PredownloadAvailable { patch: JadeitePatchStatusVariant::Unsafe, .. })
                                                 => tr!("patch-unsafe-tooltip"),
+
+                                            Some(LauncherState::PatchConcerning) |
+                                            Some(LauncherState::PredownloadAvailable { patch: JadeitePatchStatusVariant::Concerning, .. })
+                                                => tr!("patch-concerning-tooltip"),
 
                                             _ => String::new()
                                         }),
@@ -1054,7 +1059,9 @@ impl SimpleComponent for App {
                 if let Some(state) = state {
                     match state {
                         LauncherState::GameUpdateAvailable(_) |
-                        LauncherState::GameNotInstalled(_) if perform_on_download_needed => {
+                        LauncherState::GameNotInstalled(_) |
+                        LauncherState::VoiceUpdateAvailable(_) |
+                        LauncherState::VoiceNotInstalled(_) if perform_on_download_needed => {
                             sender.input(AppMsg::PerformAction);
                         }
 
@@ -1104,6 +1111,8 @@ impl SimpleComponent for App {
             AppMsg::OpenPreferences => unsafe {
                 PREFERENCES_WINDOW.as_ref().unwrap_unchecked().widget().present();
             }
+
+            AppMsg::RepairGame => repair_game::repair_game(sender, self.progress_bar.sender().to_owned()),
 
             #[allow(unused_must_use)]
             AppMsg::PredownloadUpdate => {

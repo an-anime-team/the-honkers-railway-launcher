@@ -134,6 +134,7 @@ pub enum GeneralAppMsg {
     UpdateDownloadedDxvk,
 
     OpenMigrateInstallation,
+    RepairGame,
 
     OpenMainPage,
     OpenComponentsPage,
@@ -319,6 +320,12 @@ impl SimpleAsyncComponent for GeneralApp {
                         set_tooltip_text: Some(&tr!("migrate-installation-description")),
 
                         connect_clicked => GeneralAppMsg::OpenMigrateInstallation
+                    },
+
+                    gtk::Button {
+                        set_label: &tr!("repair-game"),
+
+                        connect_clicked => GeneralAppMsg::RepairGame
                     }
                 }
             },
@@ -414,9 +421,7 @@ impl SimpleAsyncComponent for GeneralApp {
                                 JadeitePatchStatusVariant::Unverified => tr!("patch-testing-tooltip"),
                                 JadeitePatchStatusVariant::Broken => tr!("patch-broken-tooltip"),
                                 JadeitePatchStatusVariant::Unsafe => tr!("patch-unsafe-tooltip"),
-
-                                // TODO: special tooltip for concerning status
-                                JadeitePatchStatusVariant::Concerning => tr!("patch-unsafe-tooltip"),
+                                JadeitePatchStatusVariant::Concerning => tr!("patch-concerning-tooltip"),
 
                                 _ => String::new()
                             }
@@ -669,6 +674,10 @@ impl SimpleAsyncComponent for GeneralApp {
                 }
 
                 self.migrate_installation.widget().present();
+            }
+
+            GeneralAppMsg::RepairGame => {
+                sender.output(Self::Output::RepairGame).unwrap();
             }
 
             GeneralAppMsg::OpenMainPage => unsafe {

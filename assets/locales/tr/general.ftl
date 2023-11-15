@@ -50,6 +50,7 @@ patch-testing-tooltip = Test yaması mevcut
 patch-not-applied-tooltip = Yama uygulanmamış
 patch-broken-tooltip = Geçerli yama sürümü bozuk ve düzgün çalışmıyor
 patch-unsafe-tooltip = Geçerli yama sürümü güvensiz ve kullanılmamalı
+patch-concerning-tooltip = We have some concerns about the current patch version
 
 apply-main-patch = Ana yamayı uygula
 apply-main-patch-description = Deneysel. Bunu devre dışı bırakmak yamayı uygulamadan oyunu çalıştırmanızı sağlar. Bu çalışmayabilir, ya da elle dosyaları değiştirmeyi gerektirebilir. Ne yaptığınızı biliyorsanız kullanın.

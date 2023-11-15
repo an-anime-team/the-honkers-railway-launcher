@@ -1,0 +1,52 @@
+<svg fill="none" viewBox="0 0 600 300" width="600" height="300" xmlns="http://www.w3.org/2000/svg">
+  <foreignObject width="100%" height="100%">
+    <div xmlns="http://www.w3.org/1999/xhtml">
+      <style>
+        .container {
+          margin-left: 50px;
+          color: white;
+          font-size: 45px;
+          font-family: -apple-system, BlinkMacSystemFont, "Dejavu Sans", "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+        }
+        @media (prefers-color-scheme: light) {
+          .container {
+            color: black;
+          }
+        }
+        .container section {
+          position: relative;
+          left: 70px;
+        }
+        .state, .version {
+          color: rgb(95, 117, 233);
+        }
+        .verification-icon {
+          top: 90px;
+          position: relative;
+        }
+        .verification-icon .exclamation {
+          width: 50px;
+          height: 50px;
+          background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAABhWlDQ1BJQ0MgcHJvZmlsZQAAKJF9kT1Iw0AYht+mSkWrDu2g4pChOtlFRRxrFYpQIdQKrTqYXPoHTRqSFBdHwbXg4M9i1cHFWVcHV0EQ/AFxdXFSdJESv2sKLWI8uLuH97735e47QKiXmWZ1xQBNt81UIi5msqti4BV9GECI1mGZWcacJCXhOb7u4eP7XZRnedf9OfrVnMUAn0gcY4ZpE28Qz2zaBud94jAryirxOfGESRckfuS64vIb50KTBZ4ZNtOpeeIwsVjoYKWDWdHUiKeJI6qmU76QcVnlvMVZK1dZ6578hcGcvrLMdZqjSGARS5AgQkEVJZRhI0q7ToqFFJ3HPfwjTb9ELoVcJTByLKACDXLTD/4Hv3tr5acm3aRgHOh+cZyPMSCwCzRqjvN97DiNE8D/DFzpbX+lDsx+kl5ra5EjYHAbuLhua8oecLkDDD0Zsik3JT9NIZ8H3s/om7JA6BboXXP71jrH6QOQpl4lb4CDQ2C8QNnrHu/u6ezbvzWt/v0AY0JyoIwWTZgAAAAGYktHRAD/AP8A/6C9p5MAAAAJcEhZcwAALiMAAC4jAXilP3YAAAAHdElNRQfnCw4TDhtaHD7zAAAAGXRFWHRDb21tZW50AENyZWF0ZWQgd2l0aCBHSU1QV4EOFwAAAzhJREFUaN7tmstLVFEcxz93nLHHLaxMsgyyuj4K7ElhyEmSLGphL1zZzp1Fiwpq1UbBCAr1f2jXQqGN5e4GRSFhQqkde2Bgkj0oj+KMelt0KitrxpkzM3fC7+pw7++c3/mc77lzHgwsaEEL+pesZDWspCgCrgHV+tFd4JLtuAMZA6Kk2Ag8AnJ/e/Ue2GM77kvTOQNJMqRtDgj0s7aMcERJcQjojBJ22HbcO74FUVIEgR5ga5TQZ1hssze7U36dWg0xQABswaPBl44oKXKB58DKGKt8BIpsx33vN0ca5wGBjm30lSNKijLgMZA1z6rTwE7bcXv94khLHBDoOi2+mFpKihNAVQJNVCkpTqZ1aikpFgFPgU0J9uMFsNV23Ml0OXLeAAS6jfNpcURJsRboB5Yb+s6+ACW24w6n2pHmWCDCkQDhSExplus2U+eIkmIv8CBa/ZdvltF2Mw+Ac3Xv2Lh+LFrTHlBuO+7DpDsy/vqABbTGMgj3unOYDFtMhi3udefEOrCtE337raSDeJGpOqA8lthIxJqzHEXlM0HvdFJBlBQ2cDUFJ9dmnStpjlwGClIAUqBzmQdRUhQCF1J4n3BR5zTuyDVgSQpBFuuc5kCUFJVAbRpueWp17sRBlBTGdqjx7qzVoMgy4Ug9sCONIDvwqE8IREmxAmgi/WrSfYnbkStAng9A8nRf5g+ipCgBzuIfnVVSlMbjyA0g5COQEHB9XiBKiiPA0UQzr1sT/rlUzyonoKO6b9G38UqKEPAEKE00azgS4FHvKgD2lH0gOzRjAqbfgm1LHfeXkQnOEXjGBARAdmiGil2jpqdYifftRrPlr44oKfKAAWAF/tYnoNh23Hd/+0YaTUKoiSAdXfl0dOUzPhE0CfLH+mbNcmM70E18F21zqqMrn877SwE4vG+cYwffmoSZBnbbjtvzwxE1KL4fX7PIHGUBrWrw27E4qI/8p4BK05mqK0aB1bPKxlWJ550Cbln6trAPKCQz9QooDQDHMhgC3feaAFBE5qs4AAz9ByBDAaAdGMlgiBGgPWA77mfgODCcgRDDwHHbcT/PXhBtoAbYQBL/2mFInv61um077hgL8qG+AjY84IemfpY1AAAAAElFTkSuQmCC')
+        }
+        .verification-icon .checkmark {
+          width: 50px;
+          height: 50px;
+          background: url('data:image/png;base64,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')
+        }
+        .verification-icon .cancel {
+          width: 50px;
+          height: 50px;
+          background: url('data:image/png;base64,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')
+        }
+      </style>
+      <div class="container">
+        <div class="verification-icon"><div class="checkmark"></div></div>
+        <section>
+          <p>Patch version: <span class="version">1.4.0</span></p>
+          <p>Patch state: <span class="state">verified</span></p>
+        </section>
+      </div>
+    </div>
+  </foreignObject>
+</svg>

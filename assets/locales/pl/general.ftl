@@ -48,12 +48,12 @@ patch-preparation-tooltip = Łatka jest w trakcie opracowywania
 
 patch-testing-tooltip = Dostępna jest łatka testowa
 patch-not-applied-tooltip = Łatka nie jest zastosowana
+patch-broken-tooltip = Current patch version is broken and doesn't work properly
+patch-unsafe-tooltip = Current patch version is unsafe and shouldn't be used
+patch-concerning-tooltip = We have some concerns about the current patch version
 
 apply-main-patch = Zastosuj główną łatkę
 apply-main-patch-description = Eksperymentalne. Wyłączenie tej opcji pozwoli uruchomić grę bez stosowania łatki. Może to nie działać lub wymagać ręcznych modyfikacji plików. Użyj tej opcji, jeśli wiesz, co robisz.
-
-disable-mhypbase = Wyłącz mhypbase
-disable-mhypbase-description = Eksperymentalne. Jeśli ta opcja jest włączona, launcher wyłączy plik mhypbase.dll podczas stosowania głównej łatki, co obecnie jest równoważne z łatką xlua. Poprawia wydajność i zmniejsza użycie CPU.
 
 ask-superuser-permissions = Poproś o uprawnienia super użytkownika
 ask-superuser-permissions-description = Launcher będzie używał ich do automatycznego aktualizowania twojego pliku hosts. Nie jest to wymagane w edycji Flatpak.

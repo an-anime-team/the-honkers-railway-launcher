@@ -530,10 +530,12 @@ impl SimpleComponent for App {
                                             // TODO: a special tooltip for concerning patch state
 
                                             Some(LauncherState::PatchUnsafe) |
-                                            Some(LauncherState::PatchConcerning) |
-                                            Some(LauncherState::PredownloadAvailable { patch: JadeitePatchStatusVariant::Unsafe, .. }) |
-                                            Some(LauncherState::PredownloadAvailable { patch: JadeitePatchStatusVariant::Concerning, .. })
+                                            Some(LauncherState::PredownloadAvailable { patch: JadeitePatchStatusVariant::Unsafe, .. })
                                                 => tr!("patch-unsafe-tooltip"),
+
+                                            Some(LauncherState::PatchConcerning) |
+                                            Some(LauncherState::PredownloadAvailable { patch: JadeitePatchStatusVariant::Concerning, .. })
+                                                => tr!("patch-concerning-tooltip"),
 
                                             _ => String::new()
                                         }),

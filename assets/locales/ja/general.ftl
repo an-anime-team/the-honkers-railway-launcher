@@ -50,6 +50,7 @@ patch-testing-tooltip = テストパッチがあります
 patch-not-applied-tooltip = パッチが適用されませんでした。
 patch-broken-tooltip = 現在のパッチは、壊れているため正しく動作しない場合があります。
 patch-unsafe-tooltip = 現在のパッチは、安全ではないので使わないほうが良いでしょう。
+patch-concerning-tooltip = We have some concerns about the current patch version
 
 apply-main-patch = メインパッチを適用
 apply-main-patch-description = 実験的です。これを無効にするとパッチ無しでゲームを起動することができます。これが機能しない場合、手動でパッチを適用する必要があります。これが何を意味するのかを理解できない人は無効にするべきではないでしょう。

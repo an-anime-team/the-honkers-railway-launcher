@@ -59,6 +59,7 @@ patch-testing-tooltip = Đã có bản vá thử nghiệm
 patch-not-applied-tooltip = Bản vá không được áp dụng
 patch-broken-tooltip = Bản vá hiện tại bị hỏng và không hoạt động bình thường
 patch-unsafe-tooltip = Bản vá hiện tại không an toàn và không nên sử dụng
+patch-concerning-tooltip = We have some concerns about the current patch version
 
 apply-mfplat-patch = Áp dụng bản vá mfplat
 

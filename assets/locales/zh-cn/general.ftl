@@ -50,6 +50,7 @@ patch-testing-tooltip = 有测试版补丁可用
 patch-not-applied-tooltip = 补丁未应用
 patch-broken-tooltip = 当前补丁版本已损坏，无法正常工作
 patch-unsafe-tooltip = 当前补丁版本不安全，不应使用
+patch-concerning-tooltip = We have some concerns about the current patch version
 
 apply-main-patch = 应用主补丁
 apply-main-patch-description = 实验性功能。禁用此选项可以允许在没有打补丁的情况下尝试运行游戏。此时游戏可能无法正常运行，或者需要手动修改文件。请确保你知道自己在做什么

@@ -48,12 +48,12 @@ patch-preparation-tooltip = 패치가 개발 중입니다
 
 patch-testing-tooltip = 테스트 패치를 사용할 수 있습니다
 patch-not-applied-tooltip = 패치가 적용되지 않았습니다
+patch-broken-tooltip = Current patch version is broken and doesn't work properly
+patch-unsafe-tooltip = Current patch version is unsafe and shouldn't be used
+patch-concerning-tooltip = We have some concerns about the current patch version
 
 apply-main-patch = 메인 패치 적용
 apply-main-patch-description = 실험적 기능입니다. 이 옵션을 비활성화하면 패치를 적용하지 않고 게임을 실행할 수 있습니다. 작동하지 않거나 수동으로 파일을 수정해야 할 수 있습니다. 사용법을 알고 있는 경우에만 사용하세요.
-
-disable-mhypbase = mhypbase 비활성화
-disable-mhypbase-description = 실험적 기능입니다. 활성화 된 경우, 런처는 메인 패치 적용 중에 mhypbase.dll을 비활성화합니다. 이는 현재 XLUA 패치와 동일합니다. 성능을 향상시키고 CPU 사용을 줄입니다
 
 ask-superuser-permissions = 슈퍼유저 권한 요청
 ask-superuser-permissions-description = 런처가 이를 사용하여 호스트 파일을 자동으로 업데이트합니다. Flatpak 에디션에서는 필요하지 않습니다

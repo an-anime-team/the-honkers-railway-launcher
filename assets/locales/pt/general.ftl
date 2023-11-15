@@ -47,12 +47,12 @@ patch-preparation-tooltip = Patch está em desenvolvimento
 
 patch-testing-tooltip = Patch teste está disponível
 patch-not-applied-tooltip = Patch não está aplicado
+patch-broken-tooltip = Current patch version is broken and doesn't work properly
+patch-unsafe-tooltip = Current patch version is unsafe and shouldn't be used
+patch-concerning-tooltip = We have some concerns about the current patch version
 
 apply-main-patch = Aplicar patch principal
 apply-main-patch-description = Experimental. Desativar isso permite jogar o jogo sem aplicar o patch. Isso pode não funcionar, ou requer modificações de arquivo manuais. Use se sabe o que está fazendo
-
-disable-mhypbase = Desative mhypbase
-disable-mhypbase-description = Experimental. Se ativado, o launcher ira desativar mhypbase.dll durante a aplicação do patch principal, que é atualmente equivalente ao patch xlua. melhora performance e reduz uso da CPU
 
 ask-superuser-permissions = Pede permissão de superusuário
 ask-superuser-permissions-description = Launcher irá usa-lo para atualizar automaticamente os arquivos. Isso não é necessário na edição flatpak

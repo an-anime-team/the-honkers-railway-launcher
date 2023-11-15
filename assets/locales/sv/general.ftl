@@ -48,12 +48,12 @@ patch-preparation-tooltip = Patchen är under utveckling
 
 patch-testing-tooltip = Test-patch är tillgänglig
 patch-not-applied-tooltip = Patchen är inte applicerad
+patch-broken-tooltip = Current patch version is broken and doesn't work properly
+patch-unsafe-tooltip = Current patch version is unsafe and shouldn't be used
+patch-concerning-tooltip = We have some concerns about the current patch version
 
 apply-main-patch = Applicera huvudsaklig patch
 apply-main-patch-description = Experimentellt. Om du inaktiverar detta kan du köra spelet utan att använda patchen. Detta kanske inte fungerar eller kan kräva manuella filändringar. Använd om du vet vad du gör
-
-disable-mhypbase = Inaktivera mhypbase
-disable-mhypbase-description = Experimentellt. Om aktiverad så kommer starthanteraren att inaktivera mhypbase.dll under applicering av huvudsaklig patch, vilket för närvarande är en motsvarighet till xlua-patchen. Förbättrar prestanda och minskar CPU-användning
 
 ask-superuser-permissions = Fråga efter superuser-rättigheter
 ask-superuser-permissions-description = Starthanteraren kommer att använda dem för att automatiskt uppdatera din hosts-fil. Detta behövs inte i flatpak-utgåvan

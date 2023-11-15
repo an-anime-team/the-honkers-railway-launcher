@@ -50,6 +50,7 @@ patch-testing-tooltip = Test-Patch ist verfügbar
 patch-not-applied-tooltip = Patch ist nicht angewendet
 patch-broken-tooltip = Der aktuelle Patch funktioniert derzeit nicht
 patch-unsafe-tooltip = Der aktuelle Patch ist derzeit nicht sicher und sollte nicht genutzt werden
+patch-concerning-tooltip = We have some concerns about the current patch version
 
 apply-main-patch = Hauptpatch Anwenden
 apply-main-patch-description = Experimentell. Wenn Sie diese Option deaktivieren, können Sie das Spiel ausführen, ohne den Patch anzuwenden. Dies könnte möglicherweise nicht funktionieren oder erfordert manuelle Änderungen an den Dateien. Verwenden Sie dies nur wenn Sie wissen was Sie tun.

@@ -414,9 +414,7 @@ impl SimpleAsyncComponent for GeneralApp {
                                 JadeitePatchStatusVariant::Unverified => tr!("patch-testing-tooltip"),
                                 JadeitePatchStatusVariant::Broken => tr!("patch-broken-tooltip"),
                                 JadeitePatchStatusVariant::Unsafe => tr!("patch-unsafe-tooltip"),
-
-                                // TODO: special tooltip for concerning status
-                                JadeitePatchStatusVariant::Concerning => tr!("patch-unsafe-tooltip"),
+                                JadeitePatchStatusVariant::Concerning => tr!("patch-concerning-tooltip"),
 
                                 _ => String::new()
                             }

@@ -509,6 +509,7 @@ impl SimpleComponent for App {
 
                                             Some(LauncherState::PatchBroken) |
                                             Some(LauncherState::PatchUnsafe) |
+                                            Some(LauncherState::PatchConcerning) |
                                             Some(LauncherState::PredownloadAvailable { patch: JadeitePatchStatusVariant::Broken, .. }) |
                                             Some(LauncherState::PredownloadAvailable { patch: JadeitePatchStatusVariant::Unsafe, .. }) |
                                             Some(LauncherState::PredownloadAvailable { patch: JadeitePatchStatusVariant::Concerning, .. })

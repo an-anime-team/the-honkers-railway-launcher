@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Fixed "Kill game process" button
+
+### Changed
+
+- Updated Turkish
+- Updated German
+- Updated Polish
+- Updated Chinese
+
 ## [1.5.1] - 15.11.2023
 
 ### Added
@@ -24,6 +35,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Increased voiceovers version prediction error
+- Updated FPS Unlocker version which fixes new game version integration issue
+- Updated Turkish
+- Updated German
+- Updated Chinese
+- Updated Polish
 
 ## [1.5.0] - 13.11.2023
 

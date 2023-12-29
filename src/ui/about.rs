@@ -97,26 +97,19 @@ impl SimpleComponent for AboutDialog {
 
             set_release_notes_version: &APP_VERSION,
             set_release_notes: &[
-                "<p>Added</p>",
-
-                "<ul>",
-                    "<li>Added `UpdatingPermissions` installation step</li>",
-                    "<li>Downloaders now will skip finished files and truncate them if needed</li>",
-                    "<li>Added new fix for the API responses</li>",
-                    "<li>Added voiceovers repairing support</li>",
-                    "<li>Added special tooltips for concerning patch status</li>",
-                "</ul>",
-
                 "<p>Fixed</p>",
 
                 "<ul>",
-                    "<li>Fixed launch button color in concerning patches</li>",
+                    "<li>Fixed \"Kill game process\" button</li>",
                 "</ul>",
 
                 "<p>Changed</p>",
 
                 "<ul>",
-                    "<li>Increased voiceovers version prediction error</li>",
+                    "<li>Updated Turkish</li>",
+                    "<li>Updated German</li>",
+                    "<li>Updated Polish</li>",
+                    "<li>Updated Chinese</li>",
                 "</ul>",
             ].join("\n"),
 

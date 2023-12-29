@@ -1,11 +1,11 @@
-game-settings-description = Oyun içi ayarları ve hesap oturumunu düzenleyin
+game-settings-description = Oyun içi ayarları ve hesap oturumunu düzenle
 sandbox-settings-description = Oyunu flatpak gibi bir yöntemle sanallaştırarak çalıştır
-environment-settings-description = Çevre değişkenlerini ve oyun başlatma komutlarını belirtin
+environment-settings-description = Çevre değişkenlerini ve oyun başlatma komutlarını belirt
 
 wine = Wine
 
-synchronization = Senkronizasyon
-wine-sync-description = Arkaplanda gerçekleşen Wine olaylarını senkronize etmek için kullanılan teknoloji
+synchronization = Eşleme
+wine-sync-description = Arkaplanda gerçekleşen Wine olaylarını eşlemek için kullanılan teknoloji
 
 language = Dil
 wine-lang-description = Wine için kullanılan dil, klavye sorunlarını çözmek için kullanılabilir
@@ -14,18 +14,18 @@ system = Sistem
 borderless-window = Köşesiz Pencere
 virtual-desktop = Sanal Masaüstü
 
-map-drive-c = Map drive C:
-map-drive-c-description = Automatically symlink drive_c folder from the wine prefix to the dosdevices
+map-drive-c = disk C: yönlendir
+map-drive-c-description = Otomatik olarak wine prefixindeki drive_c klasöründen dosdevices'a kısayol oluştur
 
-map-game-folder = Map game folder
-map-game-folder-description = Automatically symlink game folder to the dosdevices
+map-game-folder = Oyun klasörü yönlendir
+map-game-folder-description = Oyun klasöründen dosdevices'a kısayol oluştur
 
 game = Oyun
 
 hud = HUD
 
 fsr = FSR
-fsr-description = Oyunu monitör boyutunuza büyütür. Daha düşük bir çözünürlük seçmek için oyun içinde alt + enter tuşlarına basın
+fsr-description = Oyunu monitör boyutuna büyütür. Daha düşük bir çözünürlük seçmek için oyun içinde alt + enter tuşlarına basın
 ultra-quality = Ultra kalite
 quality = Kalite
 balanced = Dengeli
@@ -43,27 +43,15 @@ icon = İkon
 title = Başlık
 description = Açıklama
 
-fps-unlocker = FPS kilidi açıcı
-
-enabled = Açık
+fps-unlocker = FPS kilidi kırıcı
 fps-unlocker-description = Kare işleme sınırlamasını kaldırır, fakat oyunun anti-hile sistemi tarafından tespit edilebilir
 
-power-saving = Güç tasarrufu
-power-saving-description = Pencere değiştirdiğinizde oyunun kare sınırını 10'a indirir ve oyuna verilen işlem önceliğini azaltır
+enabled = Etkin
 
-monitor = Monitör
-monitor-description = Oyunu çalıştırmak istediğiniz monitör sayısı
+fps-unlocker-interval = Overwrite interval
+fps-unlocker-interval-description = Delay in milliseconds between overwriting the FPS limit value. Periodic overwrites are necessary to prevent it from resetting
 
 window-mode = Pencereli 
 borderless = Köşesiz
 popup = Popup
 fullscreen = Tam ekran
-
-priority = Öncelik
-priority-description = Oyun işlem önceliği
-realtime = Gerçek zamanlı
-high = Yüksek
-above-normal = Ortalama Üstü
-normal = Ortalama
-below-normal = Ortalama altı
-low = Düşük

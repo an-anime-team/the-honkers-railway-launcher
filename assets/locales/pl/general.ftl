@@ -50,7 +50,7 @@ patch-testing-tooltip = Dostępna jest łatka testowa
 patch-not-applied-tooltip = Łatka nie jest zastosowana
 patch-broken-tooltip = Current patch version is broken and doesn't work properly
 patch-unsafe-tooltip = Current patch version is unsafe and shouldn't be used
-patch-concerning-tooltip = We have some concerns about the current patch version
+patch-concerning-tooltip = Mamy pewne wątpliwości co do aktualnej wersji łatki
 
 apply-main-patch = Zastosuj główną łatkę
 apply-main-patch-description = Eksperymentalne. Wyłączenie tej opcji pozwoli uruchomić grę bez stosowania łatki. Może to nie działać lub wymagać ręcznych modyfikacji plików. Użyj tej opcji, jeśli wiesz, co robisz.

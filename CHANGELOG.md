@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.5.2] - 29.12.2023
+
 ### Fixed
 
 - Fixed "Kill game process" button
@@ -238,7 +240,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 <br>
 
-[unreleased]: https://github.com/an-anime-team/the-honkers-railway-launcher/compare/1.5.1...next
+[unreleased]: https://github.com/an-anime-team/the-honkers-railway-launcher/compare/1.5.2...next
+[1.5.2]: https://github.com/an-anime-team/the-honkers-railway-launcher/compare/1.5.1...1.5.2
 [1.5.1]: https://github.com/an-anime-team/the-honkers-railway-launcher/compare/1.5.0...1.5.1
 [1.5.0]: https://github.com/an-anime-team/the-honkers-railway-launcher/compare/1.4.0...1.5.0
 [1.4.0]: https://github.com/an-anime-team/the-honkers-railway-launcher/compare/1.3.0...1.4.0

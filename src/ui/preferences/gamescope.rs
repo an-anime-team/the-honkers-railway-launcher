@@ -250,6 +250,26 @@ impl SimpleAsyncComponent for GamescopeApp {
                                 }
                             }
                         }
+                    },
+
+                    adw::ActionRow {
+                        set_title: &tr!("force-grab-cursor"),
+                        set_subtitle: &tr!("force-grab-cursor-description"),
+
+                        add_suffix = &gtk::Switch {
+                            set_valign: gtk::Align::Center,
+                            set_state: CONFIG.game.enhancements.gamescope.force_grab_cursor,
+
+                            connect_state_notify => |switch| {
+                                if is_ready() {
+                                    if let Ok(mut config) = Config::get() {
+                                        config.game.enhancements.gamescope.force_grab_cursor = switch.state();
+
+                                        Config::update(config);
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             }

@@ -1,8 +1,3 @@
-<div float="left" align="center">
-    <img src="repository/logo.png" width="200px" height="200px">
-    <img src="repository/patchstatus.svg" height="200px">
-</div>
-
 | Modern style | Classic style |
 | :-: | :-: |
 | <picture><source media="(prefers-color-scheme: dark)" srcset="repository/main-modern-dark.png"><img src="repository/main-modern.png"></picture> | <picture><source media="(prefers-color-scheme: dark)" srcset="repository/main-classic-dark.png"><img src="repository/main-classic.png"></picture> |

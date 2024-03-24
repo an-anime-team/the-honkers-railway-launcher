@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.5.3] - 24.03.2023
+
 ### Added
 
 - Bundle `applications-system-symbolic` icon to the app
@@ -258,7 +260,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 <br>
 
-[unreleased]: https://github.com/an-anime-team/the-honkers-railway-launcher/compare/1.5.2...next
+[unreleased]: https://github.com/an-anime-team/the-honkers-railway-launcher/compare/1.5.3...next
+[1.5.3]: https://github.com/an-anime-team/the-honkers-railway-launcher/compare/1.5.2...1.5.3
 [1.5.2]: https://github.com/an-anime-team/the-honkers-railway-launcher/compare/1.5.1...1.5.2
 [1.5.1]: https://github.com/an-anime-team/the-honkers-railway-launcher/compare/1.5.0...1.5.1
 [1.5.0]: https://github.com/an-anime-team/the-honkers-railway-launcher/compare/1.4.0...1.5.0

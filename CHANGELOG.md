@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Updated voiceovers sizes
+- Updated game version parsing algorithm
+
 ## [1.5.3] - 24.03.2024
 
 ### Added

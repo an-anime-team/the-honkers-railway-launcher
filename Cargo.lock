@@ -57,8 +57,8 @@ checksum = "0942ffc6dcaadf03badf6e6a2d0228460359d5e34b57ccdc720b7382dfbd5ec5"
 
 [[package]]
 name = "anime-game-core"
-version = "1.17.5"
-source = "git+https://github.com/an-anime-team/anime-game-core?tag=1.17.5#55dd60f6b5f78aa80e2217404c3ee1151657f011"
+version = "1.17.6"
+source = "git+https://github.com/an-anime-team/anime-game-core?tag=1.17.6#0fb314b61d1deb1cd281dc6dc041ce27886cf513"
 dependencies = [
  "anyhow",
  "bzip2",
@@ -82,8 +82,8 @@ dependencies = [
 
 [[package]]
 name = "anime-launcher-sdk"
-version = "1.12.7"
-source = "git+https://github.com/an-anime-team/anime-launcher-sdk?tag=1.12.7#f4133c0875af54b07b4c0dac04df4598193ac9ec"
+version = "1.12.8"
+source = "git+https://github.com/an-anime-team/anime-launcher-sdk?tag=1.12.8#f8d321f1d22dce555a275c662cf98c0e6b331bc7"
 dependencies = [
  "anime-game-core",
  "anyhow",

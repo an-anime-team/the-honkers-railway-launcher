@@ -52,7 +52,7 @@ impl SimpleComponent for AboutDialog {
             ]),
 
             add_credit_section: (Some("An Anime Team"), &[
-                "Nikita Podvirnyy https://github.com/krypt0nn",
+                "Nikita Podvirnyi https://github.com/krypt0nn",
                 "Marie Piontek https://github.com/Mar0xy",
                 "Luna Neff  https://github.com/lunaneff",
                 "Renaud Lepage https://github.com/cybik",
@@ -65,7 +65,7 @@ impl SimpleComponent for AboutDialog {
             ],
 
             set_translator_credits: &[
-                "Русский, English — Nikita Podvirnyy https://github.com/krypt0nn",
+                "Русский, English — Nikita Podvirnyi https://github.com/krypt0nn",
                 "Deutsch — Marie Piontek https://github.com/Mar0xy",
                 "Deutsch — @caem",
                 "Français — @zeGolem https://github.com/zeGolem",
@@ -84,7 +84,8 @@ impl SimpleComponent for AboutDialog {
                 "Indonesia — @yumekarisu https://github.com/yumekarisu",
                 "Tiếng Việt — Nguyễn Hữu Chánh https://github.com/Chanhnh",
                 "Українська — Іван Потієнко https://github.com/xxanqw",
-                "ไทย — @thegooglerider https://github.com/TheGoogleRider2"
+                "ไทย — @vbrabandt2005 https://github.com/vbrabandt2005",
+                "Čeština — @panmourovaty https://github.com/panmourovaty"
             ].join("\n"),
 
             set_debug_info: &[
@@ -99,11 +100,10 @@ impl SimpleComponent for AboutDialog {
 
             set_release_notes_version: &APP_VERSION,
             set_release_notes: &[
-                "<p>Changed</p>",
+                "<p>Added</p>",
 
                 "<ul>",
-                    "<li>Updated voiceovers sizes</li>",
-                    "<li>Updated game version parsing algorithm</li>",
+                    "<li>Added Czech</li>",
                 "</ul>"
             ].join("\n"),
 

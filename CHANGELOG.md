@@ -9,6 +9,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- List missing dependencies on non-standard distros during initial setup
+- Added 4.7.0 voiceovers sizes
+
+### Fixed
+
+- Fixed Italian localization breaking the launcher
+
+### Changed
+
+- Support new game API
+- Improved background pictures processing
+- Updated desktop file entry to include "aagl" keyword
+- Localized `force-grab-cursor` to Ukrainian
+
+## [1.5.5] - 08.05.2024
+
+### Added
+
 - Added Czech
 
 ## [1.5.4] - 27.03.2024
@@ -26,6 +44,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added "force grab cursor" option to the gamescope settings
 - Added Thai
 - Added Ukrainian
+
+### Fixed
+
+- Fixed GtkSwitch UI state representation
 
 ### Changed
 
@@ -271,7 +293,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 <br>
 
-[unreleased]: https://github.com/an-anime-team/the-honkers-railway-launcher/compare/1.5.4...next
+[unreleased]: https://github.com/an-anime-team/the-honkers-railway-launcher/compare/1.5.5...next
+[1.5.5]: https://github.com/an-anime-team/the-honkers-railway-launcher/compare/1.5.4...1.5.5
 [1.5.4]: https://github.com/an-anime-team/the-honkers-railway-launcher/compare/1.5.3...1.5.4
 [1.5.3]: https://github.com/an-anime-team/the-honkers-railway-launcher/compare/1.5.2...1.5.3
 [1.5.2]: https://github.com/an-anime-team/the-honkers-railway-launcher/compare/1.5.1...1.5.2

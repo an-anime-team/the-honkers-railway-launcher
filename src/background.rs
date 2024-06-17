@@ -64,22 +64,32 @@ pub fn download_background() -> anyhow::Result<()> {
 
     let info = get_background_info()?;
 
+    let mut download_image = true;
+
     if crate::BACKGROUND_FILE.exists() {
         let hash = Md5::digest(std::fs::read(crate::BACKGROUND_FILE.as_path())?);
 
         if format!("{:x}", hash).to_lowercase() == info.hash {
             tracing::debug!("Background picture is already downloaded. Skipping");
 
-            return Ok(());
+            download_image = false;
+
+            if crate::BACKGROUND_PRIMARY_FILE.exists() {
+                tracing::debug!("Background picture is already patched. Skipping");
+
+                return Ok(());
+            }
         }
     }
 
-    let mut downloader = Downloader::new(&info.uri)?;
+    if download_image {
+        let mut downloader = Downloader::new(&info.uri)?;
 
-    downloader.continue_downloading = false;
+        downloader.continue_downloading = false;
 
-    if let Err(err) = downloader.download(crate::BACKGROUND_FILE.as_path(), |_, _| {}) {
-        anyhow::bail!(err);
+        if let Err(err) = downloader.download(crate::BACKGROUND_FILE.as_path(), |_, _| {}) {
+            anyhow::bail!(err);
+        }
     }
 
     // Workaround for GTK weakness
@@ -89,7 +99,14 @@ pub fn download_background() -> anyhow::Result<()> {
             .arg("-o")
             .arg(crate::BACKGROUND_PRIMARY_FILE.as_path())
             .spawn()?
-            .wait_with_output()?;
+            .wait()?;
+
+        // If it failed to re-code the file - just copy it
+        // Will happen with HSR because devs apparently named
+        // their background image ".webp" while it's JPEG
+        if !crate::BACKGROUND_PRIMARY_FILE.exists() {
+            std::fs::copy(crate::BACKGROUND_FILE.as_path(), crate::BACKGROUND_PRIMARY_FILE.as_path())?;
+        }
     }
 
     else {

@@ -7,6 +7,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- List missing dependencies on non-standard distros during initial setup
+- Added 2.2.0 voiceovers sizes
+
+### Fixed
+
+- Fixed Italian localization breaking the launcher
+
+### Changed
+
+- Support new game API
+- Improved background pictures processing
+- Updated desktop file entry to include "aagl" keyword
+- Localized `force-grab-cursor` to Ukrainian
+
 ## [1.5.5] - 08.05.2024
 
 ### Added
@@ -28,6 +44,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added "force grab cursor" option to the gamescope settings
 - Added Thai
 - Added Ukrainian
+
+### Fixed
+
+- Fixed GtkSwitch UI state representation
 
 ### Changed
 

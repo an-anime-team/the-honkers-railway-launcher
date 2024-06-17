@@ -103,7 +103,23 @@ impl SimpleComponent for AboutDialog {
                 "<p>Added</p>",
 
                 "<ul>",
-                    "<li>Added Czech</li>",
+                    "<li>List missing dependencies on non-standard distros during initial setup</li>",
+                    "<li>Added 2.2.0 voiceovers sizes</li>",
+                "</ul>",
+
+                "<p>Fixed</p>",
+
+                "<ul>",
+                    "<li>Fixed Italian localization breaking the launcher</li>",
+                "</ul>",
+
+                "<p>Changed</p>",
+
+                "<ul>",
+                    "<li>Support new game API</li>",
+                    "<li>Improved background pictures processing</li>",
+                    "<li>Updated desktop file entry to include aagl keyword</li>",
+                    "<li>Localized force-grab-cursor to Ukrainian</li>",
                 "</ul>"
             ].join("\n"),
 

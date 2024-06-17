@@ -1,3 +1,5 @@
+use std::process::Command;
+
 use anime_launcher_sdk::anime_game_core::installer::downloader::Downloader;
 use anime_launcher_sdk::anime_game_core::minreq;
 
@@ -10,30 +12,41 @@ pub struct Background {
 }
 
 pub fn get_uri() -> String {
-    let uri = concat!("https://hk", "rpg-launcher-static.ho", "yov", "ers", "e.com/hk", "rpg_global/mdk/launcher/api/content?filter_adv=true&key=vplOVX8Vn7cwG8yb&launcher_id=35&language=");
+    let lang = crate::i18n::get_lang();
 
-    uri.to_owned() + &crate::i18n::format_lang(&crate::i18n::get_lang())
+    if lang.language == unic_langid::langid!("zh-cn").language {
+        concat!("https://hyp-api.", "mi", "ho", "yo", ".com/hyp/hyp-connect/api/getAllGameBasicInfo?launcher_id=jGHBHlcOq1").to_owned()
+    }
+
+    else {
+        let uri = concat!("https://sg-hyp-api.", "ho", "yo", "verse", ".com/hyp/hyp-connect/api/getAllGameBasicInfo?launcher_id=VYTpXlbWo8&language=");
+
+        uri.to_owned() + &crate::i18n::format_lang(&lang)
+    }
 }
 
 #[cached::proc_macro::cached(result)]
 pub fn get_background_info() -> anyhow::Result<Background> {
     let json = serde_json::from_slice::<serde_json::Value>(minreq::get(get_uri()).send()?.as_bytes())?;
 
-    let uri = match json["data"]["adv"]["background"].as_str() {
-        Some(uri) => uri.to_owned(),
-        None => anyhow::bail!("Failed to get background picture uri")
-    };
+    let uri = json["data"]["game_info_list"].as_array()
+        .ok_or_else(|| anyhow::anyhow!("Failed to list games in the backgrounds API"))?
+        .iter()
+        .find(|game| game["game"]["biz"].as_str() == Some("hkrpg_global"))
+        .ok_or_else(|| anyhow::anyhow!("Failed to find the game in the backgrounds API"))?["backgrounds"]
+        .as_array()
+        .and_then(|backgrounds| backgrounds.iter().next())
+        .and_then(|background| background["background"]["url"].as_str())
+        .ok_or_else(|| anyhow::anyhow!("Failed to get background picture url"))?
+        .to_string();
 
-    // This API field contains wrong md5 hash, but file's name
-    // from the uri above actually contains correct one, so
-    // I parse and use it few lines below
-
-    /*let hash = match json["data"]["adv"]["bg_checksum"].as_str() {
-        Some(uri) => uri.to_owned(),
-        None => anyhow::bail!("Failed to get background picture checksum")
-    };*/
-
-    let hash = uri.split('/').last().unwrap_or_default().split('_').next().unwrap_or_default().to_owned();
+    let hash = uri.split('/')
+        .last()
+        .unwrap_or_default()
+        .split('_')
+        .next()
+        .unwrap_or_default()
+        .to_owned();
 
     Ok(Background {
         uri,
@@ -56,12 +69,26 @@ pub fn download_background() -> anyhow::Result<()> {
         }
     }
 
-    let mut downloader = Downloader::new(info.uri)?;
+    let mut downloader = Downloader::new(&info.uri)?;
 
     downloader.continue_downloading = false;
 
     if let Err(err) = downloader.download(crate::BACKGROUND_FILE.as_path(), |_, _| {}) {
         anyhow::bail!(err);
+    }
+
+    // Workaround for GTK weakness
+    if info.uri.ends_with(".webp") {
+        Command::new("dwebp")
+            .arg(crate::BACKGROUND_FILE.as_path())
+            .arg("-o")
+            .arg(crate::BACKGROUND_PRIMARY_FILE.as_path())
+            .spawn()?
+            .wait_with_output()?;
+    }
+
+    else {
+        std::fs::copy(crate::BACKGROUND_FILE.as_path(), crate::BACKGROUND_PRIMARY_FILE.as_path())?;
     }
 
     Ok(())

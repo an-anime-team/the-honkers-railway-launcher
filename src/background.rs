@@ -34,7 +34,7 @@ pub fn get_background_info() -> anyhow::Result<Background> {
         .iter()
         .find(|game| {
             match game["game"]["biz"].as_str() {
-                Some(biz) => biz.starts_with("hk4e_"),
+                Some(biz) => biz.starts_with("hkrpg_"),
                 _ => false
             }
         })

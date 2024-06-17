@@ -7,8 +7,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [1.5.5] - 08.05.2024
-
 ### Added
 
 - List missing dependencies on non-standard distros during initial setup

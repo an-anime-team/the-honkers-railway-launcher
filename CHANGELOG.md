@@ -10,7 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - List missing dependencies on non-standard distros during initial setup
-- Added 4.7.0 voiceovers sizes
+- Added 2.2.0 voiceovers sizes
 
 ### Fixed
 

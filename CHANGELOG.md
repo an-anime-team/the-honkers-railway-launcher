@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Handle dwebp re-coding errors
+- Added 2.3.0 voiceovers sizes
+
+### Fixed
+
+- Added workaround for wrong pre-downloads API format
+
 ## [1.6.0] - 17.06.2024
 
 ### Added

@@ -20,6 +20,7 @@
                     cmake
                     pkg-config
 
+                    p7zip
                     libwebp
                 ];
 

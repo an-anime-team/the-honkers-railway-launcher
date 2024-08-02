@@ -7,6 +7,28 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Added "Indonesia" wine language option
+- Added writing of the game's output to the `game.log` file in the launcher's folder.
+  Size of this file is controlled by the `LAUNCHER_GAME_LOG_FILE_LIMIT` environment variable.
+- Respect root `.version` file for game version parsing
+
+### Fixed
+
+- Fixed `dwebp` package name for fedora during initial setup
+- Fixed Discord RPC updates
+
+### Changed
+
+- Changed background images processing logic
+- Prioritize parsed game version over the API response
+
+### Removed
+
+- Removed `xdelta3` dependency
+- Removed migrate installation feature
+
 ## [1.6.1] - 02.07.2024
 
 ### Added

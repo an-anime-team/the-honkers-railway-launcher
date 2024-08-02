@@ -61,8 +61,8 @@ lazy_static::lazy_static! {
     /// Path to `background` file. Standard is `$HOME/.local/share/honkers-railway-launcher/background`
     pub static ref BACKGROUND_FILE: PathBuf = LAUNCHER_FOLDER.join("background");
 
-    /// Path to `background-primary` file. Standard is `$HOME/.local/share/anime-game-launcher/background-primary`
-    pub static ref BACKGROUND_PRIMARY_FILE: PathBuf = LAUNCHER_FOLDER.join("background-primary");
+    /// Path to the processed `background` file. Standard is `$HOME/.cache/anime-game-launcher/background`
+    pub static ref PROCESSED_BACKGROUND_FILE: PathBuf = CACHE_FOLDER.join("background");
 
     /// Path to `.keep-background` file. Used to mark launcher that it shouldn't update background picture
     ///
@@ -102,7 +102,7 @@ lazy_static::lazy_static! {
         .round-bin {{
             border-radius: 24px;
         }}
-    ", BACKGROUND_PRIMARY_FILE.to_string_lossy());
+    ", PROCESSED_BACKGROUND_FILE.to_string_lossy());
 }
 
 fn main() -> anyhow::Result<()> {
@@ -120,7 +120,7 @@ fn main() -> anyhow::Result<()> {
         // CONFIG is initialized lazily so it will contain following changes as well
         let mut config = Config::get().expect("Failed to get config");
 
-        config.launcher.language = i18n::format_lang(&i18n::get_default_lang());
+        config.launcher.language = i18n::format_lang(i18n::get_default_lang());
 
         Config::update_raw(config).expect("Failed to update config");
     }
@@ -201,6 +201,9 @@ fn main() -> anyhow::Result<()> {
     gtk::IconTheme::for_display(&gtk::gdk::Display::default().unwrap())
         .add_resource_path(&format!("{APP_RESOURCE_PATH}/icons"));
 
+    // Set global css
+    relm4::set_global_css(&GLOBAL_CSS);
+
     // Set application's title
     gtk::glib::set_application_name("The Honkers Railway Launcher");
     gtk::glib::set_program_name(Some("The Honkers Railway Launcher"));
@@ -217,9 +220,6 @@ fn main() -> anyhow::Result<()> {
         // Create the app
         let app = RelmApp::new(APP_ID)
             .with_args(gtk_args);
-
-        // Set global css
-        app.set_global_css(&GLOBAL_CSS);
 
         // Show first run window
         app.run::<FirstRunApp>(());
@@ -296,9 +296,6 @@ fn main() -> anyhow::Result<()> {
         // Create the app
         let app = RelmApp::new(APP_ID)
             .with_args(gtk_args);
-
-        // Set global css
-        app.set_global_css(&GLOBAL_CSS);
 
         // Show main window
         app.run::<App>(());

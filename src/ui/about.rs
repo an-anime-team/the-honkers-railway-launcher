@@ -103,18 +103,30 @@ impl SimpleComponent for AboutDialog {
                 "<p>Added</p>",
 
                 "<ul>",
+                    "<li>Added \"Indonesia\" wine language option</li>",
+                    "<li>Added writing of the game's output to the \"game.log\" file in the launcher's folder</li>",
                     "<li>Respect root \".version\" file for game version parsing</li>",
+                    "<li>Added 2.4.0 voiceovers sizes</li>",
+                "</ul>",
+
+                "<p>Fixed</p>",
+
+                "<ul>",
+                    "<li>Fixed \"dwebp\" package name for fedora during initial setup</li>",
+                    "<li>Fixed Discord RPC updates</li>",
                 "</ul>",
 
                 "<p>Changed</p>",
 
                 "<ul>",
+                    "<li>Changed background images processing logic</li>",
                     "<li>Prioritize parsed game version over the API response</li>",
                 "</ul>",
 
                 "<p>Removed</p>",
 
                 "<ul>",
+                    "<li>Removed \"xdelta3\" dependency</li>",
                     "<li>Removed migrate installation feature</li>",
                 "</ul>"
             ].join("\n"),

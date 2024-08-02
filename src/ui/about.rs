@@ -39,7 +39,7 @@ impl SimpleComponent for AboutDialog {
             set_website: "https://github.com/an-anime-team/the-honkers-railway-launcher",
             set_issue_url: "https://github.com/an-anime-team/the-honkers-railway-launcher/issues",
 
-            set_license_type: gtk::License::Gpl30,
+            set_license_type: gtk::License::Gpl30Only,
             set_version: &APP_VERSION,
 
             set_developers: &[
@@ -103,14 +103,31 @@ impl SimpleComponent for AboutDialog {
                 "<p>Added</p>",
 
                 "<ul>",
-                    "<li>Handle dwebp re-coding errors</li>",
-                    "<li>Added 2.3.0 voiceovers sizes</li>",
+                    "<li>Added \"Indonesia\" wine language option</li>",
+                    "<li>Added writing of the game's output to the \"game.log\" file in the launcher's folder</li>",
+                    "<li>Respect root \".version\" file for game version parsing</li>",
+                    "<li>Added 2.4.0 voiceovers sizes</li>",
                 "</ul>",
 
                 "<p>Fixed</p>",
 
                 "<ul>",
-                    "<li>Added workaround for wrong pre-downloads API format</li>",
+                    "<li>Fixed \"dwebp\" package name for fedora during initial setup</li>",
+                    "<li>Fixed Discord RPC updates</li>",
+                "</ul>",
+
+                "<p>Changed</p>",
+
+                "<ul>",
+                    "<li>Changed background images processing logic</li>",
+                    "<li>Prioritize parsed game version over the API response</li>",
+                "</ul>",
+
+                "<p>Removed</p>",
+
+                "<ul>",
+                    "<li>Removed \"xdelta3\" dependency</li>",
+                    "<li>Removed migrate installation feature</li>",
                 "</ul>"
             ].join("\n"),
 

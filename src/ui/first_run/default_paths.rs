@@ -353,7 +353,7 @@ impl SimpleAsyncComponent for DefaultPathsApp {
             DefaultPathsAppMsg::Continue => {
                 match self.update_config() {
                     Ok(_) => {
-                        sender.output(Self::Output::ScrollToSelectVoiceovers);
+                        sender.output(Self::Output::ScrollToDownloadComponents);
                     }
 
                     Err(err) => {

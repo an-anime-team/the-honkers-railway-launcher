@@ -990,31 +990,36 @@ impl SimpleComponent for App {
 
             // Update initial patch status
 
-            tasks.push(std::thread::spawn(clone!(@strong sender => move || {
-                // Get main patch status
-                sender.input(AppMsg::SetMainPatch(match jadeite::get_metadata() {
-                    Ok(metadata) => {
-                        let status = GAME.get_version()
-                            .map(|version| metadata.games.hsr.global.get_status(version))
-                            .unwrap_or(metadata.games.hsr.global.status);
+            tasks.push(std::thread::spawn(clone!(
+                #[strong]
+                sender,
 
-                        Some((metadata.jadeite.version, status))
-                    }
+                move || {
+                    // Get main patch status
+                    sender.input(AppMsg::SetMainPatch(match jadeite::get_metadata() {
+                        Ok(metadata) => {
+                            let status = GAME.get_version()
+                                .map(|version| metadata.games.hsr.global.get_status(version))
+                                .unwrap_or(metadata.games.hsr.global.status);
 
-                    Err(err) => {
-                        tracing::error!("Failed to fetch patch metadata: {err}");
+                            Some((metadata.jadeite.version, status))
+                        }
 
-                        sender.input(AppMsg::Toast {
-                            title: tr!("patch-info-fetching-error"),
-                            description: Some(err.to_string())
-                        });
+                        Err(err) => {
+                            tracing::error!("Failed to fetch patch metadata: {err}");
 
-                        None
-                    }
-                }));
+                            sender.input(AppMsg::Toast {
+                                title: tr!("patch-info-fetching-error"),
+                                description: Some(err.to_string())
+                            });
 
-                tracing::info!("Updated patch status");
-            })));
+                            None
+                        }
+                    }));
+
+                    tracing::info!("Updated patch status");
+                }
+            )));
 
             // Update initial game version status
 
@@ -1089,10 +1094,10 @@ impl SimpleComponent for App {
                                         "locale" = locale.to_name()
                                     })))));
                                 }
-                            }
 
-                            StateUpdating::Patch => {
-                                sender.input(AppMsg::SetLoadingStatus(Some(Some(tr!("loading-launcher-state--patch")))));
+                                StateUpdating::Patch => {
+                                    sender.input(AppMsg::SetLoadingStatus(Some(Some(tr!("loading-launcher-state--patch")))));
+                                }
                             }
                         }
                     }

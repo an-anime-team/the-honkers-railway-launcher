@@ -22,6 +22,8 @@ pub mod components;
 
 use components::*;
 
+use crate::ui::preferences::main::PreferencesAppMsg;
+
 use crate::i18n::*;
 use crate::*;
 

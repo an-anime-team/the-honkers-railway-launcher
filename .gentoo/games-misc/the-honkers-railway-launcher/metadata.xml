@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>pascal.jaeger@leimstift.de</email>
+		<name>Pascal Jäger</name>
+	</maintainer>
+	<upstream>
+		<remote-id type="github">an-anime-team/the-honkers-railway-launcher</remote-id>
+	</upstream>
+</pkgmetadata>

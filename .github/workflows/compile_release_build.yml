@@ -43,3 +43,18 @@ jobs:
         with:
           name: Release build
           path: target/release/honkers-railway-launcher
+
+  release_ebuild:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Generate and deploy a new release
+        uses: JohnTheCoolingFan/rust-pycargoebuild-release@v2
+        with:
+          auth_token: ${{ secrets.GENTOO_PR_TOKEN }}
+          deploy_token: ${{ secrets.GENTOO_DEPLOY_KEY }}
+          overlay_repo: an-anime-team/gentoo-ebuilds
+          no_live_ebuild: true

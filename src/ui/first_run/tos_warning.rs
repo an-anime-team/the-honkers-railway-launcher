@@ -105,8 +105,7 @@ impl SimpleAsyncComponent for TosWarningApp {
                         "continue" => {
                             let installed =
                                 is_available("git") &&
-                                is_available("dwebp") &&
-                                (is_available("7z") || is_available("7za"));
+                                is_available("dwebp");
 
                             if installed {
                                 sender.output(Self::Output::ScrollToDefaultPaths);

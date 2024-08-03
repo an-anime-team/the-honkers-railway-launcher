@@ -68,7 +68,7 @@ impl SimpleAsyncComponent for DependenciesApp {
                         },
 
                         gtk::Entry {
-                            set_text: "sudo pacman -Syu git p7zip libwebp",
+                            set_text: "sudo pacman -Syu git libwebp",
                             set_editable: false
                         }
                     },
@@ -85,7 +85,7 @@ impl SimpleAsyncComponent for DependenciesApp {
                         },
 
                         gtk::Entry {
-                            set_text: "sudo apt install git p7zip-full webp",
+                            set_text: "sudo apt install git webp",
                             set_editable: false
                         }
                     },
@@ -102,7 +102,7 @@ impl SimpleAsyncComponent for DependenciesApp {
                         },
 
                         gtk::Entry {
-                            set_text: "sudo dnf install git p7zip libwebp-tools",
+                            set_text: "sudo dnf install git libwebp-tools",
                             set_editable: false
                         }
                     },
@@ -117,10 +117,6 @@ impl SimpleAsyncComponent for DependenciesApp {
                         adw::PreferencesGroup {
                             adw::ActionRow {
                                 set_title: "git"
-                            },
-
-                            adw::ActionRow {
-                                set_title: "p7zip"
                             },
 
                             adw::ActionRow {
@@ -204,18 +200,6 @@ impl SimpleAsyncComponent for DependenciesApp {
 
                         return;
                     }
-                }
-
-                // 7z sometimes has different binaries
-                if !is_available("7z") && !is_available("7za") {
-                    sender.output(Self::Output::Toast {
-                        title: tr!("package-not-available", {
-                            "package" = "7z"
-                        }),
-                        description: None
-                    });
-
-                    return;
                 }
 
                 sender.output(Self::Output::ScrollToDefaultPaths);

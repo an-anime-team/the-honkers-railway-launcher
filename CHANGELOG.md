@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.7.1] - 03.08.2024
+
 ### Removed
 
 - Removed `p7zip` dependency
@@ -335,7 +337,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 <br>
 
-[unreleased]: https://github.com/an-anime-team/the-honkers-railway-launcher/compare/1.7.0...next
+[unreleased]: https://github.com/an-anime-team/the-honkers-railway-launcher/compare/1.7.1...next
+[1.7.1]: https://github.com/an-anime-team/the-honkers-railway-launcher/compare/1.7.0...1.7.1
 [1.7.0]: https://github.com/an-anime-team/the-honkers-railway-launcher/compare/1.6.1...1.7.0
 [1.6.1]: https://github.com/an-anime-team/the-honkers-railway-launcher/compare/1.6.0...1.6.1
 [1.6.0]: https://github.com/an-anime-team/the-honkers-railway-launcher/compare/1.5.5...1.6.0

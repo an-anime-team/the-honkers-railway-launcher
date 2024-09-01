@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.8.0] - 01.09.2024
+
 ### Added
 
 - Apply chmod 755 to extracted files if 7z was used
@@ -21,16 +23,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - (potentially) fixed a bug with pre-download button
 - Fixed calculation of unpacked files size due to API changes
 - Respect downloaded file size in free space check
-
-## [3.11.0] - 02.08.2024
-
-### Added
-
-- Respect root `.version` file for game version parsing
-
-### Changed
-
-- Prioritize parsed game version over the API response
 
 ## [1.7.1] - 03.08.2024
 
@@ -362,7 +354,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 <br>
 
-[unreleased]: https://github.com/an-anime-team/the-honkers-railway-launcher/compare/1.7.1...next
+[unreleased]: https://github.com/an-anime-team/the-honkers-railway-launcher/compare/1.8.0...next
+[1.8.0]: https://github.com/an-anime-team/the-honkers-railway-launcher/compare/1.7.1...1.8.0
 [1.7.1]: https://github.com/an-anime-team/the-honkers-railway-launcher/compare/1.7.0...1.7.1
 [1.7.0]: https://github.com/an-anime-team/the-honkers-railway-launcher/compare/1.6.1...1.7.0
 [1.6.1]: https://github.com/an-anime-team/the-honkers-railway-launcher/compare/1.6.0...1.6.1

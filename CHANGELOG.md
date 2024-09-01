@@ -7,6 +7,31 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Apply chmod 755 to extracted files if 7z was used
+
+### Changed
+
+- Reworked gamescope settings
+
+### Fixed
+
+- Create cache folder if it doesn't exist
+- (potentially) fixed a bug with pre-download button
+- Fixed calculation of unpacked files size due to API changes
+- Respect downloaded file size in free space check
+
+## [3.11.0] - 02.08.2024
+
+### Added
+
+- Respect root `.version` file for game version parsing
+
+### Changed
+
+- Prioritize parsed game version over the API response
+
 ## [1.7.1] - 03.08.2024
 
 ### Removed

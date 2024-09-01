@@ -334,16 +334,16 @@ impl SimpleComponent for App {
                                                 let temp = config.launcher.temp.unwrap_or_else(std::env::temp_dir);
 
                                                 let mut downloaded = temp.join(game.file_name().unwrap()).metadata()
-                                                    .map(|metadata| Some(metadata.len()) == game.downloaded_size())
+                                                    .map(|metadata| Some(metadata.len()) >= game.downloaded_size())
                                                     .unwrap_or(false);
 
                                                 if downloaded {
                                                     for voice in voices {
-                                                        downloaded = !temp.join(voice.file_name().unwrap()).metadata()
-                                                            .map(|metadata| Some(metadata.len()) == voice.downloaded_size())
+                                                        downloaded = temp.join(voice.file_name().unwrap()).metadata()
+                                                            .map(|metadata| Some(metadata.len()) >= voice.downloaded_size())
                                                             .unwrap_or(false);
 
-                                                        if downloaded {
+                                                        if !downloaded {
                                                             break;
                                                         }
                                                     }
@@ -362,16 +362,16 @@ impl SimpleComponent for App {
                                                 let temp = config.launcher.temp.unwrap_or_else(std::env::temp_dir);
 
                                                 let mut downloaded = temp.join(game.file_name().unwrap()).metadata()
-                                                    .map(|metadata| Some(metadata.len()) == game.downloaded_size())
+                                                    .map(|metadata| Some(metadata.len()) >= game.downloaded_size())
                                                     .unwrap_or(false);
 
                                                 if downloaded {
                                                     for voice in voices {
-                                                        downloaded = !temp.join(voice.file_name().unwrap()).metadata()
-                                                            .map(|metadata| Some(metadata.len()) == voice.downloaded_size())
+                                                        downloaded = temp.join(voice.file_name().unwrap()).metadata()
+                                                            .map(|metadata| Some(metadata.len()) >= voice.downloaded_size())
                                                             .unwrap_or(false);
 
-                                                        if downloaded {
+                                                        if !downloaded {
                                                             break;
                                                         }
                                                     }
@@ -598,11 +598,11 @@ impl SimpleComponent for App {
                                             }
 
                                             // Old warning message which I don't really understand now:
-                                            // 
+                                            //
                                             // Doesn't work on all the systems
                                             // e.g. won't work if you didn't install wine system-wide
                                             // there's some reasons for it
-                                            // 
+                                            //
                                             // UPD: I've tried this, and the problem is that it's completely pointless
                                             //      For whatever reason it just doesn't work
 
@@ -1109,7 +1109,7 @@ impl SimpleComponent for App {
                         tracing::error!("Failed to update launcher state: {err}");
 
                         self.toast(tr!("launcher-state-updating-error"), Some(err.to_string()));
-    
+
                         None
                     }
                 };

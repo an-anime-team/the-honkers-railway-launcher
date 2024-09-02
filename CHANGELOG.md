@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Fixed gamescope config file layout
+
 ## [1.8.0] - 01.09.2024
 
 ### Added

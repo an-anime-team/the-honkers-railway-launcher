@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.8.1] - 02.09.2024
+
 ### Fixed
 
 - Fixed gamescope config file layout
@@ -358,7 +360,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 <br>
 
-[unreleased]: https://github.com/an-anime-team/the-honkers-railway-launcher/compare/1.8.0...next
+[unreleased]: https://github.com/an-anime-team/the-honkers-railway-launcher/compare/1.8.1...next
+[1.8.1]: https://github.com/an-anime-team/the-honkers-railway-launcher/compare/1.8.0...1.8.1
 [1.8.0]: https://github.com/an-anime-team/the-honkers-railway-launcher/compare/1.7.1...1.8.0
 [1.7.1]: https://github.com/an-anime-team/the-honkers-railway-launcher/compare/1.7.0...1.7.1
 [1.7.0]: https://github.com/an-anime-team/the-honkers-railway-launcher/compare/1.6.1...1.7.0

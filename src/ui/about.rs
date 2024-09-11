@@ -100,10 +100,11 @@ impl SimpleComponent for AboutDialog {
 
             set_release_notes_version: &APP_VERSION,
             set_release_notes: &[
-                "<p>Fixed</p>",
+                "<p>Added</p>",
 
                 "<ul>",
-                    "<li>Fixed gamescope config file layout</li>",
+                    "<li>Added support for new game installation format</li>",
+                    "<li>Added 7z binary requirement</li>",
                 "</ul>"
             ].join("\n"),
 

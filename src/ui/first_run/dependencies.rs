@@ -41,7 +41,7 @@ impl SimpleAsyncComponent for DependenciesApp {
 
                 gtk::Label {
                     set_label: &tr!("missing-dependencies-message"),
-    
+
                     set_justify: gtk::Justification::Center,
                     set_wrap: true,
                     set_margin_top: 32
@@ -68,7 +68,7 @@ impl SimpleAsyncComponent for DependenciesApp {
                         },
 
                         gtk::Entry {
-                            set_text: "sudo pacman -Syu git libwebp",
+                            set_text: "sudo pacman -Syu git p7zip libwebp",
                             set_editable: false
                         }
                     },
@@ -85,7 +85,7 @@ impl SimpleAsyncComponent for DependenciesApp {
                         },
 
                         gtk::Entry {
-                            set_text: "sudo apt install git webp",
+                            set_text: "sudo apt install git p7zip-full webp",
                             set_editable: false
                         }
                     },
@@ -102,7 +102,7 @@ impl SimpleAsyncComponent for DependenciesApp {
                         },
 
                         gtk::Entry {
-                            set_text: "sudo dnf install git libwebp-tools",
+                            set_text: "sudo dnf install git p7zip libwebp-tools",
                             set_editable: false
                         }
                     },
@@ -120,6 +120,10 @@ impl SimpleAsyncComponent for DependenciesApp {
                             },
 
                             adw::ActionRow {
+                                set_title: "p7zip"
+                            },
+
+                            adw::ActionRow {
                                 set_title: "libwebp"
                             }
                         }
@@ -130,7 +134,7 @@ impl SimpleAsyncComponent for DependenciesApp {
             add = &adw::PreferencesGroup {
                 set_valign: gtk::Align::Center,
                 set_vexpand: true,
-    
+
                 gtk::Box {
                     set_orientation: gtk::Orientation::Horizontal,
                     set_halign: gtk::Align::Center,
@@ -200,6 +204,18 @@ impl SimpleAsyncComponent for DependenciesApp {
 
                         return;
                     }
+                }
+
+                // 7z sometimes has different binaries
+                if !is_available("7z") && !is_available("7za") {
+                    sender.output(Self::Output::Toast {
+                        title: tr!("package-not-available", {
+                            "package" = "7z"
+                        }),
+                        description: None
+                    });
+
+                    return;
                 }
 
                 sender.output(Self::Output::ScrollToDefaultPaths);

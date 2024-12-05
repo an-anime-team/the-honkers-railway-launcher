@@ -65,6 +65,7 @@ pub fn download_background() -> anyhow::Result<()> {
     let info = get_background_info()?;
 
     let mut download_image = true;
+    let mut replace_cached_image = false;
 
     if crate::BACKGROUND_FILE.exists() {
         let hash = Md5::digest(std::fs::read(crate::BACKGROUND_FILE.as_path())?);
@@ -84,6 +85,8 @@ pub fn download_background() -> anyhow::Result<()> {
         if let Err(err) = downloader.download(crate::BACKGROUND_FILE.as_path(), |_, _| {}) {
             anyhow::bail!(err);
         }
+
+        replace_cached_image = true;
     }
 
     // Workaround for GTK weakness
@@ -98,7 +101,7 @@ pub fn download_background() -> anyhow::Result<()> {
         // If it failed to re-code the file - just copy it
         // Will happen with HSR because devs apparently named
         // their background image ".webp" while it's JPEG
-        if !crate::PROCESSED_BACKGROUND_FILE.exists() {
+        if replace_cached_image || !crate::PROCESSED_BACKGROUND_FILE.exists() {
             std::fs::copy(crate::BACKGROUND_FILE.as_path(), crate::PROCESSED_BACKGROUND_FILE.as_path())?;
         }
     }

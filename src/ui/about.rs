@@ -100,10 +100,12 @@ impl SimpleComponent for AboutDialog {
 
             set_release_notes_version: &APP_VERSION,
             set_release_notes: &[
-                "<p>Removed</p>",
+                "<p>Fixed</p>",
 
                 "<ul>",
-                    "<li>Removed Discord RPC support</li>",
+                    "<li>(supposedly) fixed background picture updating</li>",
+                    "<li>(supposedly) fixed wishes URL parsing</li>",
+                    "<li>Fixed game version parsing on updated game files layout</li>",
                 "</ul>"
             ].join("\n"),
 

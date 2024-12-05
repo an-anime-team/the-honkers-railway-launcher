@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- (supposedly) fixed background picture updating
+- (supposedly) fixed wishes URL parsing
+- Fixed game version parsing on updated game files layout
+
 ## [1.9.0] - 09.10.2024
 
 ### Removed

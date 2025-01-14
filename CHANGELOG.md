@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.10.0] - 14.01.2025
+
 ### Added
 
 - Added (untested) support for new `hdiffmap.json` update file
@@ -386,7 +388,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 <br>
 
-[unreleased]: https://github.com/an-anime-team/the-honkers-railway-launcher/compare/1.9.1...next
+[unreleased]: https://github.com/an-anime-team/the-honkers-railway-launcher/compare/1.10.0...next
+[1.10.0]: https://github.com/an-anime-team/the-honkers-railway-launcher/compare/1.9.1...1.10.0
 [1.9.1]: https://github.com/an-anime-team/the-honkers-railway-launcher/compare/1.9.0...1.9.1
 [1.9.0]: https://github.com/an-anime-team/the-honkers-railway-launcher/compare/1.8.2...1.9.0
 [1.8.2]: https://github.com/an-anime-team/the-honkers-railway-launcher/compare/1.8.1...1.8.2

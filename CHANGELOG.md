@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Added (untested) support for new `hdiffmap.json` update file
+- Added `zh-tw` localization
+
 ## [1.9.1] - 05.12.2024
 
 ### Fixed

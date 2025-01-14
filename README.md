@@ -74,6 +74,7 @@ These packages are supported by active members of our community. They're widely 
 | - | - | - | - | - |
 | AUR | [wiki](https://github.com/an-anime-team/the-honkers-railway-launcher/wiki/Installation#-arch-linux-aur) | [the-honkers-railway-launcher-bin](https://aur.archlinux.org/packages/the-honkers-railway-launcher-bin) | Arch Linux, Manjaro, EndeavourOS | xstra * |
 | NixOS module | [wiki](https://github.com/an-anime-team/the-honkers-railway-launcher/wiki/Installation#-nixos-nixpkg) | [aagl-gtk-on-nix](https://github.com/ezKEa/aagl-gtk-on-nix) | NixOS | Luxxy * |
+| Ebuild | [wiki](https://github.com/an-anime-team/an-anime-game-launcher/wiki/Installation#gentoo) | [aagl-ebuilds](https://github.com/an-anime-team/gentoo-ebuilds) | Gentoo | johnthecoolingfan * |
 
 > [!NOTE]
 > Honorary members of our discord server. We have direct contact with them.
@@ -86,11 +87,6 @@ These packages are supported by third party distributors. They either did not co
 | - | - | - |
 | DEB | [the-honkers-railway-launcher](https://launchpad.net/~thundergemios10/+archive/ubuntu/the-honkers-railway-launcher) | Ubuntu, Linux Mint, Pop!_OS |
 | Pacstall | [the-honkers-railway-launcher-bin](https://pacstall.dev/packages/the-honkers-railway-launcher-bin) | Ubuntu |
-| Ebuild | [aagl-ebuilds](https://github.com/an-anime-team/gentoo-ebuilds) * | Gentoo |
-| Lutris | `lutris.net/games/hon...-star-ra...` (stripping the link) | Any |
-
-> [!NOTE]
-> Although it's hosted in our official repo we didn't contact with its maintainer for some time already, and recent updates were made via merge requests by the community.
 
 ## Chinese version support
 

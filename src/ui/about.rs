@@ -100,12 +100,11 @@ impl SimpleComponent for AboutDialog {
 
             set_release_notes_version: &APP_VERSION,
             set_release_notes: &[
-                "<p>Fixed</p>",
+                "<p>Added</p>",
 
                 "<ul>",
-                    "<li>(supposedly) fixed background picture updating</li>",
-                    "<li>(supposedly) fixed wishes URL parsing</li>",
-                    "<li>Fixed game version parsing on updated game files layout</li>",
+                    "<li>Added (untested) support for new hdiffmap.json update file</li>",
+                    "<li>Added zh-tw localization</li>",
                 "</ul>"
             ].join("\n"),
 

@@ -447,7 +447,7 @@ impl SimpleComponent for App {
                                                     => tr!("patch-broken"),
 
                                                 Some(LauncherState::PatchUnsafe) |
-                                                Some(LauncherState::PredownloadAvailable { patch: JadeitePatchStatusVariant::Unsafe, .. }) 
+                                                Some(LauncherState::PredownloadAvailable { patch: JadeitePatchStatusVariant::Unsafe, .. })
                                                     => tr!("patch-unsafe"),
 
                                                 Some(LauncherState::TelemetryNotDisabled) => tr!("disable-telemetry"),
@@ -1141,6 +1141,8 @@ impl SimpleComponent for App {
 
             #[allow(unused_must_use)]
             AppMsg::SetMainPatch(patch) => unsafe {
+                // I honestly don't care anymore.
+                #[allow(static_mut_refs)]
                 PREFERENCES_WINDOW.as_ref().unwrap_unchecked().sender().send(PreferencesAppMsg::SetMainPatch(patch));
             }
 

@@ -85,7 +85,7 @@ impl SimpleAsyncComponent for TosWarningApp {
 
     async fn update(&mut self, msg: Self::Input, sender: AsyncComponentSender<Self>) {
         match msg {
-            #[allow(unused_must_use)]
+            #[allow(unused_must_use, static_mut_refs)]
             TosWarningAppMsg::Continue => {
                 let dialog = adw::MessageDialog::new(
                     unsafe { MAIN_WINDOW.as_ref() },

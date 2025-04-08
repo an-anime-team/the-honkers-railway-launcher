@@ -23,13 +23,8 @@ impl SimpleComponent for AboutDialog {
     type Output = ();
 
     view! {
-<<<<<<< HEAD
-        dialog = adw::AboutWindow {
-            set_application_name: "The Honkers Railway Launcher",
-=======
         dialog = adw::AboutDialog {
-            set_application_name: "An Anime Game Launcher",
->>>>>>> 96e010cf0c583aff2d4dbbcd2e20ccdd7b53447f
+            set_application_name: "The Honkers Railway Launcher",
             set_application_icon: APP_ID,
 
             set_website: "https://github.com/an-anime-team/the-honkers-railway-launcher",
@@ -99,10 +94,6 @@ impl SimpleComponent for AboutDialog {
                 "<p>Added</p>",
 
                 "<ul>",
-<<<<<<< HEAD
-                    "<li>Added (untested) support for new hdiffmap.json update file</li>",
-                    "<li>Added zh-tw localization</li>",
-=======
                     "<li>Added (initial?) support for wow64 wine builds</li>",
                 "</ul>",
 
@@ -110,7 +101,6 @@ impl SimpleComponent for AboutDialog {
 
                 "<ul>",
                     "<li>Updated Ukrainian</li>",
->>>>>>> 96e010cf0c583aff2d4dbbcd2e20ccdd7b53447f
                 "</ul>"
             ].join("\n")
         }

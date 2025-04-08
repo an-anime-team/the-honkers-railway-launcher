@@ -1,9 +1,5 @@
 {
     inputs = {
-<<<<<<< HEAD
-        nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
-        nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
-=======
         nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
         flake-utils.url = "github:numtide/flake-utils";
 
@@ -11,7 +7,6 @@
             url = "github:oxalica/rust-overlay";
             inputs.nixpkgs.follows = "nixpkgs";
         };
->>>>>>> 96e010cf0c583aff2d4dbbcd2e20ccdd7b53447f
     };
 
     nixConfig = {

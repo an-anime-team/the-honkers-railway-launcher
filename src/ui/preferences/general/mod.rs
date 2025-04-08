@@ -593,7 +593,7 @@ impl SimpleAsyncComponent for GeneralApp {
                             config.game.voices.push(package.locale.to_code().to_string());
 
                             Config::update(config);
-    
+
                             sender.output(PreferencesAppMsg::UpdateLauncherState);
                         }
                     }

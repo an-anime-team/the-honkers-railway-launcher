@@ -1,5 +1,4 @@
 use relm4::prelude::*;
-use gtk::prelude::*;
 
 use anime_launcher_sdk::VERSION as SDK_VERSION;
 use anime_launcher_sdk::anime_game_core::VERSION as CORE_VERSION;
@@ -14,25 +13,17 @@ lazy_static::lazy_static! {
     };
 }
 
-#[derive(Debug)]
-pub struct AboutDialog {
-    visible: bool
-}
-
-#[derive(Debug)]
-pub enum AboutDialogMsg {
-    Show,
-    Hide
-}
+#[derive(Debug, Clone, Copy)]
+pub struct AboutDialog;
 
 #[relm4::component(pub)]
 impl SimpleComponent for AboutDialog {
     type Init = ();
-    type Input = AboutDialogMsg;
+    type Input = ();
     type Output = ();
 
     view! {
-        dialog = adw::AboutWindow {
+        dialog = adw::AboutDialog {
             set_application_name: "The Honkers Railway Launcher",
             set_application_icon: APP_ID,
 
@@ -100,49 +91,34 @@ impl SimpleComponent for AboutDialog {
 
             set_release_notes_version: &APP_VERSION,
             set_release_notes: &[
+
                 "<p>Added</p>",
 
                 "<ul>",
-                    "<li>Added (untested) support for new hdiffmap.json update file</li>",
-                    "<li>Added zh-tw localization</li>",
+                    "<li>Added (initial?) support for `wow64` wine builds</li>",
+                "</ul>",
+
+                "<p>Changed</p>",
+
+                "<ul>",
+                    "<li>Removed Proton support</li>",
+                "</ul>",
+
+                "<p>Fixed</p>",
+
+                "<ul>",
+                    "<li>Fixed error determining currently installed voiceover version. The launcher assumes latest is installed if it can't find the `.version` file.</li>",
                 "</ul>"
-            ].join("\n"),
-
-            set_modal: true,
-            set_hide_on_close: true,
-
-            #[watch]
-            set_visible: model.visible,
-
-            connect_close_request[sender] => move |_| {
-                sender.input(AboutDialogMsg::Hide);
-
-                gtk::glib::Propagation::Proceed
-            }
+            ].join("\n")
         }
     }
 
-    fn init(_init: Self::Init, root: Self::Root, sender: ComponentSender<Self>) -> ComponentParts<Self> {
+    fn init(_init: Self::Init, root: Self::Root, _sender: ComponentSender<Self>) -> ComponentParts<Self> {
         tracing::info!("Initializing about dialog");
 
-        let model = Self {
-            visible: false
-        };
-
+        let model = Self;
         let widgets = view_output!();
 
         ComponentParts { model, widgets }
-    }
-
-    fn update(&mut self, msg: Self::Input, _sender: ComponentSender<Self>) {
-        match msg {
-            AboutDialogMsg::Show => {
-                self.visible = true;
-            }
-
-            AboutDialogMsg::Hide => {
-                self.visible = false;
-            }
-        }
     }
 }

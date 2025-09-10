@@ -268,7 +268,7 @@ impl SimpleAsyncComponent for GeneralApp {
                                 config.launcher.language = crate::i18n::format_lang(SUPPORTED_LANGUAGES
                                     .get(row.selected() as usize)
                                     .unwrap_or(&SUPPORTED_LANGUAGES[0]));
-    
+
                                 Config::update(config);
                             }
                         }
@@ -593,7 +593,7 @@ impl SimpleAsyncComponent for GeneralApp {
                             config.game.voices.push(package.locale.to_code().to_string());
 
                             Config::update(config);
-    
+
                             sender.output(PreferencesAppMsg::UpdateLauncherState);
                         }
                     }
@@ -658,6 +658,8 @@ impl SimpleAsyncComponent for GeneralApp {
                 sender.output(Self::Output::RepairGame).unwrap();
             }
 
+            // Don't care about it, don't want to rewrite everything.
+            #[allow(static_mut_refs)]
             GeneralAppMsg::OpenMainPage => unsafe {
                 PREFERENCES_WINDOW.as_ref()
                     .unwrap_unchecked()
@@ -665,6 +667,8 @@ impl SimpleAsyncComponent for GeneralApp {
                     .pop_subpage();
             }
 
+            // Don't care about it, don't want to rewrite everything.
+            #[allow(static_mut_refs)]
             GeneralAppMsg::OpenComponentsPage => unsafe {
                 PREFERENCES_WINDOW.as_ref()
                     .unwrap_unchecked()
@@ -672,7 +676,6 @@ impl SimpleAsyncComponent for GeneralApp {
                     .push_subpage(self.components_page.widget());
             }
 
-            #[allow(unused_must_use)]
             GeneralAppMsg::UpdateLauncherStyle(style) => {
                 if style == LauncherStyle::Classic && !KEEP_BACKGROUND_FILE.exists() {
                     if let Err(err) = crate::background::download_background() {
@@ -695,7 +698,7 @@ impl SimpleAsyncComponent for GeneralApp {
 
                 self.style = style;
 
-                sender.output(Self::Output::SetLauncherStyle(style));
+                let _ = sender.output(Self::Output::SetLauncherStyle(style));
             }
 
             GeneralAppMsg::WineOpen(executable) => {
@@ -722,9 +725,8 @@ impl SimpleAsyncComponent for GeneralApp {
                 }
             }
 
-            #[allow(unused_must_use)]
             GeneralAppMsg::Toast { title, description } => {
-                sender.output(Self::Output::Toast { title, description });
+                let _ = sender.output(Self::Output::Toast { title, description });
             }
         }
     }

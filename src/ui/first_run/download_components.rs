@@ -7,7 +7,6 @@ use anime_launcher_sdk::anime_game_core::prelude::*;
 use anime_launcher_sdk::wincompatlib::prelude::*;
 
 use anime_launcher_sdk::components::*;
-use anime_launcher_sdk::components::wine::UnifiedWine;
 
 use anime_launcher_sdk::config::ConfigExt;
 use anime_launcher_sdk::star_rail::config::Config;
@@ -562,52 +561,35 @@ impl SimpleAsyncComponent for DownloadComponentsApp {
                 let wine = self.selected_wine.clone().unwrap();
                 let dxvk = self.selected_dxvk.clone().unwrap();
 
-                let group = wine.find_group(&config.components.path).unwrap().unwrap();
+                // Apply DXVK
+                let wine = wine
+                    .to_wine(config.components.path, Some(config.game.wine.builds.join(&wine.name)))
+                    .with_loader(WineLoader::Current)
+                    .with_arch(WineArch::Win64)
+                    .with_prefix(config.game.wine.prefix);
 
-                // Apply DXVK if we need it
-                if wine.features_in(&group).unwrap_or_default().need_dxvk {
-                    let wine = wine
-                        .to_wine(config.components.path, Some(config.game.wine.builds.join(&wine.name)))
-                        .with_loader(WineLoader::Current)
-                        .with_arch(WineArch::Win64)
-                        .with_prefix(config.game.wine.prefix);
+                std::thread::spawn(move || {
+                    let params = InstallParams {
+                        // We just created prefix so don't need to repair it
+                        repair_dlls: false,
 
-                    std::thread::spawn(move || {
-                        let params = InstallParams {
-                            // We just created prefix so don't need to repair it
-                            repair_dlls: false,
+                        ..InstallParams::default()
+                    };
 
-                            ..InstallParams::default()
-                        };
+                    match wine.install_dxvk(config.game.dxvk.builds.join(&dxvk.name), params) {
+                        // Go to next page
+                        Ok(_) => sender.input(DownloadComponentsAppMsg::Continue),
 
-                        let UnifiedWine::Default(wine) = wine else {
-                            sender.input(DownloadComponentsAppMsg::Continue);
+                        Err(err) => {
+                            tracing::error!("Failed to apply DXVK: {err}");
 
-                            return;
-                        };
-
-                        match wine.install_dxvk(config.game.dxvk.builds.join(&dxvk.name), params) {
-                            // Go to next page
-                            Ok(_) => sender.input(DownloadComponentsAppMsg::Continue),
-
-                            Err(err) => {
-                                tracing::error!("Failed to apply DXVK: {err}");
-
-                                sender.output(Self::Output::Toast {
-                                    title: tr!("dxvk-apply-error"),
-                                    description: Some(err.to_string())
-                                });
-                            }
+                            sender.output(Self::Output::Toast {
+                                title: tr!("dxvk-apply-error"),
+                                description: Some(err.to_string())
+                            });
                         }
-                    });
-                }
-
-                // Skip DXVK applying if we don't need it
-                else {
-                    tracing::info!("Selected wine version has `need_dxvk = false` feature. Skipping DXVK applying...");
-
-                    sender.input(DownloadComponentsAppMsg::Continue);
-                }
+                    }
+                });
             }
 
             #[allow(unused_must_use)]

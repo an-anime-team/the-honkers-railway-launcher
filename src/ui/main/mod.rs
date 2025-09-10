@@ -1,10 +1,6 @@
-use relm4::{
-    prelude::*,
-    actions::*,
-    MessageBroker
-};
+use relm4::prelude::*;
+use relm4::actions::*;
 
-use gtk::prelude::*;
 use adw::prelude::*;
 
 use gtk::glib::clone;
@@ -45,7 +41,6 @@ relm4::new_stateless_action!(About, WindowActionGroup, "about");
 
 pub static mut MAIN_WINDOW: Option<adw::ApplicationWindow> = None;
 pub static mut PREFERENCES_WINDOW: Option<AsyncController<PreferencesApp>> = None;
-pub static mut ABOUT_DIALOG: Option<Controller<AboutDialog>> = None;
 
 pub struct App {
     progress_bar: AsyncController<ProgressBar>,
@@ -452,7 +447,7 @@ impl SimpleComponent for App {
                                                     => tr!("patch-broken"),
 
                                                 Some(LauncherState::PatchUnsafe) |
-                                                Some(LauncherState::PredownloadAvailable { patch: JadeitePatchStatusVariant::Unsafe, .. }) 
+                                                Some(LauncherState::PredownloadAvailable { patch: JadeitePatchStatusVariant::Unsafe, .. })
                                                     => tr!("patch-unsafe"),
 
                                                 Some(LauncherState::TelemetryNotDisabled) => tr!("disable-telemetry"),
@@ -719,19 +714,12 @@ impl SimpleComponent for App {
 
         let widgets = view_output!();
 
-        let about_dialog_broker: MessageBroker<AboutDialogMsg> = MessageBroker::new();
-
         unsafe {
             MAIN_WINDOW = Some(widgets.main_window.clone());
 
             PREFERENCES_WINDOW = Some(PreferencesApp::builder()
                 .launch(widgets.main_window.clone().into())
                 .forward(sender.input_sender(), std::convert::identity));
-
-            ABOUT_DIALOG = Some(AboutDialog::builder()
-                .transient_for(widgets.main_window.clone())
-                .launch_with_broker((), &about_dialog_broker)
-                .detach());
         }
 
         let mut group = RelmActionGroup::<WindowActionGroup>::new();
@@ -897,8 +885,16 @@ impl SimpleComponent for App {
             }
         )));
 
-        group.add_action::<About>(RelmAction::new_stateless(move |_| {
-            about_dialog_broker.send(AboutDialogMsg::Show);
+        group.add_action::<About>(RelmAction::new_stateless(move |_| unsafe {
+            // I honestly don't care anymore.
+            #[allow(static_mut_refs)]
+            if let Some(window) = MAIN_WINDOW.as_ref() {
+                AboutDialog::builder()
+                    .launch(())
+                    .detach()
+                    .widget()
+                    .present(Some(window));
+            }
         }));
 
         widgets.main_window.insert_action_group("win", Some(&group.into_action_group()));
@@ -1138,11 +1134,15 @@ impl SimpleComponent for App {
 
             #[allow(unused_must_use)]
             AppMsg::SetGameDiff(diff) => unsafe {
+                // I honestly don't care anymore.
+                #[allow(static_mut_refs)]
                 PREFERENCES_WINDOW.as_ref().unwrap_unchecked().sender().send(PreferencesAppMsg::SetGameDiff(diff));
             }
 
             #[allow(unused_must_use)]
             AppMsg::SetMainPatch(patch) => unsafe {
+                // I honestly don't care anymore.
+                #[allow(static_mut_refs)]
                 PREFERENCES_WINDOW.as_ref().unwrap_unchecked().sender().send(PreferencesAppMsg::SetMainPatch(patch));
             }
 
@@ -1174,6 +1174,8 @@ impl SimpleComponent for App {
                 self.disabled_kill_game_button = state;
             }
 
+            // Don't care about it, don't want to rewrite everything.
+            #[allow(static_mut_refs)]
             AppMsg::OpenPreferences => unsafe {
                 PREFERENCES_WINDOW.as_ref().unwrap_unchecked().widget().present();
             }
@@ -1255,11 +1257,19 @@ impl SimpleComponent for App {
             }
 
             AppMsg::HideWindow => unsafe {
-                MAIN_WINDOW.as_ref().unwrap_unchecked().set_visible(false);
+                // I honestly don't care anymore.
+                #[allow(static_mut_refs)]
+                if let Some(window) = MAIN_WINDOW.as_ref() {
+                    window.set_visible(false);
+                }
             }
 
             AppMsg::ShowWindow => unsafe {
-                MAIN_WINDOW.as_ref().unwrap_unchecked().present();
+                // I honestly don't care anymore.
+                #[allow(static_mut_refs)]
+                if let Some(window) = MAIN_WINDOW.as_ref() {
+                    window.present();
+                }
             }
 
             AppMsg::Toast { title, description } => self.toast(title, description)
@@ -1273,11 +1283,12 @@ impl App {
 
         toast.set_timeout(4);
 
-        if let Some(description) = description {
+        #[allow(static_mut_refs)]
+        if let (Some(window), Some(description)) = (unsafe { MAIN_WINDOW.as_ref() }, description) {
             toast.set_button_label(Some(&tr!("details")));
 
             let dialog = adw::MessageDialog::new(
-                Some(unsafe { MAIN_WINDOW.as_ref().unwrap_unchecked() }),
+                Some(window),
                 Some(title.as_ref()),
                 Some(description.as_ref())
             );

@@ -1,6 +1,4 @@
 use relm4::prelude::*;
-use relm4::factory::*;
-
 use adw::prelude::*;
 
 use anime_launcher_sdk::sessions::SessionsExt;
@@ -190,7 +188,7 @@ impl SimpleAsyncComponent for GamePage {
                     if let Ok(config) = Config::get() {
                         self.session_name_entry.set_text("");
 
-                        match Sessions::update(name.clone(), config.get_wine_prefix_path()) {
+                        match Sessions::update(name.clone(), config.game.wine.prefix) {
                             Ok(()) => {
                                 let check_button = gtk::CheckButton::new();
 
@@ -217,7 +215,7 @@ impl SimpleAsyncComponent for GamePage {
             GamePageMsg::UpdateSession(index) => {
                 if let Some(session) = self.sessions.guard().get(index) {
                     if let Ok(config) = Config::get() {
-                        if let Err(err) = Sessions::update(session.name.clone(), config.get_wine_prefix_path()) {
+                        if let Err(err) = Sessions::update(session.name.clone(), config.game.wine.prefix) {
                             sender.output(EnhancementsAppMsg::Toast {
                                 title: tr!("game-session-update-failed"),
                                 description: Some(err.to_string())
@@ -259,7 +257,7 @@ impl SimpleAsyncComponent for GamePage {
                             return;
                         }
 
-                        if let Err(err) = Sessions::apply(session.name.clone(), config.get_wine_prefix_path()) {
+                        if let Err(err) = Sessions::apply(session.name.clone(), config.game.wine.prefix) {
                             sender.output(EnhancementsAppMsg::Toast {
                                 title: tr!("game-session-apply-failed"),
                                 description: Some(err.to_string())

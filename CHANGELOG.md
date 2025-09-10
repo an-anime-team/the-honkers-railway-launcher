@@ -15,6 +15,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Removed Proton support
 
+### Fixed
+
+- Fixed error determining currently installed voiceover version.
+  The launcher assumes latest is installed if it can't find the `.version` file.
+
 ## [1.10.0] - 14.01.2025
 
 ### Added

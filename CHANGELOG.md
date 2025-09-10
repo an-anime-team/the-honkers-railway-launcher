@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.11.0] - 10.09.2025
+
 ### Added
 
 - Added (initial?) support for `wow64` wine builds
@@ -401,7 +403,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 <br>
 
-[unreleased]: https://github.com/an-anime-team/the-honkers-railway-launcher/compare/1.10.0...next
+[unreleased]: https://github.com/an-anime-team/the-honkers-railway-launcher/compare/1.11.0...next
+[1.11.0]: https://github.com/an-anime-team/the-honkers-railway-launcher/compare/1.10.0...1.11.0
 [1.10.0]: https://github.com/an-anime-team/the-honkers-railway-launcher/compare/1.9.1...1.10.0
 [1.9.1]: https://github.com/an-anime-team/the-honkers-railway-launcher/compare/1.9.0...1.9.1
 [1.9.0]: https://github.com/an-anime-team/the-honkers-railway-launcher/compare/1.8.2...1.9.0

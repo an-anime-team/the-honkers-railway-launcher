@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Added (initial?) support for `wow64` wine builds
 
+### Changed
+
+- Removed Proton support
+
 ## [1.10.0] - 14.01.2025
 
 ### Added

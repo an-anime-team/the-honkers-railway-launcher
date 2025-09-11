@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Removed build-time dependency on protobuf
+
 ## [1.11.0] - 10.09.2025
 
 ### Added

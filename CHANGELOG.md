@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.11.1] - 13.09.2025
+
 ### Changed
 
 - Removed build-time dependency on protobuf
@@ -408,7 +410,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 <br>
 
-[unreleased]: https://github.com/an-anime-team/the-honkers-railway-launcher/compare/1.11.0...next
+[unreleased]: https://github.com/an-anime-team/the-honkers-railway-launcher/compare/1.11.1...next
+[1.11.1]: https://github.com/an-anime-team/the-honkers-railway-launcher/compare/1.11.0...1.11.1
 [1.11.0]: https://github.com/an-anime-team/the-honkers-railway-launcher/compare/1.10.0...1.11.0
 [1.10.0]: https://github.com/an-anime-team/the-honkers-railway-launcher/compare/1.9.1...1.10.0
 [1.9.1]: https://github.com/an-anime-team/the-honkers-railway-launcher/compare/1.9.0...1.9.1

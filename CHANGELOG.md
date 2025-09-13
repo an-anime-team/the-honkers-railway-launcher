@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.11.1] - 13.09.2025
+
+### Changed
+
+- Removed build-time dependency on protobuf
+
 ## [1.11.0] - 10.09.2025
 
 ### Added
@@ -15,7 +21,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Removed Proton support
+- Removed support for launching with Proton from the launcher.
+  Launching with proton externally is unaffected.
 
 ### Fixed
 
@@ -403,7 +410,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 <br>
 
-[unreleased]: https://github.com/an-anime-team/the-honkers-railway-launcher/compare/1.11.0...next
+[unreleased]: https://github.com/an-anime-team/the-honkers-railway-launcher/compare/1.11.1...next
+[1.11.1]: https://github.com/an-anime-team/the-honkers-railway-launcher/compare/1.11.0...1.11.1
 [1.11.0]: https://github.com/an-anime-team/the-honkers-railway-launcher/compare/1.10.0...1.11.0
 [1.10.0]: https://github.com/an-anime-team/the-honkers-railway-launcher/compare/1.9.1...1.10.0
 [1.9.1]: https://github.com/an-anime-team/the-honkers-railway-launcher/compare/1.9.0...1.9.1

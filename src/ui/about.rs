@@ -91,23 +91,10 @@ impl SimpleComponent for AboutDialog {
 
             set_release_notes_version: &APP_VERSION,
             set_release_notes: &[
-
-                "<p>Added</p>",
-
-                "<ul>",
-                    "<li>Added (initial?) support for `wow64` wine builds</li>",
-                "</ul>",
-
                 "<p>Changed</p>",
 
                 "<ul>",
-                    "<li>Removed Proton support</li>",
-                "</ul>",
-
-                "<p>Fixed</p>",
-
-                "<ul>",
-                    "<li>Fixed error determining currently installed voiceover version. The launcher assumes latest is installed if it can't find the `.version` file.</li>",
+                    "<li>Removed build-time dependency on protobuf</li>",
                 "</ul>"
             ].join("\n")
         }

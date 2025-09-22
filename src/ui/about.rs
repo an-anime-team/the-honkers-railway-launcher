@@ -91,10 +91,10 @@ impl SimpleComponent for AboutDialog {
 
             set_release_notes_version: &APP_VERSION,
             set_release_notes: &[
-                "<p>Changed</p>",
+                "<p>Added</p>",
 
                 "<ul>",
-                    "<li>Removed build-time dependency on protobuf</li>",
+                    "<li>Added DXVK installation check for broken dxvk installations</li>",
                 "</ul>"
             ].join("\n")
         }

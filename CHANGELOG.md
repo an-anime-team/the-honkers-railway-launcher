@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Fixed size of images in the "Appearance" preferences section (most noticeable on flatpak)
+- Updated default window size in classic appearance option to match the other launchers
+- Fixed the package name for libwebp-utils on Arch Linux
+
 ## [1.12.1] - 25.09.2025
 
 ### Fixed

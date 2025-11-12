@@ -94,7 +94,9 @@ impl SimpleComponent for AboutDialog {
                 "<p>Fixed</p>",
 
                 "<ul>",
-                    "<li>Fixed some places that should have localized strings being empty instead</li>",
+                    "<li>Fixed size of images in the \"Appearance\" preferences section (most noticeable on flatpak)</li>",
+                    "<li>Updated default window size in classic appearance option to match the other launchers</li>",
+                    "<li>Fixed the package name for libwebp-utils on Arch Linux</li>",
                 "</ul>"
             ].join("\n")
         }

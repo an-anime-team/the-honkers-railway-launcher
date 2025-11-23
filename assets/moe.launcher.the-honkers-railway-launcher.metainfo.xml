@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<component type="desktop-application">
+  <id>moe.launcher.the-honkers-railway-launcher</id>
+  <name>The Honkers Railway Launcher</name>
+  <summary>Play your favorite Honkai Railway game on Linux</summary>
+  <summary xml:lang="de">Spielen Sie Ihr Lieblings-Honkai-Railway-Spiel auf Linux</summary>
+  <summary xml:lang="ru">Играйте в вашу любимую игру Honkai Railway на Linux</summary>
+  <summary xml:lang="es">Juega a tu juego favorito de Honkai Railway en Linux</summary>
+  <summary xml:lang="it">Gioca al tuo gioco preferito di Honkai Railway su Linux</summary>
+  <summary xml:lang="hu">Játssz a kedvenc Honkai Railway játékoddal Linux-on!</summary>
+  <description>
+    <p>The Honkers Railway Launcher is an unofficial launcher for a certain video game that handles setting up Wine, installing the game and running it on Linux.</p>
+    <p xml:lang="de">Der Honkers Railway Launcher ist ein inoffizieller Launcher für ein bestimmtes Videospiel, der die Installation von Wine, die Installation des Spiels und das Ausführen unter Linux übernimmt.</p>
+    <p xml:lang="ru">Honkers Railway Launcher - это неофициальный лаунчер для определённой видеоигры, который настраивает Wine, устанавливает игру и запускает её на Linux.</p>
+    <p xml:lang="es">Honkers Railway Launcher es un launcher no oficial para un determinado videojuego que se encarga de configurar Wine, instalar el juego y ejecutarlo en Linux.</p>
+    <p xml:lang="it">Honkers Railway Launcher è un launcher non ufficiale per un certo videogioco che gestisce la configurazione di Wine, l'installazione del gioco e l'esecuzione su Linux.</p>
+    <p xml:lang="hu">A Honkers Railway Launcher egy nem-hivatalos launcher egy bizonyos videojátékhoz, amely beállítja a Wine-t, telepíti a játékot és futtatja Linux-on.</p>
+  </description>
+  <developer id="moe.launcher">
+    <name>An Anime Team</name>
+  </developer>
+  <screenshots>
+    <screenshot type="default">
+        <image>https://raw.githubusercontent.com/an-anime-team/the-honkers-railway-launcher/378c7f0e76934382cdd2ceac809d0b8986fbfbd4/repository/main-classic.png</image>
+        <caption>Main launcher window (Classic look)</caption>
+    </screenshot>
+    <screenshot>
+        <image>https://raw.githubusercontent.com/an-anime-team/the-honkers-railway-launcher/378c7f0e76934382cdd2ceac809d0b8986fbfbd4/repository/settings-classic.png</image>
+        <caption>Launcher settings (Classic look)</caption>
+    </screenshot>
+    <screenshot>
+        <image>https://raw.githubusercontent.com/an-anime-team/the-honkers-railway-launcher/378c7f0e76934382cdd2ceac809d0b8986fbfbd4/repository/main-modern.png</image>
+        <caption>Main launcher window (Modern look)</caption>
+    </screenshot>
+    <screenshot>
+        <image>https://raw.githubusercontent.com/an-anime-team/the-honkers-railway-launcher/378c7f0e76934382cdd2ceac809d0b8986fbfbd4/repository/settings-modern.png</image>
+        <caption>Launcher settings (Modern look)</caption>
+    </screenshot>
+  </screenshots>
+  <launchable type="desktop-id">moe.launcher.the-honkers-railway-launcher.desktop</launchable>
+  <url type="homepage">https://github.com/an-anime-team/the-honkers-railway-launcher</url>
+  <url type="bugtracker">https://github.com/an-anime-team/the-honkers-railway-launcher/issues</url>
+  <project_license>GPL-3.0-or-later</project_license>
+  <metadata_license>CC0-1.0</metadata_license>
+  <categories>
+    <category>Game</category>
+  </categories>
+  <content_rating type="oars-1.1" />
+  <releases>
+    <release version="1.13.0" date="2025-11-12">
+      <description>
+        <p>Fixed size of images in the "Appearance" preferences section (most noticeable on flatpak)</p>
+        <p>Updated default window size in classic appearance option to match the other launchers</p>
+        <p>Fixed the package name for libwebp-utils on Arch Linux</p>
+      </description>
+    </release>
+  </releases>
+  <branding>
+    <color type="primary" scheme_preference="light">#e8d4f0</color>
+    <color type="primary" scheme_preference="dark">#2d1a2d</color>
+  </branding>
+</component>

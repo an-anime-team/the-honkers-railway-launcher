@@ -190,7 +190,9 @@ impl SimpleAsyncComponent for ComponentVersion {
                                             _ => ()
                                         }
 
-                                        progress_bar_sender.send(ProgressBarMsg::UpdateFromState(DiffUpdate::InstallerUpdate(state)));
+                                        progress_bar_sender.send(ProgressBarMsg::UpdateFromState(
+                                            DiffUpdate::Installer(state)
+                                        ));
                                     });
                                 }
                             ));

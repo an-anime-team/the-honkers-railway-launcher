@@ -21,13 +21,13 @@ pub fn download_diff(sender: ComponentSender<App>, progress_bar_input: Sender<Pr
             diff = diff.with_temp_folder(temp);
         }
 
-        let result = diff.install_to(game_path, 1, clone!(
+        let result = diff.install_to(game_path, config.launcher.sophon.threads as usize, clone!(
             #[strong]
             sender,
 
             move |state| {
                 match &state {
-                    DiffUpdate::InstallerUpdate(InstallerUpdate::DownloadingError(err)) => {
+                    DiffUpdate::Installer(InstallerUpdate::DownloadingError(err)) => {
                         tracing::error!("Downloading failed: {err}");
 
                         sender.input(AppMsg::Toast {
@@ -36,7 +36,7 @@ pub fn download_diff(sender: ComponentSender<App>, progress_bar_input: Sender<Pr
                         });
                     }
 
-                    DiffUpdate::InstallerUpdate(InstallerUpdate::UnpackingError(err)) => {
+                    DiffUpdate::Installer(InstallerUpdate::UnpackingError(err)) => {
                         tracing::error!("Unpacking failed: {err}");
 
                         sender.input(AppMsg::Toast {

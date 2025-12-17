@@ -47,6 +47,11 @@
   </categories>
   <content_rating type="oars-1.1" />
   <releases>
+    <release version="1.14.0" date="2025-12-17">
+      <description>
+        <p>Changed the download and update method to anticipate future migration in the API</p>
+      </description>
+    </release>
     <release version="1.13.0" date="2025-11-12">
       <description>
         <p>Fixed size of images in the "Appearance" preferences section (most noticeable on flatpak)</p>

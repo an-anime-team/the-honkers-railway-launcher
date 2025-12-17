@@ -1,6 +1,6 @@
 [package]
 name = "honkers-railway-launcher"
-version = "1.13.0"
+version = "1.14.0"
 description = "The Honkers Railway launcher"
 authors = ["Nikita Podvirnyi <krypt0nn@vk.com>"]
 homepage = "https://github.com/an-anime-team/the-honkers-railway-launcher"
@@ -19,7 +19,7 @@ glib-build-tools = "0.20"
 
 [dependencies.anime-launcher-sdk]
 git = "https://github.com/an-anime-team/anime-launcher-sdk"
-tag = "1.32.0"
+tag = "1.34.1"
 features = ["all", "star-rail", "star-rail-patch"]
 
 # path = "../anime-launcher-sdk" # ! for dev purposes only

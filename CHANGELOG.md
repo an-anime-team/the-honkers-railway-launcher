@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.14.0] - 2025-12-17
+
+### Changed
+
+- Changed the download and update method to anticipate future migration in the API
+
 ## [1.13.0] - 12.11.2025
 
 ### Fixed
@@ -430,7 +436,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 <br>
 
-[unreleased]: https://github.com/an-anime-team/the-honkers-railway-launcher/compare/1.13.0...next
+[unreleased]: https://github.com/an-anime-team/the-honkers-railway-launcher/compare/1.14.0...next
+[1.14.0]: https://github.com/an-anime-team/the-honkers-railway-launcher/compare/1.13.0...1.14.0
 [1.13.0]: https://github.com/an-anime-team/the-honkers-railway-launcher/compare/1.12.1...1.13.0
 [1.12.1]: https://github.com/an-anime-team/the-honkers-railway-launcher/compare/1.12.0...1.12.1
 [1.12.0]: https://github.com/an-anime-team/the-honkers-railway-launcher/compare/1.11.1...1.12.0

@@ -3,6 +3,8 @@ use adw::prelude::*;
 
 use anime_launcher_sdk::anime_game_core::prelude::*;
 use anime_launcher_sdk::anime_game_core::star_rail::prelude::*;
+use anime_launcher_sdk::anime_game_core::sophon::installer::Update as SophonInstallerUpdate;
+use anime_launcher_sdk::anime_game_core::sophon::updater::Update as SophonPatcherUpdate;
 
 use crate::*;
 
@@ -43,6 +45,9 @@ pub enum ProgressBarMsg {
 
     /// (current bytes, total bytes) 
     UpdateProgress(u64, u64),
+
+    /// (current items, total items)
+    UpdateProgressCounter(u64, u64),
 
     UpdateFromState(DiffUpdate),
     SetVisible(bool)
@@ -122,20 +127,41 @@ impl SimpleAsyncComponent for ProgressBar {
             ProgressBarMsg::UpdateProgress(curr, total) => {
                 self.fraction = curr as f64 / total as f64;
 
-                self.downloaded = Some((
-                    prettify_bytes(curr),
-                    prettify_bytes(total)
-                ));
+                self.downloaded = Some((prettify_bytes(curr), prettify_bytes(total)));
+            }
+
+            ProgressBarMsg::UpdateProgressCounter(curr, total) => {
+                self.fraction = curr as f64 / total as f64;
+
+                self.downloaded = Some((curr.to_string(), total.to_string()));
             }
 
             ProgressBarMsg::UpdateFromState(state) => {
                 match state {
+                    // checkign free space
                     DiffUpdate::CheckingFreeSpace(_) |
-                    DiffUpdate::InstallerUpdate(InstallerUpdate::CheckingFreeSpace(_)) => self.caption = Some(tr!("checking-free-space")),
+                    DiffUpdate::InstallerUpdate(InstallerUpdate::CheckingFreeSpace(_)) |
+                    DiffUpdate::SophonPatcherUpdate(SophonPatcherUpdate::CheckingFreeSpace(_)) |
+                    DiffUpdate::SophonInstallerUpdate(SophonInstallerUpdate::CheckingFreeSpace(_))
+                    => self.caption = Some(tr!("checking-free-space")),
 
-                    DiffUpdate::InstallerUpdate(InstallerUpdate::DownloadingStarted(_))         => self.caption = Some(tr!("downloading")),
+                    // downlaod started
+                    DiffUpdate::InstallerUpdate(InstallerUpdate::DownloadingStarted(_)) |
+                    DiffUpdate::SophonPatcherUpdate(SophonPatcherUpdate::DownloadingStarted(_)) |
+                    DiffUpdate::SophonInstallerUpdate(SophonInstallerUpdate::DownloadingStarted(_))
+                    => self.caption = Some(tr!("downloading")),
+
                     DiffUpdate::InstallerUpdate(InstallerUpdate::UpdatingPermissionsStarted(_)) => self.caption = Some(tr!("updating-permissions")),
                     DiffUpdate::InstallerUpdate(InstallerUpdate::UnpackingStarted(_))           => self.caption = Some(tr!("unpacking")),
+
+                    // not emitted by the core
+                    DiffUpdate::SophonPatcherUpdate(SophonPatcherUpdate::DeletingStarted) => {
+                        self.caption = Some(tr!("removing-outdated"))
+                    }
+                    // not emitted by the core
+                    DiffUpdate::SophonPatcherUpdate(SophonPatcherUpdate::PatchingStarted) => {
+                        self.caption = Some(tr!("applying-hdiff"))
+                    }
 
                     DiffUpdate::ApplyingHdiffStarted => {
                         self.caption = Some(tr!("applying-hdiff"));
@@ -162,15 +188,81 @@ impl SimpleAsyncComponent for ProgressBar {
                         ));
                     }
 
-                    DiffUpdate::InstallerUpdate(InstallerUpdate::DownloadingFinished)         => tracing::info!("Downloading finished"),
+                    DiffUpdate::InstallerUpdate(InstallerUpdate::DownloadingFinished) |
+                    DiffUpdate::SophonInstallerUpdate( SophonInstallerUpdate::DownloadingFinished) |
+                    DiffUpdate::SophonPatcherUpdate(SophonPatcherUpdate::DownloadingFinished)
+                    => tracing::info!("Downloading finished"),
+
                     DiffUpdate::InstallerUpdate(InstallerUpdate::UpdatingPermissionsFinished) => tracing::info!("Updating permissions finished"),
                     DiffUpdate::InstallerUpdate(InstallerUpdate::UnpackingFinished)           => tracing::info!("Unpacking finished"),
 
-                    DiffUpdate::ApplyingHdiffFinished    => tracing::info!("Applying hdiffs finished"),
-                    DiffUpdate::RemovingOutdatedFinished => tracing::info!("Removing outdated files finished"),
+                    DiffUpdate::ApplyingHdiffFinished |
+                    DiffUpdate::SophonPatcherUpdate(SophonPatcherUpdate::PatchingFinished) 
+                    => tracing::info!("Applying hdiffs finished"),
+
+                    DiffUpdate::RemovingOutdatedFinished |
+                    DiffUpdate::SophonPatcherUpdate(SophonPatcherUpdate::DeletingFinished)
+                    => tracing::info!("Removing outdated files finished"),
+
+                    // downloading errors
+                    DiffUpdate::SophonInstallerUpdate(SophonInstallerUpdate::DownloadingError(
+                        err
+                    ))
+                    | DiffUpdate::SophonPatcherUpdate(SophonPatcherUpdate::DownloadingError(err)) => {
+                        tracing::error!("Downloading error: {err:?}")
+                    }
+                    // file hash check errors
+                    DiffUpdate::SophonPatcherUpdate(SophonPatcherUpdate::FileHashCheckFailed(
+                        path
+                    ))
+                    | DiffUpdate::SophonInstallerUpdate(
+                        SophonInstallerUpdate::FileHashCheckFailed(path)
+                    ) => tracing::error!("File hash check failed on {path:?}"),
 
                     DiffUpdate::InstallerUpdate(InstallerUpdate::DownloadingError(err)) => tracing::error!("Downloading error: {:?}", err),
-                    DiffUpdate::InstallerUpdate(InstallerUpdate::UnpackingError(err)) => tracing::error!("Unpacking error: {:?}", err)
+                    DiffUpdate::InstallerUpdate(InstallerUpdate::UnpackingError(err)) => tracing::error!("Unpacking error: {:?}", err),
+                    DiffUpdate::SophonPatcherUpdate(SophonPatcherUpdate::PatchingError(err)) => tracing::error!("Patching error: {err:?}"),
+
+                    // sophon download progress reports
+                    DiffUpdate::SophonInstallerUpdate(
+                        SophonInstallerUpdate::DownloadingProgressBytes {
+                            downloaded_bytes,
+                            total_bytes
+                        }
+                    )
+                    | DiffUpdate::SophonPatcherUpdate(
+                        SophonPatcherUpdate::DownloadingProgressBytes {
+                            downloaded_bytes,
+                            total_bytes
+                        }
+                    ) => {
+                        tracing::debug!("Download progress [{downloaded_bytes}/{total_bytes}]");
+
+                        self.fraction = downloaded_bytes as f64 / total_bytes as f64;
+
+                        self.downloaded = Some((
+                            prettify_bytes(downloaded_bytes),
+                            prettify_bytes(total_bytes)
+                        ));
+                    }
+
+                    // rest of sophon progress updates
+                    DiffUpdate::SophonPatcherUpdate(SophonPatcherUpdate::DeletingProgress {
+                        deleted_files,
+                        total_unused
+                    }) => tracing::debug!(
+                        "Deleted {deleted_files} unused files out of {total_unused}"
+                    ),
+                    DiffUpdate::SophonInstallerUpdate(
+                        SophonInstallerUpdate::DownloadingProgressFiles {
+                            downloaded_files,
+                            total_files
+                        }
+                    ) => tracing::info!("Downloaded {downloaded_files} files out of {total_files}"),
+                    DiffUpdate::SophonPatcherUpdate(SophonPatcherUpdate::PatchingProgress {
+                        patched_files,
+                        total_files
+                    }) => tracing::info!("Patched {patched_files} files out of {total_files}")
                 }
             }
 

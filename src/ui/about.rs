@@ -91,10 +91,10 @@ impl SimpleComponent for AboutDialog {
 
             set_release_notes_version: &APP_VERSION,
             set_release_notes: &[
-                "<p>Changed</p>",
+                "<p>Fixed</p>",
 
                 "<ul>",
-                    "<li>Changed the download and update method to anticipate future migration in the API</li>",
+                    "<li>Fixed insufficient debug.log message filtering, resulting in large log files on download/update</li>",
                 "</ul>"
             ].join("\n")
         }

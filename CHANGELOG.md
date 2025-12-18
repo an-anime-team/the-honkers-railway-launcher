@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.14.1] - 2025-12-18
+
 ### Fixed
 
 - Fixed insufficient debug.log message filtering, resulting in large log files on download/update
@@ -440,7 +442,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 <br>
 
-[unreleased]: https://github.com/an-anime-team/the-honkers-railway-launcher/compare/1.14.0...next
+[unreleased]: https://github.com/an-anime-team/the-honkers-railway-launcher/compare/1.14.1...next
+[1.14.1]: https://github.com/an-anime-team/the-honkers-railway-launcher/compare/1.14.0...1.14.0
 [1.14.0]: https://github.com/an-anime-team/the-honkers-railway-launcher/compare/1.13.0...1.14.0
 [1.13.0]: https://github.com/an-anime-team/the-honkers-railway-launcher/compare/1.12.1...1.13.0
 [1.12.1]: https://github.com/an-anime-team/the-honkers-railway-launcher/compare/1.12.0...1.12.1

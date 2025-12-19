@@ -54,7 +54,7 @@ These packages are officially supported by the An Anime Team, and we try to ensu
 
 | Format | Wiki | Source | Distributions | Maintainer |
 | - | - | - | - | - |
-| Flatpak | [wiki](https://github.com/an-anime-team/the-honkers-railway-launcher/wiki/Installation#-any-distribution-flatpak) | [flatpak-builds](https://github.com/an-anime-team/flatpak-builds/tree/honkers-railway) | Any (Fedora, Pop!_OS, SteamOS / Steam Deck, etc.) | Luna (available in discord) |
+| Flatpak | [wiki](https://github.com/an-anime-team/the-honkers-railway-launcher/wiki/Installation#-any-distribution-flatpak) | [Flathub](https://flathub.org/apps/moe.launcher.the-honkers-railway-launcher) | Any (Fedora, Pop!_OS, SteamOS / Steam Deck, etc.) | NelloKudo |
 | RPM | [wiki](https://github.com/an-anime-team/the-honkers-railway-launcher/wiki/Installation#-fedora-rpm) | [THRL](https://build.opensuse.org/repositories/home:Maroxy:AAT-Apps/HRL) * | Fedora, OpenSUSE | Maroxy (second discord admin) |
 
 > [!NOTE]

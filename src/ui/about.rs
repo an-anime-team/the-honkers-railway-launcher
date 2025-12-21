@@ -94,7 +94,7 @@ impl SimpleComponent for AboutDialog {
                 "<p>Fixed</p>",
 
                 "<ul>",
-                    "<li>Fixed insufficient debug.log message filtering, resulting in large log files on download/update</li>",
+                    "<li>Fixed game repair, which was broken due to change of the download/update method</li>",
                 "</ul>"
             ].join("\n")
         }

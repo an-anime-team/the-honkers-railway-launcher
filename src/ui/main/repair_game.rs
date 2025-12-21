@@ -1,9 +1,12 @@
-use relm4::{
-    prelude::*,
-    Sender
-};
+use relm4::prelude::*;
+use relm4::Sender;
 
-use gtk::glib::clone;
+use anime_launcher_sdk::anime_game_core::reqwest::blocking::Client;
+use anime_launcher_sdk::anime_game_core::sophon;
+use anime_launcher_sdk::anime_game_core::sophon::repairer::{
+    SophonRepairer,
+    Update as SophonRepairerUpdate
+};
 
 use crate::*;
 use crate::ui::components::*;
@@ -11,131 +14,115 @@ use crate::ui::components::*;
 use super::{App, AppMsg};
 
 #[allow(unused_must_use)]
-pub fn repair_game(sender: ComponentSender<App>, progress_bar_input: Sender<ProgressBarMsg>) {
-    let config = Config::get().unwrap();
+pub fn repair_game(
+    sender: ComponentSender<App>,
+    progress_bar_input: Sender<ProgressBarMsg>
+) {
+    let config = Config::get()
+        .expect("failed to read launcher config");
 
     progress_bar_input.send(ProgressBarMsg::UpdateCaption(Some(tr!("verifying-files"))));
     sender.input(AppMsg::SetDownloading(true));
 
     std::thread::spawn(move || {
-        match repairer::try_get_integrity_files(config.launcher.edition, None) {
-            Ok(mut files) => {
-                // Add voiceovers files
-                let game_path = config.game.path.for_edition(config.launcher.edition).to_path_buf();
-                let game = Game::new(&game_path, config.launcher.edition);
+        let client = Client::new();
 
-                if let Ok(voiceovers) = game.get_voice_packages() {
-                    for package in voiceovers {
-                        if let Ok(mut voiceover_files) = repairer::try_get_voice_integrity_files(config.launcher.edition, package.locale(), None) {
-                            files.append(&mut voiceover_files);
-                        }
-                    }
+        let game_branches_info = sophon::get_game_branches_info(
+            &client,
+            config.launcher.edition.into()
+        ).expect("failed to get game branches info");
+
+        let game_branch_info = game_branches_info.get_game_latest_by_id(
+            config.launcher.edition.api_game_id()
+        ).expect("failed to get latest game version info");
+
+        let downloads = sophon::installer::get_game_download_sophon_info(
+            &client,
+            game_branch_info.main.as_ref().expect("`None` case would've been caught earlier"),
+            config.launcher.edition.into()
+        ).expect("failed to get game info");
+
+        let game_download_info = downloads.manifests.iter()
+            .find(|download_info| download_info.matching_field == "game")
+            .cloned()
+            .expect("failed to get game download info");
+
+        let mut manifests = vec![game_download_info];
+
+        let game_path = config.game.path.for_edition(config.launcher.edition);
+
+        let game = Game::new(game_path, config.launcher.edition);
+
+        if let Ok(voiceovers) = game.get_voice_packages() {
+            for package in voiceovers {
+                let locale = package.locale();
+                let locale = locale.to_code();
+
+                let download_info = downloads.manifests.iter()
+                    .find(|download_info| download_info.matching_field == locale)
+                    .cloned();
+
+                if let Some(download_info) = download_info {
+                    manifests.push(download_info);
                 }
-
-                progress_bar_input.send(ProgressBarMsg::UpdateProgress(0, 0));
-
-                let mut total = 0;
-
-                for file in &files {
-                    total += file.size;
-                }
-
-                let median_size = total / config.launcher.repairer.threads;
-                let mut i = 0;
-
-                let (verify_sender, verify_receiver) = std::sync::mpsc::channel();
-
-                for _ in 0..config.launcher.repairer.threads {
-                    let mut thread_files = Vec::new();
-                    let mut thread_files_size = 0;
-
-                    while i < files.len() {
-                        thread_files.push(files[i].clone());
-
-                        thread_files_size += files[i].size;
-                        i += 1;
-
-                        if thread_files_size >= median_size {
-                            break;
-                        }
-                    }
-
-                    let thread_sender = verify_sender.clone();
-
-                    std::thread::spawn(clone!(
-                        #[strong]
-                        game_path, 
-
-                        move || {
-                            for file in thread_files {
-                                let status = if config.launcher.repairer.fast {
-                                    file.fast_verify(&game_path)
-                                } else {
-                                    file.verify(&game_path)
-                                };
-
-                                thread_sender.send((file, status)).unwrap();
-                            }
-                        }
-                    ));
-                }
-
-                // We have [config.launcher.repairer.threads] copies of this sender + the original one
-                // receiver will return Err when all the senders will be dropped.
-                // [config.launcher.repairer.threads] senders will be dropped when threads will finish verifying files
-                // but this one will live as long as current thread exists so we should drop it manually
-                drop(verify_sender);
-
-                let mut broken = Vec::new();
-                let mut processed = 0;
-
-                while let Ok((file, status)) = verify_receiver.recv() {
-                    processed += file.size;
-
-                    if !status {
-                        broken.push(file);
-                    }
-
-                    progress_bar_input.send(ProgressBarMsg::UpdateProgress(processed, total));
-                }
-
-                if !broken.is_empty() {
-                    let total = broken.len() as u64;
-
-                    progress_bar_input.send(ProgressBarMsg::UpdateCaption(Some(tr!("repairing-files"))));
-                    progress_bar_input.send(ProgressBarMsg::DisplayFraction(false));
-                    progress_bar_input.send(ProgressBarMsg::UpdateProgress(0, total));
-
-                    tracing::warn!("Found broken files:\n{}", broken.iter().fold(String::new(), |acc, file| acc + &format!("- {}\n", file.path.to_string_lossy())));
-
-                    for (i, file) in broken.into_iter().enumerate() {
-                        tracing::debug!("Repairing file: {}", file.path.to_string_lossy());
-
-                        if let Err(err) = file.repair(&game_path) {
-                            sender.input(AppMsg::Toast {
-                                title: tr!("game-file-repairing-error"),
-                                description: Some(err.to_string())
-                            });
-
-                            tracing::error!("Failed to repair game file: {err}");
-                        }
-
-                        progress_bar_input.send(ProgressBarMsg::UpdateProgress(i as u64 + 1, total));
-                    }
-
-                    progress_bar_input.send(ProgressBarMsg::DisplayFraction(true));
-                }
-            }
-
-            Err(err) => {
-                tracing::error!("Failed to get inregrity failes: {err}");
-
-                sender.input(AppMsg::Toast {
-                    title: tr!("integrity-files-getting-error"),
-                    description: Some(err.to_string())
-                });
             }
         }
+
+        let repairer = SophonRepairer::new(
+            client,
+            config.launcher.temp.unwrap_or_else(std::env::temp_dir),
+            manifests
+        ).expect("failed to initialize sophon repairer");
+
+        let updater = move |msg: SophonRepairerUpdate| {
+            match msg {
+                SophonRepairerUpdate::VerifyingProgress { total, checked } => {
+                    tracing::trace!(checked, total, "Verification progress");
+
+                    progress_bar_input.send(ProgressBarMsg::UpdateProgressCounter(checked, total));
+                }
+
+                SophonRepairerUpdate::RepairingProgress { total, repaired } => {
+                    tracing::trace!(repaired, total, "Repairing progress");
+
+                    progress_bar_input.send(ProgressBarMsg::UpdateProgressCounter(repaired, total));
+                }
+
+                SophonRepairerUpdate::VerifyingStarted => {
+                    tracing::trace!("Verification started");
+                }
+
+                SophonRepairerUpdate::VerifyingFinished { broken } => {
+                    tracing::info!("Verification finished with {broken} broken files")
+                }
+
+                SophonRepairerUpdate::RepairingStarted => {
+                    tracing::trace!("Repairing started");
+
+                    progress_bar_input.send(ProgressBarMsg::UpdateCaption(Some(tr!("repairing-files"))));
+                }
+
+                SophonRepairerUpdate::RepairingFinished => {
+                    tracing::trace!("Repair finished");
+                }
+
+                SophonRepairerUpdate::DownloadingError(err) => {
+                    tracing::error!(?err, "Error during repairing")
+                }
+
+                SophonRepairerUpdate::FileHashCheckFailed(path) => {
+                    tracing::error!(?path, "File hash check error")
+                }
+            }
+        };
+
+        repairer.check_and_repair(
+            game_path,
+            config.launcher.repairer.threads as usize,
+            updater
+        );
+
+        let _ = std::fs::remove_dir_all(repairer.downloading_temp());
 
         sender.input(AppMsg::SetDownloading(false));
     });

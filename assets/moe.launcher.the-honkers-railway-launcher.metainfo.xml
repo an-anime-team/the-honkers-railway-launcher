@@ -47,6 +47,11 @@
   </categories>
   <content_rating type="oars-1.1" />
   <releases>
+    <release version="1.14.2" date="2025-12-21">
+      <description>
+        <p>Fixed game repair, which was broken due to change of the download/update method</p>
+      </description>
+    </release>
     <release version="1.14.1" date="2025-12-18">
       <description>
         <p>Fixed insufficient debug.log message filtering, resulting in large log files on download/update</p>

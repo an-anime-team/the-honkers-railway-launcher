@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.14.2] - 2025-12-21
+
+### Fixed
+
+- Fixed game repair, which was broken due to change of the download/update method
+
 ## [1.14.1] - 2025-12-18
 
 ### Fixed

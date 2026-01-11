@@ -39,6 +39,7 @@ lazy_static = "1.5.0"
 cached = { version = "0.55", features = ["proc_macro"] }
 md-5 = { version = "0.10", features = ["asm"] }
 enum-ordinalize = "4.3"
+reqwest = {version = "0.13.1", features = ["blocking","json"]}
 
 tracing = "0.1"
 tracing-subscriber = "0.3"

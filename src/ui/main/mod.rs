@@ -1,8 +1,6 @@
 use relm4::prelude::*;
 use relm4::actions::*;
-
 use adw::prelude::*;
-
 use gtk::glib::clone;
 
 mod repair_game;
@@ -15,18 +13,14 @@ mod disable_telemetry;
 mod launch;
 
 use anime_launcher_sdk::components::loader::ComponentsLoader;
-
 use anime_launcher_sdk::config::ConfigExt;
 use anime_launcher_sdk::star_rail::config::Config;
-
 use anime_launcher_sdk::star_rail::config::schema::launcher::LauncherStyle;
-
 use anime_launcher_sdk::star_rail::states::*;
 use anime_launcher_sdk::star_rail::consts::*;
 
 use crate::*;
 use crate::ui::components::*;
-
 use super::preferences::main::*;
 use super::about::*;
 
@@ -69,15 +63,16 @@ pub enum AppMsg {
         show_status_page: bool
     },
 
-    /// Supposed to be called automatically on app's run when the latest game version
-    /// was retrieved from the API
+    /// Supposed to be called automatically on app's run when the latest game
+    /// version was retrieved from the API
     SetGameDiff(Option<VersionDiff>),
 
-    /// Supposed to be called automatically on app's run when the latest main patch version
-    /// was retrieved from remote repos
+    /// Supposed to be called automatically on app's run when the latest main
+    /// patch version was retrieved from remote repos
     SetMainPatch(Option<(Version, JadeitePatchStatusVariant)>),
 
-    /// Supposed to be called automatically on app's run when the launcher state was chosen
+    /// Supposed to be called automatically on app's run when the launcher state
+    /// was chosen
     SetLauncherState(Option<LauncherState>),
 
     SetLauncherStyle(LauncherStyle),
@@ -414,7 +409,7 @@ impl SimpleComponent for App {
                                                 Some(LauncherState::TelemetryNotDisabled) => "security-high-symbolic",
 
                                                 Some(LauncherState::WineNotInstalled) |
-                                                Some(LauncherState::PrefixNotExists) | 
+                                                Some(LauncherState::PrefixNotExists) |
                                                 Some(LauncherState::DxvkNotInstalled) => "document-save-symbolic",
 
                                                 Some(LauncherState::GameUpdateAvailable(_)) |
@@ -685,7 +680,11 @@ impl SimpleComponent for App {
         }
     }
 
-    fn init(_init: Self::Init, root: Self::Root, sender: ComponentSender<Self>) -> ComponentParts<Self> {
+    fn init(
+        _init: Self::Init,
+        root: Self::Root,
+        sender: ComponentSender<Self>
+    ) -> ComponentParts<Self> {
         tracing::info!("Initializing main window");
 
         let model = App {
@@ -720,9 +719,11 @@ impl SimpleComponent for App {
         unsafe {
             MAIN_WINDOW = Some(widgets.main_window.clone());
 
-            PREFERENCES_WINDOW = Some(PreferencesApp::builder()
-                .launch(widgets.main_window.clone().into())
-                .forward(sender.input_sender(), std::convert::identity));
+            PREFERENCES_WINDOW = Some(
+                PreferencesApp::builder()
+                    .launch(widgets.main_window.clone().into())
+                    .forward(sender.input_sender(), std::convert::identity)
+            );
         }
 
         let mut group = RelmActionGroup::<WindowActionGroup>::new();
@@ -732,7 +733,6 @@ impl SimpleComponent for App {
         group.add_action::<LauncherFolder>(RelmAction::new_stateless(clone!(
             #[strong]
             sender,
-
             move |_| {
                 if let Err(err) = open::that(LAUNCHER_FOLDER.as_path()) {
                     sender.input(AppMsg::Toast {
@@ -748,11 +748,18 @@ impl SimpleComponent for App {
         group.add_action::<GameFolder>(RelmAction::new_stateless(clone!(
             #[strong]
             sender,
-
             move |_| {
                 let path = match Config::get() {
-                    Ok(config) => config.game.path.for_edition(config.launcher.edition).to_path_buf(),
-                    Err(_) => CONFIG.game.path.for_edition(CONFIG.launcher.edition).to_path_buf(),
+                    Ok(config) => config
+                        .game
+                        .path
+                        .for_edition(config.launcher.edition)
+                        .to_path_buf(),
+                    Err(_) => CONFIG
+                        .game
+                        .path
+                        .for_edition(CONFIG.launcher.edition)
+                        .to_path_buf()
                 };
 
                 if let Err(err) = open::that(path) {
@@ -769,7 +776,6 @@ impl SimpleComponent for App {
         group.add_action::<ConfigFile>(RelmAction::new_stateless(clone!(
             #[strong]
             sender,
-
             move |_| {
                 if let Ok(file) = config_file() {
                     if let Err(err) = open::that(file) {
@@ -787,7 +793,6 @@ impl SimpleComponent for App {
         group.add_action::<DebugFile>(RelmAction::new_stateless(clone!(
             #[strong]
             sender,
-
             move |_| {
                 if let Err(err) = open::that(crate::DEBUG_FILE.as_os_str()) {
                     sender.input(AppMsg::Toast {
@@ -803,16 +808,17 @@ impl SimpleComponent for App {
         group.add_action::<WishUrl>(RelmAction::new_stateless(clone!(
             #[strong]
             sender,
-
             move |_| {
                 std::thread::spawn(clone!(
                     #[strong]
                     sender,
-
                     move || {
                         let config = Config::get().unwrap_or_else(|_| CONFIG.clone());
 
-                        let web_cache = config.game.path.for_edition(config.launcher.edition)
+                        let web_cache = config
+                            .game
+                            .path
+                            .for_edition(config.launcher.edition)
                             .join(config.launcher.edition.data_folder())
                             .join("webCaches");
 
@@ -821,9 +827,13 @@ impl SimpleComponent for App {
 
                         if let Ok(entries) = web_cache.read_dir() {
                             for entry in entries.flatten() {
-                                if entry.path().is_dir() &&
-                                entry.file_name().to_string_lossy().trim_matches(|c| "0123456789.".contains(c)).is_empty() &&
-                                Some(entry.file_name()) > web_cache_id
+                                if entry.path().is_dir()
+                                    && entry
+                                        .file_name()
+                                        .to_string_lossy()
+                                        .trim_matches(|c| "0123456789.".contains(c))
+                                        .is_empty()
+                                    && Some(entry.file_name()) > web_cache_id
                                 {
                                     web_cache_id = Some(entry.file_name());
                                 }
@@ -831,20 +841,27 @@ impl SimpleComponent for App {
                         }
 
                         if let Some(web_cache_id) = web_cache_id {
-                            let web_cache = web_cache
-                                .join(web_cache_id)
-                                .join("Cache/Cache_Data/data_2");
+                            let web_cache =
+                                web_cache.join(web_cache_id).join("Cache/Cache_Data/data_2");
 
                             match std::fs::read(web_cache) {
                                 Ok(web_cache) => {
                                     let web_cache = String::from_utf8_lossy(&web_cache);
 
                                     // https://webstatic-sea.[ho-yo-ver-se].com/[ge-nsh-in]/event/e20190909gacha-v2/index.html?......
-                                    if let Some(url) = web_cache.lines().rev().find(|line| line.contains("gacha-v2/index.html")) {
+                                    if let Some(url) = web_cache
+                                        .lines()
+                                        .rev()
+                                        .find(|line| line.contains("gacha-v2/index.html"))
+                                    {
                                         let url_begin_pos = url.find("https://").unwrap();
-                                        let url_end_pos = url_begin_pos + url[url_begin_pos..].find("\0\0\0\0").unwrap();
+                                        let url_end_pos = url_begin_pos
+                                            + url[url_begin_pos..].find("\0\0\0\0").unwrap();
 
-                                        if let Err(err) = open::that(format!("{}#/log", &url[url_begin_pos..url_end_pos])) {
+                                        if let Err(err) = open::that(format!(
+                                            "{}#/log",
+                                            &url[url_begin_pos..url_end_pos]
+                                        )) {
                                             tracing::error!("Failed to open wishes URL: {err}");
 
                                             sender.input(AppMsg::Toast {
@@ -852,9 +869,7 @@ impl SimpleComponent for App {
                                                 description: Some(err.to_string())
                                             });
                                         }
-                                    }
-
-                                    else {
+                                    } else {
                                         tracing::error!("Couldn't find wishes URL: no url found");
 
                                         sender.input(AppMsg::Toast {
@@ -865,7 +880,9 @@ impl SimpleComponent for App {
                                 }
 
                                 Err(err) => {
-                                    tracing::error!("Couldn't find wishes URL: failed to open cache file: {err}");
+                                    tracing::error!(
+                                        "Couldn't find wishes URL: failed to open cache file: {err}"
+                                    );
 
                                     sender.input(AppMsg::Toast {
                                         title: tr!("wish-url-search-failed"),
@@ -873,9 +890,7 @@ impl SimpleComponent for App {
                                     });
                                 }
                             }
-                        }
-
-                        else {
+                        } else {
                             tracing::error!("Couldn't find wishes URL: cache file doesn't exist");
 
                             sender.input(AppMsg::Toast {
@@ -900,11 +915,14 @@ impl SimpleComponent for App {
             }
         }));
 
-        widgets.main_window.insert_action_group("win", Some(&group.into_action_group()));
+        widgets
+            .main_window
+            .insert_action_group("win", Some(&group.into_action_group()));
 
         tracing::info!("Main window initialized");
 
-        let download_picture = model.style == LauncherStyle::Classic && !KEEP_BACKGROUND_FILE.exists();
+        let download_picture =
+            model.style == LauncherStyle::Classic && !KEEP_BACKGROUND_FILE.exists();
 
         // Initialize some heavy tasks
         std::thread::spawn(move || {
@@ -918,7 +936,6 @@ impl SimpleComponent for App {
                 tasks.push(std::thread::spawn(clone!(
                     #[strong]
                     sender,
-
                     move || {
                         if let Err(err) = crate::background::download_background() {
                             tracing::error!("Failed to download background picture: {err}");
@@ -937,7 +954,6 @@ impl SimpleComponent for App {
             tasks.push(std::thread::spawn(clone!(
                 #[strong]
                 sender,
-
                 move || {
                     let components = ComponentsLoader::new(&CONFIG.components.path);
 
@@ -953,10 +969,13 @@ impl SimpleComponent for App {
                                             description: if changes.is_empty() {
                                                 None
                                             } else {
-                                                Some(changes.into_iter()
-                                                    .map(|line| format!("- {line}"))
-                                                    .collect::<Vec<_>>()
-                                                    .join("\n"))
+                                                Some(
+                                                    changes
+                                                        .into_iter()
+                                                        .map(|line| format!("- {line}"))
+                                                        .collect::<Vec<_>>()
+                                                        .join("\n")
+                                                )
                                             }
                                         });
 
@@ -992,12 +1011,12 @@ impl SimpleComponent for App {
             tasks.push(std::thread::spawn(clone!(
                 #[strong]
                 sender,
-
                 move || {
                     // Get main patch status
-                    sender.input(AppMsg::SetMainPatch(match jadeite::get_metadata() {
+                    sender.input(AppMsg::SetMainPatch(match shitty_patch::get_metadata() {
                         Ok(metadata) => {
-                            let status = GAME.get_version()
+                            let status = GAME
+                                .get_version()
                                 .map(|version| metadata.games.hsr.global.get_status(version))
                                 .unwrap_or(metadata.games.hsr.global.status);
 
@@ -1025,7 +1044,6 @@ impl SimpleComponent for App {
             tasks.push(std::thread::spawn(clone!(
                 #[strong]
                 sender,
-
                 move || {
                     sender.input(AppMsg::SetGameDiff(match GAME.try_get_diff() {
                         Ok(diff) => Some(diff),
@@ -1062,7 +1080,10 @@ impl SimpleComponent for App {
             tracing::info!("App is ready");
         });
 
-        ComponentParts { model, widgets }
+        ComponentParts {
+            model,
+            widgets
+        }
     }
 
     fn update(&mut self, msg: Self::Input, sender: ComponentSender<Self>) {
@@ -1070,9 +1091,14 @@ impl SimpleComponent for App {
 
         match msg {
             // TODO: make function from this message like with toast
-            AppMsg::UpdateLauncherState { perform_on_download_needed, show_status_page } => {
+            AppMsg::UpdateLauncherState {
+                perform_on_download_needed,
+                show_status_page
+            } => {
                 if show_status_page {
-                    sender.input(AppMsg::SetLoadingStatus(Some(Some(tr!("loading-launcher-state")))));
+                    sender.input(AppMsg::SetLoadingStatus(Some(Some(tr!(
+                        "loading-launcher-state"
+                    )))));
                 } else {
                     self.disabled_buttons = true;
                 }
@@ -1080,29 +1106,33 @@ impl SimpleComponent for App {
                 let updater = clone!(
                     #[strong]
                     sender,
-
                     move |state| {
                         if show_status_page {
                             match state {
                                 StateUpdating::Game => {
-                                    sender.input(AppMsg::SetLoadingStatus(Some(Some(tr!("loading-launcher-state--game")))));
+                                    sender.input(AppMsg::SetLoadingStatus(Some(Some(tr!(
+                                        "loading-launcher-state--game"
+                                    )))));
                                 }
 
                                 StateUpdating::Voice(locale) => {
-                                    sender.input(AppMsg::SetLoadingStatus(Some(Some(tr!("loading-launcher-state--voice", {
-                                        "locale" = locale.to_name()
-                                    })))));
+                                    sender.input(AppMsg::SetLoadingStatus(Some(Some(tr!(
+                                        "loading-launcher-state--voice",
+                                        { "locale" = locale.to_name() }
+                                    )))));
                                 }
 
                                 StateUpdating::Patch => {
-                                    sender.input(AppMsg::SetLoadingStatus(Some(Some(tr!("loading-launcher-state--patch")))));
+                                    sender.input(AppMsg::SetLoadingStatus(Some(Some(tr!(
+                                        "loading-launcher-state--patch"
+                                    )))));
                                 }
                             }
                         }
                     }
                 );
 
-                let state = match LauncherState::get_from_config(updater) {
+                let state = match shitty_patch::get_launcher_state_from_config(updater) {
                     Ok(state) => Some(state),
                     Err(err) => {
                         tracing::error!("Failed to update launcher state: {err}");
@@ -1123,10 +1153,12 @@ impl SimpleComponent for App {
 
                 if let Some(state) = state {
                     match state {
-                        LauncherState::GameUpdateAvailable(_) |
-                        LauncherState::GameNotInstalled(_) |
-                        LauncherState::VoiceUpdateAvailable(_) |
-                        LauncherState::VoiceNotInstalled(_) if perform_on_download_needed => {
+                        LauncherState::GameUpdateAvailable(_)
+                        | LauncherState::GameNotInstalled(_)
+                        | LauncherState::VoiceUpdateAvailable(_)
+                        | LauncherState::VoiceNotInstalled(_)
+                            if perform_on_download_needed =>
+                        {
                             sender.input(AppMsg::PerformAction);
                         }
 
@@ -1139,15 +1171,23 @@ impl SimpleComponent for App {
             AppMsg::SetGameDiff(diff) => unsafe {
                 // I honestly don't care anymore.
                 #[allow(static_mut_refs)]
-                PREFERENCES_WINDOW.as_ref().unwrap_unchecked().sender().send(PreferencesAppMsg::SetGameDiff(diff));
-            }
+                PREFERENCES_WINDOW
+                    .as_ref()
+                    .unwrap_unchecked()
+                    .sender()
+                    .send(PreferencesAppMsg::SetGameDiff(diff));
+            },
 
             #[allow(unused_must_use)]
             AppMsg::SetMainPatch(patch) => unsafe {
                 // I honestly don't care anymore.
                 #[allow(static_mut_refs)]
-                PREFERENCES_WINDOW.as_ref().unwrap_unchecked().sender().send(PreferencesAppMsg::SetMainPatch(patch));
-            }
+                PREFERENCES_WINDOW
+                    .as_ref()
+                    .unwrap_unchecked()
+                    .sender()
+                    .send(PreferencesAppMsg::SetMainPatch(patch));
+            },
 
             AppMsg::SetLauncherState(state) => {
                 self.state = state;
@@ -1180,21 +1220,37 @@ impl SimpleComponent for App {
             // Don't care about it, don't want to rewrite everything.
             #[allow(static_mut_refs)]
             AppMsg::OpenPreferences => unsafe {
-                PREFERENCES_WINDOW.as_ref().unwrap_unchecked().widget().present();
-            }
+                PREFERENCES_WINDOW
+                    .as_ref()
+                    .unwrap_unchecked()
+                    .widget()
+                    .present();
+            },
 
-            AppMsg::RepairGame => repair_game::repair_game(sender, self.progress_bar.sender().to_owned()),
+            AppMsg::RepairGame => {
+                repair_game::repair_game(sender, self.progress_bar.sender().to_owned())
+            }
 
             #[allow(unused_must_use)]
             AppMsg::PredownloadUpdate => {
-                if let Some(LauncherState::PredownloadAvailable { game, mut voices, .. }) = self.state.clone() {
-                    let tmp = Config::get().unwrap().launcher.temp.unwrap_or_else(std::env::temp_dir);
+                if let Some(LauncherState::PredownloadAvailable {
+                    game,
+                    mut voices,
+                    ..
+                }) = self.state.clone()
+                {
+                    let tmp = Config::get()
+                        .unwrap()
+                        .launcher
+                        .temp
+                        .unwrap_or_else(std::env::temp_dir);
 
                     self.downloading = true;
 
                     let progress_bar_input = self.progress_bar.sender().clone();
 
-                    progress_bar_input.send(ProgressBarMsg::UpdateCaption(Some(tr!("downloading"))));
+                    progress_bar_input
+                        .send(ProgressBarMsg::UpdateCaption(Some(tr!("downloading"))));
 
                     let mut diffs: Vec<VersionDiff> = vec![game];
 
@@ -1202,14 +1258,17 @@ impl SimpleComponent for App {
 
                     std::thread::spawn(move || {
                         for mut diff in diffs {
-                            let result = diff.download_to(&tmp, clone!(
-                                #[strong]
-                                progress_bar_input,
-
-                                move |curr, total| {
-                                    progress_bar_input.send(ProgressBarMsg::UpdateProgress(curr, total));
-                                }
-                            ));
+                            let result = diff.download_to(
+                                &tmp,
+                                clone!(
+                                    #[strong]
+                                    progress_bar_input,
+                                    move |curr, total| {
+                                        progress_bar_input
+                                            .send(ProgressBarMsg::UpdateProgress(curr, total));
+                                    }
+                                )
+                            );
 
                             if let Err(err) = result {
                                 sender.input(AppMsg::Toast {
@@ -1234,34 +1293,51 @@ impl SimpleComponent for App {
 
             AppMsg::PerformAction => unsafe {
                 match self.state.as_ref().unwrap_unchecked() {
-                    LauncherState::PatchNotVerified |
-                    LauncherState::PatchConcerning |
-                    LauncherState::PredownloadAvailable { patch: JadeitePatchStatusVariant::Verified, .. } |
-                    LauncherState::PredownloadAvailable { patch: JadeitePatchStatusVariant::Unverified, .. } |
-                    LauncherState::PredownloadAvailable { patch: JadeitePatchStatusVariant::Concerning, .. } |
-                    LauncherState::Launch => launch::launch(sender),
+                    LauncherState::PatchNotVerified
+                    | LauncherState::PatchConcerning
+                    | LauncherState::PredownloadAvailable {
+                        patch: JadeitePatchStatusVariant::Verified,
+                        ..
+                    }
+                    | LauncherState::PredownloadAvailable {
+                        patch: JadeitePatchStatusVariant::Unverified,
+                        ..
+                    }
+                    | LauncherState::PredownloadAvailable {
+                        patch: JadeitePatchStatusVariant::Concerning,
+                        ..
+                    }
+                    | LauncherState::Launch => launch::launch(sender),
 
-                    LauncherState::PatchNotInstalled |
-                    LauncherState::PatchUpdateAvailable => update_patch::update_patch(sender, self.progress_bar.sender().to_owned()),
+                    LauncherState::PatchNotInstalled | LauncherState::PatchUpdateAvailable => {
+                        update_patch::update_patch(sender, self.progress_bar.sender().to_owned())
+                    }
 
-                    LauncherState::TelemetryNotDisabled => disable_telemetry::disable_telemetry(sender),
+                    LauncherState::TelemetryNotDisabled => {
+                        disable_telemetry::disable_telemetry(sender)
+                    }
 
-                    LauncherState::WineNotInstalled => download_wine::download_wine(sender, self.progress_bar.sender().to_owned()),
+                    LauncherState::WineNotInstalled => {
+                        download_wine::download_wine(sender, self.progress_bar.sender().to_owned())
+                    }
                     LauncherState::PrefixNotExists => create_prefix::create_prefix(sender),
-                    
+
                     LauncherState::DxvkNotInstalled => {
                         install_dxvk::install_dxvk(sender, self.progress_bar.sender().to_owned())
                     }
 
-                    LauncherState::GameUpdateAvailable(diff) |
-                    LauncherState::GameNotInstalled(diff) |
-                    LauncherState::VoiceUpdateAvailable(diff) |
-                    LauncherState::VoiceNotInstalled(diff) =>
-                        download_diff::download_diff(sender, self.progress_bar.sender().to_owned(), diff.to_owned()),
+                    LauncherState::GameUpdateAvailable(diff)
+                    | LauncherState::GameNotInstalled(diff)
+                    | LauncherState::VoiceUpdateAvailable(diff)
+                    | LauncherState::VoiceNotInstalled(diff) => download_diff::download_diff(
+                        sender,
+                        self.progress_bar.sender().to_owned(),
+                        diff.to_owned()
+                    ),
 
                     _ => ()
                 }
-            }
+            },
 
             AppMsg::HideWindow => unsafe {
                 // I honestly don't care anymore.
@@ -1269,7 +1345,7 @@ impl SimpleComponent for App {
                 if let Some(window) = MAIN_WINDOW.as_ref() {
                     window.set_visible(false);
                 }
-            }
+            },
 
             AppMsg::ShowWindow => unsafe {
                 // I honestly don't care anymore.
@@ -1277,9 +1353,12 @@ impl SimpleComponent for App {
                 if let Some(window) = MAIN_WINDOW.as_ref() {
                     window.present();
                 }
-            }
+            },
 
-            AppMsg::Toast { title, description } => self.toast(title, description)
+            AppMsg::Toast {
+                title,
+                description
+            } => self.toast(title, description)
         }
     }
 }
@@ -1317,5 +1396,273 @@ impl App {
         }
 
         self.toast_overlay.add_toast(toast);
+    }
+}
+
+mod shitty_patch {
+    use anime_launcher_sdk::anime_game_core::prelude::jadeite::is_installed;
+    use anime_launcher_sdk::anime_game_core::prelude::{
+        GameExt, JadeitePatchStatusVariant, jadeite
+    };
+    use anime_launcher_sdk::anime_game_core::star_rail::consts::get_voice_package_path;
+    use anime_launcher_sdk::anime_game_core::star_rail::game::Game;
+    use anime_launcher_sdk::anime_game_core::star_rail::prelude::{
+        VersionDiff, VoiceLocale, VoicePackage
+    };
+    use anime_launcher_sdk::anime_game_core::star_rail::telemetry;
+    use anime_launcher_sdk::config::ConfigExt;
+    use anime_launcher_sdk::star_rail::config::Config;
+    use anime_launcher_sdk::star_rail::states::{
+        LauncherState, LauncherStateParams, StateUpdating
+    };
+
+    use crate::JadeiteMetadata;
+    pub fn get_launcher_state_from_config<T: Fn(StateUpdating)>(
+        status_updater: T
+    ) -> anyhow::Result<LauncherState> {
+        tracing::debug!("Trying to get launcher state");
+
+        let config = Config::get()?;
+
+        match &config.game.wine.selected {
+            #[cfg(feature = "components")]
+            Some(selected) if !config.game.wine.builds.join(selected).exists() => {
+                return Ok(Self::WineNotInstalled);
+            }
+
+            None => return Ok(LauncherState::WineNotInstalled),
+
+            _ => ()
+        }
+
+        let mut voices = Vec::with_capacity(config.game.voices.len());
+
+        for voice in &config.game.voices {
+            voices.push(match VoiceLocale::from_str(voice) {
+                Some(locale) => locale,
+                None => {
+                    return Err(anyhow::anyhow!(
+                        "Incorrect voice locale \"{}\" specified in the config",
+                        voice
+                    ));
+                }
+            });
+        }
+
+        make_launcher_state(LauncherStateParams {
+            game_path: config
+                .game
+                .path
+                .for_edition(config.launcher.edition)
+                .to_path_buf(),
+            game_edition: config.launcher.edition,
+
+            wine_prefix: config.game.wine.prefix,
+            patch_folder: config.patch.path,
+
+            selected_voices: voices,
+            status_updater
+        })
+    }
+    pub fn make_launcher_state<F: Fn(StateUpdating)>(
+        params: LauncherStateParams<F>
+    ) -> anyhow::Result<LauncherState> {
+        tracing::debug!("Trying to get launcher state");
+
+        // Check prefix existence
+        if !params.wine_prefix.join("drive_c").exists() {
+            return Ok(LauncherState::PrefixNotExists);
+        }
+
+        // Check dxvk installation
+
+        let reg_path = params.wine_prefix.join("user.reg");
+
+        let reg_content = std::fs::read_to_string(&reg_path)?;
+
+        let mut found_dxgi = false;
+
+        for line in reg_content.lines() {
+            if line.trim_start().starts_with("\"dxgi\"") {
+                found_dxgi = true;
+
+                if !line.contains("\"native\"") {
+                    return Ok(LauncherState::DxvkNotInstalled);
+                }
+            }
+        }
+
+        if !found_dxgi {
+            return Ok(LauncherState::DxvkNotInstalled);
+        }
+
+        // Check game installation status
+        (params.status_updater)(StateUpdating::Game);
+
+        let game = Game::new(&params.game_path, params.game_edition);
+        let diff = game.try_get_diff()?;
+
+        match diff {
+            VersionDiff::Latest {
+                version, ..
+            }
+            | VersionDiff::Predownload {
+                current: version, ..
+            } => {
+                let mut predownload_voice = Vec::new();
+
+                for locale in params.selected_voices {
+                    let mut voice_package = VoicePackage::with_locale(locale, params.game_edition)?;
+
+                    (params.status_updater)(StateUpdating::Voice(voice_package.locale()));
+
+                    // Replace voice package struct with the one constructed in the game's folder
+                    // so it'll properly calculate its difference instead of saying "not installed"
+                    if voice_package.is_installed_in(&params.game_path) {
+                        voice_package = match VoicePackage::new(
+                            get_voice_package_path(
+                                &params.game_path,
+                                params.game_edition,
+                                voice_package.locale()
+                            ),
+                            params.game_edition
+                        ) {
+                            Some(locale) => locale,
+                            None => {
+                                return Err(anyhow::anyhow!(
+                                    "Failed to load {} voice package",
+                                    voice_package.locale().to_name()
+                                ));
+                            }
+                        };
+                    }
+
+                    let diff = voice_package.try_get_diff()?;
+
+                    match diff {
+                        VersionDiff::Latest {
+                            ..
+                        } => (),
+                        VersionDiff::Predownload {
+                            ..
+                        } => predownload_voice.push(diff),
+
+                        VersionDiff::Diff {
+                            ..
+                        } => return Ok(LauncherState::VoiceUpdateAvailable(diff)),
+                        VersionDiff::Outdated {
+                            ..
+                        } => return Ok(LauncherState::VoiceOutdated(diff)),
+                        VersionDiff::NotInstalled {
+                            ..
+                        } => return Ok(LauncherState::VoiceNotInstalled(diff))
+                    }
+                }
+
+                // Check game patch status
+                (params.status_updater)(StateUpdating::Patch);
+
+                // Check jadeite patch status
+                if !is_installed(&params.patch_folder) {
+                    return Ok(LauncherState::PatchNotInstalled);
+                }
+
+                // Fetch patch metadata
+                let metadata = get_metadata()?;
+
+                if metadata.jadeite.version > jadeite::get_version(params.patch_folder)? {
+                    return Ok(LauncherState::PatchUpdateAvailable);
+                }
+
+                // Check telemetry servers
+                let disabled = telemetry::is_disabled(params.game_edition)
+                    // Return true if there's no domain name resolved, or false otherwise
+                    .map(|result| result.is_none())
+                    // And return true if there's an error happened during domain name resolving
+                    // FIXME: might not be a good idea? Idk
+                    .unwrap_or_else(|err| {
+                        tracing::warn!(
+                            "Failed to check telemetry servers: {err}. Assuming they're disabled"
+                        );
+
+                        true
+                    });
+
+                if !disabled {
+                    return Ok(LauncherState::TelemetryNotDisabled);
+                }
+
+                // Request current patch status from the metadata file
+                let patch = metadata
+                    .games
+                    .hsr
+                    .for_edition(params.game_edition)
+                    .get_status(version);
+
+                // Check if update predownload available
+                if let VersionDiff::Predownload {
+                    ..
+                } = diff
+                {
+                    Ok(LauncherState::PredownloadAvailable {
+                        game: diff,
+                        voices: predownload_voice,
+                        patch
+                    })
+                }
+                // Otherwise we can launch the game or say that the patch is unstable
+                else {
+                    match patch {
+                        JadeitePatchStatusVariant::Verified => Ok(LauncherState::Launch),
+                        JadeitePatchStatusVariant::Unverified => {
+                            Ok(LauncherState::PatchNotVerified)
+                        }
+                        JadeitePatchStatusVariant::Broken => Ok(LauncherState::PatchBroken),
+                        JadeitePatchStatusVariant::Unsafe => Ok(LauncherState::PatchUnsafe),
+                        JadeitePatchStatusVariant::Concerning => Ok(LauncherState::PatchConcerning)
+                    }
+                }
+            }
+
+            VersionDiff::Diff {
+                ..
+            } => Ok(LauncherState::GameUpdateAvailable(diff)),
+            VersionDiff::Outdated {
+                ..
+            } => Ok(LauncherState::GameOutdated(diff)),
+            VersionDiff::NotInstalled {
+                ..
+            } => Ok(LauncherState::GameNotInstalled(diff))
+        }
+    }
+
+    const METADATA_URIS: &[&str] = &[
+        // Primary
+        "https://codeberg.org/mkrsym1/jadeite/raw/branch/master/metadata.json",
+        // Mirrors
+        "https://notabug.org/mkrsym1/jadeite-mirror/raw/master/metadata.json"
+    ];
+
+    pub fn get_metadata() -> anyhow::Result<JadeiteMetadata> {
+        for uri in METADATA_URIS {
+            let Ok(resp) = reqwest::blocking::get(*uri) else {
+                tracing::warn!(
+                    "Could not reach '{uri}'. Attempting to use next
+             fallback"
+                );
+                continue;
+            };
+
+            let Ok(json) = resp.json::<serde_json::Value>() else {
+                tracing::warn!(
+                    "Got invalid response from '{uri}'. Attempting to use next fallback"
+                );
+                continue;
+            };
+
+            return Ok(JadeiteMetadata::from(&json));
+        }
+
+        anyhow::bail!("Could not get metadata from any of the mirrors");
     }
 }

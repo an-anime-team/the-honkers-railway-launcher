@@ -23,6 +23,7 @@ components-index-sync-failed = 同步組件索引失敗
 components-index-verify-failed = 驗證組件索引失敗
 config-update-error = 保存配置失敗
 wine-prefix-update-failed = 更新 Wine Prefix 失敗
+mfc140-install-failed = Failed to install MFC140
 dxvk-install-failed = 安裝 DXVK 失敗
 voice-package-deletion-error = 刪除語音包失敗
 

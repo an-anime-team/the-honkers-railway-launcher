@@ -9,6 +9,7 @@ mod repair_game;
 mod update_patch;
 mod download_wine;
 mod install_dxvk;
+mod install_mfc140;
 mod create_prefix;
 mod download_diff;
 mod disable_telemetry;
@@ -90,6 +91,7 @@ pub enum AppMsg {
 
     OpenPreferences,
     RepairGame,
+    RemakePrefix,
 
     PredownloadUpdate,
     PerformAction,
@@ -430,7 +432,8 @@ impl SimpleComponent for App {
                                                 Some(LauncherState::TelemetryNotDisabled) => "security-high-symbolic",
 
                                                 Some(LauncherState::WineNotInstalled) |
-                                                Some(LauncherState::PrefixNotExists) | 
+                                                Some(LauncherState::PrefixNotExists) |
+                                                Some(LauncherState::Mfc140NotInstalled) |
                                                 Some(LauncherState::DxvkNotInstalled) => "document-save-symbolic",
 
                                                 Some(LauncherState::GameUpdateAvailable(_)) |
@@ -472,6 +475,7 @@ impl SimpleComponent for App {
 
                                                 Some(LauncherState::WineNotInstalled) => tr!("download-wine"),
                                                 Some(LauncherState::PrefixNotExists)  => tr!("create-prefix"),
+                                                Some(LauncherState::Mfc140NotInstalled) => tr!("install-mfc140"),
                                                 Some(LauncherState::DxvkNotInstalled) => tr!("install-dxvk"),
 
                                                 Some(LauncherState::GameUpdateAvailable(diff)) |
@@ -1201,6 +1205,29 @@ impl SimpleComponent for App {
 
             AppMsg::RepairGame => repair_game::repair_game(sender, self.progress_bar.sender().to_owned()),
 
+            AppMsg::RemakePrefix => {
+                let config = Config::get().unwrap();
+                let prefix = config.game.wine.prefix.clone();
+
+                if prefix.exists() {
+                    if let Err(err) = std::fs::remove_dir_all(&prefix) {
+                        tracing::error!("Failed to remove wine prefix: {err}");
+
+                        sender.input(AppMsg::Toast {
+                            title: tr!("wine-prefix-update-failed"),
+                            description: Some(err.to_string())
+                        });
+
+                        return;
+                    }
+                }
+
+                sender.input(AppMsg::UpdateLauncherState {
+                    perform_on_download_needed: false,
+                    show_status_page: true
+                });
+            }
+
             #[allow(unused_must_use)]
             AppMsg::PredownloadUpdate => {
                 if let Some(LauncherState::PredownloadAvailable { game, mut voices, .. }) = self.state.clone() {
@@ -1266,6 +1293,7 @@ impl SimpleComponent for App {
 
                     LauncherState::WineNotInstalled => download_wine::download_wine(sender, self.progress_bar.sender().to_owned()),
                     LauncherState::PrefixNotExists => create_prefix::create_prefix(sender),
+                    LauncherState::Mfc140NotInstalled => install_mfc140::install_mfc140(sender),
                     
                     LauncherState::DxvkNotInstalled => {
                         install_dxvk::install_dxvk(sender, self.progress_bar.sender().to_owned())

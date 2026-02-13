@@ -20,7 +20,7 @@ glib-build-tools = "0.20"
 
 [dependencies.anime-launcher-sdk]
 git = "https://github.com/an-anime-team/anime-launcher-sdk"
-tag = "1.34.2"
+tag = "1.34.3"
 features = ["all", "star-rail", "star-rail-patch"]
 
 # path = "../anime-launcher-sdk" # ! for dev purposes only

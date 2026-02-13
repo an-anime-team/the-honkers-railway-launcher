@@ -23,6 +23,7 @@ components-index-sync-failed = Gagal mensinkronisasi indeks komponen
 components-index-verify-failed = Gagal memverifikasi indeks komponen
 config-update-error = Gagal menyimpan konfigurasi
 wine-prefix-update-failed = Gagal memperbarui prefix wine
+mfc140-install-failed = Failed to install MFC140
 dxvk-install-failed = Gagal memasang DXVK
 voice-package-deletion-error = Gagal menghapus berkas suara
 

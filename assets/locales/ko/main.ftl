@@ -61,6 +61,7 @@ apply-patch = 패치 적용
 disable-telemetry = 원격 측정 비활성화
 download-wine = Wine 다운로드
 create-prefix = Prefix 생성
+install-mfc140 = Install MFC140
 update = 업데이트
 download = 다운로드
 predownload-update = {$version}업데이트 사전 다운로드 ({$size})

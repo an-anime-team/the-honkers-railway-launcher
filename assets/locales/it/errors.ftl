@@ -23,6 +23,7 @@ components-index-sync-failed = Sincronizzazione dell'indice dei componenti non r
 components-index-verify-failed = Verifica dell'indice dei componenti non riuscita
 config-update-error = Salvataggio della configurazione non riuscito
 wine-prefix-update-failed = Aggiornamento del prefisso di wine non riuscito
+mfc140-install-failed = Failed to install MFC140
 dxvk-install-failed = Installazione di DXVK non riuscita
 voice-package-deletion-error = Eliminazione del pacchetto delle voci non riuscita
 

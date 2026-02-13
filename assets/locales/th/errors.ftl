@@ -23,6 +23,7 @@ components-index-sync-failed = ไม่สามารถซิงค์ index 
 components-index-verify-failed = ไม่สามารถตรวจสอบ index ส่วนประกอบได้
 config-update-error = บันทึกการกำหนดค่าไม่สำเร็จ
 wine-prefix-update-failed = ไม่สามารถอัปเดตการตั้งค่า Wine
+mfc140-install-failed = Failed to install MFC140
 dxvk-install-failed = ติดตั้ง DXVK ไม่สำเร็จ
 voice-package-deletion-error = ลบแพ็คเกจเสียงไม่สำเร็จ
 

@@ -24,6 +24,7 @@ chinese = 汉语
 migrate-installation = 迁移安装
 migrate-installation-description = 打开此窗口以改变游戏安装文件夹
 repair-game = 修复游戏
+remake-prefix = Remake prefix
 
 status = 状态
 

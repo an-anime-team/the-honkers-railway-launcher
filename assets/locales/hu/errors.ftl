@@ -23,6 +23,7 @@ components-index-sync-failed = Failed to sync components index
 components-index-verify-failed = Failed to verify components index
 config-update-error = Sikertelen config mentés
 wine-prefix-update-failed = Sikertelen wine prefix frissítés
+mfc140-install-failed = Failed to install MFC140
 dxvk-install-failed = DXVK telepítése sikertelen
 voice-package-deletion-error = Hangcsomag törlése sikertelen
 

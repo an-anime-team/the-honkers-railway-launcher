@@ -69,6 +69,7 @@ apply-patch = Yamayı uygula
 disable-telemetry = Bilgi toplamayı devre dışı bırak
 download-wine = Wine indir
 create-prefix = Prefix oluştur
+install-mfc140 = Install MFC140
 update = Güncelle
 download = İndir
 predownload-update =  Güncellemeyi önceden indir{$version}  ({$size})

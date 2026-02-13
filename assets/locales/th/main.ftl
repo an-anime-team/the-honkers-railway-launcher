@@ -61,6 +61,7 @@ apply-patch = ติดตั้งแพทช์
 disable-telemetry = ปิดใช้งานการวัดและส่งข้อมูล
 download-wine = ดาวน์โหลด Wine
 create-prefix = สร้างการตั้งค่า Wine
+install-mfc140 = Install MFC140
 update = อัปเดต
 download = ดาวน์โหลด
 predownload-update = ดาวน์โหลดล่วงหน้า {$version} อัปเดต ({$size})

@@ -91,10 +91,11 @@ impl SimpleComponent for AboutDialog {
 
             set_release_notes_version: &APP_VERSION,
             set_release_notes: &[
-                "<p>Fixed</p>",
+                "<p>Added</p>",
 
                 "<ul>",
-                    "<li>Fixed game pre-downloading and repairing</li>",
+                    "<li>Added mfc140 dependency installation</li>",
+                    "<li>Added 'remake prefix' button</li>",
                 "</ul>"
             ].join("\n")
         }

@@ -61,6 +61,7 @@ apply-patch = Applicera patch
 disable-telemetry = Inaktivera telemetri
 download-wine = Ladda ner Wine
 create-prefix = Skapa prefix
+install-mfc140 = Install MFC140
 update = Uppdatering
 download = Ladda ned
 predownload-update = Förnedladda {$version} uppdatering ({$size})

@@ -34,6 +34,7 @@ pub enum PreferencesAppMsg {
 
     UpdateLauncherState,
     RepairGame,
+    RemakePrefix,
 
     Toast {
         title: String,
@@ -132,6 +133,12 @@ impl SimpleAsyncComponent for PreferencesApp {
                 PREFERENCES_WINDOW.as_ref().unwrap_unchecked().close();
 
                 let _ = sender.output(Self::Output::RepairGame);
+            }
+
+            PreferencesAppMsg::RemakePrefix => unsafe {
+                PREFERENCES_WINDOW.as_ref().unwrap_unchecked().close();
+
+                let _ = sender.output(Self::Output::RemakePrefix);
             }
 
             PreferencesAppMsg::Toast { title, description } => unsafe {

@@ -23,6 +23,7 @@ components-index-sync-failed = Không thể đồng bộ chỉ mục thành ph�
 components-index-verify-failed = Không thể xác minh chỉ mục thành phần
 config-update-error = Không thể lưu cấu hình
 wine-prefix-update-failed = Không thể cập nhật tiền tố Wine
+mfc140-install-failed = Failed to install MFC140
 dxvk-install-failed = Không thể cài đặt DXVK
 voice-package-deletion-error = Không thể xóa giọng nói
 

@@ -61,6 +61,7 @@ apply-patch = Appliquer le patch
 disable-telemetry = Disable telemetry
 download-wine = Télécharger wine
 create-prefix = Créer le préfix wine
+install-mfc140 = Install MFC140
 update = Mettre à jour
 download = Télécharger
 predownload-update = Pré-télécharger la mise à jour {$version} ({$size})

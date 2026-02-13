@@ -56,6 +56,7 @@ apply-patch = 安裝補丁
 disable-telemetry = 禁用監測
 download-wine = 下載 Wine
 create-prefix = 創建 Wine prefix
+install-mfc140 = Install MFC140
 update = 更新
 download = 下載
 predownload-update = 預下載版本更新 {$version} ({$size})

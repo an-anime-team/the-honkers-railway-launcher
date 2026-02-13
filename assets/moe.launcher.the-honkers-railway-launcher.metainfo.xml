@@ -47,6 +47,12 @@
   </categories>
   <content_rating type="oars-1.1" />
   <releases>
+    <release version="1.14.4" date="2026-02-13">
+      <description>
+        <p>Added mfc140 dependency installation</p>
+        <p>Added 'remake prefix' button</p>
+      </description>
+    </release>
     <release version="1.14.3" date="2026-02-12">
       <description>
         <p>Fixed game pre-downloading and repairing</p>

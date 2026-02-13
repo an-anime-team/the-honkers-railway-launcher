@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.14.4] - 2026-02-13
+
+### Added
+
+- Added mfc140 dependency installation
+- Added "remake prefix" button
+
 ## [1.14.3] - 2026-02-12
 
 ### Fixed
@@ -454,7 +461,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 <br>
 
-[unreleased]: https://github.com/an-anime-team/the-honkers-railway-launcher/compare/1.14.3...next
+[unreleased]: https://github.com/an-anime-team/the-honkers-railway-launcher/compare/1.14.4...next
+[1.14.4]: https://github.com/an-anime-team/the-honkers-railway-launcher/compare/1.14.3...1.14.4
 [1.14.3]: https://github.com/an-anime-team/the-honkers-railway-launcher/compare/1.14.2...1.14.3
 [1.14.2]: https://github.com/an-anime-team/the-honkers-railway-launcher/compare/1.14.1...1.14.2
 [1.14.1]: https://github.com/an-anime-team/the-honkers-railway-launcher/compare/1.14.0...1.14.1

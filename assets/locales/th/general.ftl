@@ -24,6 +24,7 @@ chinese = ภาษาจีน
 migrate-installation = ย้ายการติดตั้งเกม
 migrate-installation-description = เปิดหน้าต่างพิเศษที่คุณสามารถเปลี่ยนโฟลเดอร์การติดตั้งเกมของคุณได้
 repair-game = ซ่อมแซมการติดตั้งเกม
+remake-prefix = Remake prefix
 
 status = สถานะ
 

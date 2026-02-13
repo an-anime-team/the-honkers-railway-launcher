@@ -24,6 +24,7 @@ chinese = Китайский
 migrate-installation = Перенести лаунчер
 migrate-installation-description = Открыть специальное окно в котором вы сможете перенести установленную игру
 repair-game = Починить игру
+remake-prefix = Remake prefix
 
 status = Статус
 

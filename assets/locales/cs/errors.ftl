@@ -23,6 +23,7 @@ components-index-sync-failed = Nepodařilo se synchronizovat seznam komponent
 components-index-verify-failed = Nepodařilo se ověřit seznam komponent
 config-update-error = Nepodařilo se uložit konfiguraci
 wine-prefix-update-failed = Nepodařilo se aktualizovat Wine prefix
+mfc140-install-failed = Failed to install MFC140
 dxvk-install-failed = Nepodařilo se nainstalovat DXVK
 voice-package-deletion-error = Nepodařilo se odstranit Dabing
 

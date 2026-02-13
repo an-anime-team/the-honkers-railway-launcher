@@ -61,6 +61,7 @@ apply-patch = Áp dụng bản vá
 disable-telemetry = Vô hiệu hóa telemetry
 download-wine = Tải xuống Wine
 create-prefix = Tạo tiền tố
+install-mfc140 = Install MFC140
 update = Cập nhật
 download = Tải xuống
 predownload-update = Tải xuống trước {$version} cập nhật ({$size})

@@ -23,6 +23,7 @@ components-index-sync-failed = Kan de componenten index niet synchroniseren
 components-index-verify-failed = Kan de componenten index niet verifiëren
 config-update-error = Kan configuratie niet opslaan
 wine-prefix-update-failed = Kan de Wine prefix niet updaten
+mfc140-install-failed = Failed to install MFC140
 dxvk-install-failed = Kan DXVK niet installeren
 voice-package-deletion-error = Kan het spraakpakket niet verwijderen
 

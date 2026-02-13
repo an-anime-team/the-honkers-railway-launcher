@@ -24,6 +24,7 @@ chinese = Cina
 migrate-installation = Pindahkan installasi
 migrate-installation-description = Buka menu khusus untuk mengubah direktori installasi game
 repair-game = Perbaiki game
+remake-prefix = Remake prefix
 
 status = Status
 

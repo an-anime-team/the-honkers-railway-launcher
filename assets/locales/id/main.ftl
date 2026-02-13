@@ -68,6 +68,7 @@ apply-patch = Terapkan patch
 disable-telemetry = Nonaktifkan telemetri
 download-wine = Unduh wine
 create-prefix = Buat prefix
+install-mfc140 = Install MFC140
 update = Perbarui
 download = Unduh 
 predownload-update = Pra-unduh pembaruan versi {$version} ({$size})

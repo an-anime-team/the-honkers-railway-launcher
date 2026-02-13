@@ -61,6 +61,7 @@ apply-patch = Apply patch
 disable-telemetry = Disable telemetry
 download-wine = Download wine
 create-prefix = Create prefix
+install-mfc140 = Install MFC140
 install-dxvk = Install DXVK
 update = Update
 download = Download

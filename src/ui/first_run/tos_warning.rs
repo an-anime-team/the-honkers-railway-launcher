@@ -106,6 +106,7 @@ impl SimpleAsyncComponent for TosWarningApp {
                             let installed =
                                 is_available("git") &&
                                 is_available("dwebp") &&
+                                is_available("winetricks") &&
                                 (is_available("7z") || is_available("7za"));
 
                             if installed {

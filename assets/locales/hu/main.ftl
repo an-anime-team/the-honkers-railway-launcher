@@ -61,6 +61,7 @@ apply-patch = Patch alkalmazása
 disable-telemetry = Telemetria kikapcsolása
 download-wine = Wine letöltése
 create-prefix = Prefix létrehozása
+install-mfc140 = Install MFC140
 update = Frissítés
 download = Letöltés
 predownload-update = {$version} verzió előtöltése ({$size})

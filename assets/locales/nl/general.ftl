@@ -24,6 +24,7 @@ chinese = Chinees
 migrate-installation = Migreer installatie
 migrate-installation-description = Open een venster waarin je de installatiemap het spel kunt wijzigen
 repair-game = Repareer spel
+remake-prefix = Remake prefix
 
 status = Status
 

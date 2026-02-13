@@ -23,6 +23,7 @@ components-index-sync-failed = 구성 요소 인덱스를 동기화하지 못했
 components-index-verify-failed = 컴포넌트 인덱스를 확인하지 못했습니다
 config-update-error = 구성 저장에 실패했습니다
 wine-prefix-update-failed = Wine 접두사를 업데이트하지 못했습니다
+mfc140-install-failed = Failed to install MFC140
 dxvk-install-failed = DXVK를 설치하지 못했습니다
 voice-package-deletion-error = 음성 패키지를 삭제하지 못했습니다
 

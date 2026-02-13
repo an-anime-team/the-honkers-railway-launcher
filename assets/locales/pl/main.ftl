@@ -59,6 +59,7 @@ apply-patch = Zastosuj łatkę
 disable-telemetry = Wyłącz telemetrię
 download-wine = Pobierz Wine
 create-prefix = Utwórz przedrostek
+install-mfc140 = Install MFC140
 update = Aktualizuj
 download = Pobierz
 predownload-update = Wstępnie pobierz aktualizację {$version} ({$size})

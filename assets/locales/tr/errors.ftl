@@ -23,6 +23,7 @@ components-index-sync-failed = Bileşenler dizini senkronizasyonu başarısız o
 components-index-verify-failed = Bileşenler dizini doğrulanamadı
 config-update-error = Config'i kaydetme başarısız oldu
 wine-prefix-update-failed = Wine prefixini güncelleme başarısız oldu
+mfc140-install-failed = Failed to install MFC140
 dxvk-install-failed = DXVK indirilemedi
 voice-package-deletion-error = Ses dosyasını silme başarısız oldu
 

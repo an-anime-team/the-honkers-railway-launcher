@@ -61,6 +61,7 @@ apply-patch = Aplikovat patch
 disable-telemetry = Vypnout telemetrii
 download-wine = Stáhnout Wine
 create-prefix = Vytvořit Wine prefix
+install-mfc140 = Install MFC140
 update = Aktualizovat
 download = Stáhnout
 predownload-update = Předbězně stáhnout aktualizaci {$version} ({$size})

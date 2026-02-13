@@ -23,6 +23,7 @@ components-index-sync-failed = Не удалось синхронизирова�
 components-index-verify-failed = Не удалось проверить индекс компонентов
 config-update-error = Ошибка сохранения настроек
 wine-prefix-update-failed = Ошибка обновления префикса Wine
+mfc140-install-failed = Failed to install MFC140
 dxvk-install-failed = Ошибка установки DXVK
 voice-package-deletion-error = Не удалось удалить языковой пакет
 

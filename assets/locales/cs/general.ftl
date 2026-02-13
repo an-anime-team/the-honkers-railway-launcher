@@ -24,6 +24,7 @@ chinese = Čínský
 migrate-installation = Přesunout instalaci
 migrate-installation-description = Otevřete speciální okno, kde můžete změnit instalační složku hry
 repair-game = Opravit hru
+remake-prefix = Remake prefix
 
 status = Stav
 

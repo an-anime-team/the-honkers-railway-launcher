@@ -69,6 +69,7 @@ apply-patch = パッチを適用する
 disable-telemetry = テレメトリを無効にする
 download-wine = ワインをダウンロード
 create-prefix = プレフィックスを作成
+install-mfc140 = Install MFC140
 update = 更新
 download = ダウンロード
 predownload-update = {$version} の早期アップデート({$size})

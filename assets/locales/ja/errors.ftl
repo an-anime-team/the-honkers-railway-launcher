@@ -23,6 +23,7 @@ components-index-sync-failed = コンポーネントのインデックスの同�
 components-index-verify-failed = コンポーネントのインデックスの確認に失敗しました。
 config-update-error = 設定の保存に失敗しました。
 wine-prefix-update-failed = Wine のプレフィックスの更新に失敗しました。
+mfc140-install-failed = Failed to install MFC140
 dxvk-install-failed = DXVKのインストールに失敗しました。
 voice-package-deletion-error = ボイスパッケージの消去に失敗しました。
 

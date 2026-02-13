@@ -23,6 +23,7 @@ components-index-sync-failed = Fallo al sincronizar índice de componentes
 components-index-verify-failed = Fallo al verificar índice de componentes
 config-update-error = Fallo al guardar configuración
 wine-prefix-update-failed = Fallo al actualizar prefijo de Wine
+mfc140-install-failed = Failed to install MFC140
 dxvk-install-failed = Fallo al instalar DXVK
 voice-package-deletion-error = Fallo al borrar paquete de voz
 

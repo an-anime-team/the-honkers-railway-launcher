@@ -106,6 +106,15 @@ fn main() -> anyhow::Result<()> {
 
     // Create launcher folder if it doesn't exist.
     if !LAUNCHER_FOLDER.exists() {
+        // check if the location is a symlink. [Path::exists] resolves the symlink and
+        // returns whether its *target* exists or not.
+        if LAUNCHER_FOLDER.is_symlink() {
+            eprintln!(
+                "{} is a broken symlink, meaning the directory it is pointing to does not exist, cannot proceed.",
+                LAUNCHER_FOLDER.display()
+            );
+            anyhow::bail!("Launcher folder is a broken symlink");
+        }
         std::fs::create_dir_all(LAUNCHER_FOLDER.as_path())
             .expect("Failed to create launcher folder");
 
@@ -123,6 +132,13 @@ fn main() -> anyhow::Result<()> {
 
     // Create cache folder if it doesn't exist.
     if !CACHE_FOLDER.exists() {
+        if CACHE_FOLDER.is_symlink() {
+            eprintln!(
+                "{} is a broken symlink, meaning the directory it is pointing to does not exist, cannot proceed.",
+                CACHE_FOLDER.display()
+            );
+            anyhow::bail!("Cache folder is a broken symlink");
+        }
         std::fs::create_dir_all(CACHE_FOLDER.as_path()).expect("Failed to create cache folder");
     }
 

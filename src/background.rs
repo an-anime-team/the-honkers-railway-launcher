@@ -1,9 +1,250 @@
+use std::path::Path;
 use std::process::Command;
 
 use anime_launcher_sdk::anime_game_core::installer::downloader::Downloader;
+use anime_launcher_sdk::is_available;
 use anime_launcher_sdk::anime_game_core::minreq;
+use anyhow::Context;
+use md5::{Digest, Md5};
 
-use md5::{Md5, Digest};
+pub fn download_background(with_video: bool, index: u8) -> anyhow::Result<()> {
+    tracing::debug!("Downloading background picture");
+
+    let info = get_background_info(index)?;
+
+    let regenerate_image = info.download(with_video)?;
+
+    if regenerate_image {
+        if gtk_webp_image_supported() {
+            std::fs::copy(&*crate::BACKGROUND_FILE, &*crate::PROCESSED_BACKGROUND_FILE)
+                .context("Copying background file")?;
+            if matches!(info, BackgroundSpec::Video { .. }) {
+                std::fs::copy(
+                    &*crate::BACKGROUND_OVERLAY_FILE,
+                    &*crate::PROCESSED_BACKGROUND_OVERLAY_FILE
+                )
+                .context("Copying background overlay file")?;
+            }
+        } else {
+            tracing::info!("WebP GDK Pixbuf Loader is not installed, converting images to PNG");
+            info.convert_and_copy()?;
+        }
+
+        if matches!(info, BackgroundSpec::Normal { .. }) {
+            // Remove the overlay and video file if it's normal variant
+            // Ignore error, if file is already missing for example
+            let _ = std::fs::remove_file(&*crate::PROCESSED_BACKGROUND_OVERLAY_FILE);
+            let _ = std::fs::remove_file(&*crate::BACKGROUND_VIDEO_FILE);
+        }
+    } else {
+        tracing::debug!("Not re-generating the background image, already latest")
+    }
+
+    Ok(())
+}
+
+#[cached::proc_macro::cached(result)]
+pub fn get_background_info_multiple() -> anyhow::Result<Vec<BackgroundSpec>> {
+    let json = serde_json::from_slice::<serde_json::Value>(
+        minreq::get(get_uri()).with_timeout(15).send()?.as_bytes()
+    )?;
+
+    BackgroundSpec::from_json_all(&json)
+}
+
+#[cached::proc_macro::cached(result)]
+pub fn get_background_info(index: u8) -> anyhow::Result<BackgroundSpec> {
+    let json = serde_json::from_slice::<serde_json::Value>(
+        minreq::get(get_uri()).with_timeout(15).send()?.as_bytes()
+    )?;
+
+    BackgroundSpec::from_json_single(&json, index)
+}
+
+pub fn get_uri() -> String {
+    let lang = crate::i18n::get_lang();
+
+    if lang.language == unic_langid::langid!("zh-cn").language {
+        concat!(
+            "https://hyp-api.",
+            "mi",
+            "ho",
+            "yo",
+            ".com/hyp/hyp-connect/api/getAllGameBasicInfo?launcher_id=jGHBHlcOq1"
+        )
+        .to_owned()
+    } else {
+        let uri = concat!(
+            "https://sg-hyp-api.",
+            "ho",
+            "yo",
+            "verse",
+            ".com/hyp/hyp-connect/api/getAllGameBasicInfo?launcher_id=VYTpXlbWo8&language="
+        );
+
+        uri.to_owned() + &crate::i18n::format_lang(lang)
+    }
+}
+
+#[derive(Debug, Clone)]
+pub enum BackgroundSpec {
+    Normal {
+        background: Background
+    },
+    Video {
+        background: Background,
+        video: Background,
+        overlay: Background
+    }
+}
+
+impl BackgroundSpec {
+    fn from_json_single(value: &serde_json::Value, index: u8) -> anyhow::Result<Self> {
+        let backgrounds_json = Self::backgrounds_json_from_value(value)?;
+        Self::from_json_value(
+            backgrounds_json
+                .get(index as usize)
+                .or_else(|| backgrounds_json.first())
+                .ok_or_else(|| anyhow::anyhow!("The API did not provide any backgrounds"))?
+        )
+    }
+
+    fn from_json_all(value: &serde_json::Value) -> anyhow::Result<Vec<Self>> {
+        let backgrounds_json = Self::backgrounds_json_from_value(value)?;
+
+        backgrounds_json.iter().map(Self::from_json_value).collect()
+    }
+
+    fn backgrounds_json_from_value(
+        value: &serde_json::Value
+    ) -> anyhow::Result<&Vec<serde_json::Value>> {
+        value["data"]["game_info_list"]
+                .as_array()
+                .ok_or_else(|| anyhow::anyhow!("Failed to list games in the backgrounds API"))?
+                .iter()
+                .find(|game| match game["game"]["biz"].as_str() {
+                    Some(biz) => biz.starts_with("hkrpg_"),
+                    _ => false
+                })
+                .ok_or_else(|| anyhow::anyhow!("Failed to find the game in the backgrounds API"))?
+                ["backgrounds"]
+                .as_array()
+                .ok_or_else(|| {
+                    anyhow::anyhow!(
+                        "Failed to parse backgrounds API: `backgrounds` is not an array"
+                    )
+                })
+    }
+
+    fn from_json_value(value: &serde_json::Value) -> anyhow::Result<Self> {
+        let background_uri = get_img_uri_from_json_value(Some(value), "background")?;
+        let background = Background::from_uri(background_uri);
+
+        if value["type"].as_str() == Some("BACKGROUND_TYPE_VIDEO") {
+            let video_uri = get_img_uri_from_json_value(Some(value), "video")?;
+            let video = Background::from_uri(video_uri);
+
+            let overlay_uri = get_img_uri_from_json_value(Some(value), "theme")?;
+            let overlay = Background::from_uri(overlay_uri);
+
+            Ok(Self::Video {
+                background,
+                video,
+                overlay
+            })
+        } else {
+            Ok(Self::Normal {
+                background
+            })
+        }
+    }
+
+    fn background(&self) -> &Background {
+        match self {
+            Self::Normal {
+                background
+            }
+            | Self::Video {
+                background, ..
+            } => background
+        }
+    }
+
+    /// Returns true if the background needs to be re-generated
+    fn download(&self, with_video: bool) -> anyhow::Result<bool> {
+        let mut regenerate_image = false;
+
+        regenerate_image |= self.background().download(&crate::BACKGROUND_FILE)?;
+
+        if let Self::Video {
+            video,
+            overlay,
+            ..
+        } = self
+        {
+            regenerate_image |= overlay.download(&crate::BACKGROUND_OVERLAY_FILE)?;
+            if with_video {
+                regenerate_image |= video.download(&crate::BACKGROUND_VIDEO_FILE)?;
+            }
+        }
+
+        Ok(regenerate_image)
+    }
+
+    fn convert_and_copy(&self) -> anyhow::Result<()> {
+        finalize_file(
+            self.background(),
+            &crate::BACKGROUND_FILE,
+            &crate::PROCESSED_BACKGROUND_FILE
+        )?;
+        if let Self::Video {
+            overlay, ..
+        } = self
+        {
+            finalize_file(
+                overlay,
+                &crate::BACKGROUND_OVERLAY_FILE,
+                &crate::PROCESSED_BACKGROUND_OVERLAY_FILE
+            )?;
+        }
+        Ok(())
+    }
+}
+
+fn finalize_file(bg_info: &Background, from: &Path, to: &Path) -> anyhow::Result<()> {
+    if bg_info.uri.ends_with(".webp") {
+        convert_image(from, to).context(format!("Converting image {to:?}"))?;
+    }
+
+    // If it failed to re-code the file - just copy it
+    // Will happen with HSR because devs apparently named
+    // their background image ".webp" while it's JPEG
+    if !to.exists() {
+        std::fs::copy(from, to).context(format!("Copying {to:?}"))?;
+    }
+
+    Ok(())
+}
+
+fn convert_image(from: &Path, to: &Path) -> anyhow::Result<()> {
+    if is_available("dwebp") {
+        Command::new("dwebp")
+            .arg(from)
+            .arg("-o")
+            .arg(to)
+            .spawn()?
+            .wait()?;
+    } else if is_available("magick") {
+        Command::new("magick")
+            .arg(from)
+            .arg(format!("PNG:{}", to.display()))
+            .spawn()?
+            .wait()?;
+    } else {
+        tracing::warn!("Could not find `dwebp` or `magick` to convert the image file.");
+    }
+    Ok(())
+}
 
 #[derive(Debug, Clone)]
 pub struct Background {
@@ -11,103 +252,82 @@ pub struct Background {
     pub hash: String
 }
 
-pub fn get_uri() -> String {
-    let lang = crate::i18n::get_lang();
-
-    if lang.language == unic_langid::langid!("zh-cn").language {
-        concat!("https://hyp-api.", "mi", "ho", "yo", ".com/hyp/hyp-connect/api/getAllGameBasicInfo?launcher_id=jGHBHlcOq1").to_owned()
+impl Background {
+    fn from_uri(uri: String) -> Self {
+        let hash = get_img_hash_from_uri(&uri);
+        Self {
+            uri,
+            hash
+        }
     }
 
-    else {
-        let uri = concat!("https://sg-hyp-api.", "ho", "yo", "verse", ".com/hyp/hyp-connect/api/getAllGameBasicInfo?launcher_id=VYTpXlbWo8&language=");
-
-        uri.to_owned() + &crate::i18n::format_lang(lang)
+    /// Return true if the background needs to be re-generated
+    fn download(&self, path: &Path) -> anyhow::Result<bool> {
+        if !check_img_file(path, &self.hash)? {
+            download_img_file(path, &self.uri)?;
+            return Ok(true);
+        }
+        Ok(false)
     }
 }
 
-#[cached::proc_macro::cached(result)]
-pub fn get_background_info() -> anyhow::Result<Background> {
-    let json = serde_json::from_slice::<serde_json::Value>(minreq::get(get_uri()).send()?.as_bytes())?;
+/// Returns true if image exists and is correct
+fn check_img_file(path: &Path, expected_hash: &str) -> anyhow::Result<bool> {
+    if path.exists() {
+        let hash = Md5::digest(std::fs::read(path)?);
 
-    let uri = json["data"]["game_info_list"].as_array()
-        .ok_or_else(|| anyhow::anyhow!("Failed to list games in the backgrounds API"))?
-        .iter()
-        .find(|game| {
-            match game["game"]["biz"].as_str() {
-                Some(biz) => biz.starts_with("hkrpg_"),
-                _ => false
-            }
-        })
-        .ok_or_else(|| anyhow::anyhow!("Failed to find the game in the backgrounds API"))?["backgrounds"]
-        .as_array()
-        .and_then(|backgrounds| backgrounds.iter().next())
-        .and_then(|background| background["background"]["url"].as_str())
+        if format!("{hash:x}").eq_ignore_ascii_case(expected_hash) {
+            tracing::debug!("Background picture {path:?} already downloaded. Skipping");
+
+            return Ok(true);
+        }
+    }
+
+    Ok(false)
+}
+
+fn get_img_uri_from_json_value(
+    backgrounds_info: Option<&serde_json::Value>,
+    key: &str
+) -> anyhow::Result<String> {
+    Ok(backgrounds_info
+        .and_then(|background| background[key]["url"].as_str())
         .ok_or_else(|| anyhow::anyhow!("Failed to get background picture url"))?
-        .to_string();
+        .to_string())
+}
 
-    let hash = uri.split('/')
+fn get_img_hash_from_uri(uri: &str) -> String {
+    uri.split('/')
         .next_back()
         .unwrap_or_default()
         .split('_')
         .next()
         .unwrap_or_default()
-        .to_owned();
+        .to_owned()
+}
 
-    Ok(Background {
-        uri,
-        hash
+#[cached::proc_macro::once()]
+fn gtk_webp_image_supported() -> bool {
+    let supported_pixbuf_formats = gtk::gdk_pixbuf::Pixbuf::formats();
+    supported_pixbuf_formats.into_iter().any(|format| {
+        format
+            .name()
+            .map(|name| name.eq_ignore_ascii_case("webp"))
+            .unwrap_or(false)
+            || format
+                .extensions()
+                .iter()
+                .any(|ext| ext.eq_ignore_ascii_case("webp"))
     })
 }
 
-pub fn download_background() -> anyhow::Result<()> {
-    tracing::debug!("Downloading background picture");
+fn download_img_file(path: &Path, uri: &str) -> anyhow::Result<()> {
+    let mut downloader = Downloader::new(uri)?;
 
-    let info = get_background_info()?;
+    downloader.continue_downloading = false;
 
-    let mut download_image = true;
-    let mut replace_cached_image = false;
-
-    if crate::BACKGROUND_FILE.exists() {
-        let hash = Md5::digest(std::fs::read(crate::BACKGROUND_FILE.as_path())?);
-
-        if format!("{:x}", hash).to_lowercase() == info.hash {
-            tracing::debug!("Background picture is already downloaded. Skipping");
-
-            download_image = false;
-        }
-    }
-
-    if download_image {
-        let mut downloader = Downloader::new(&info.uri)?;
-
-        downloader.continue_downloading = false;
-
-        if let Err(err) = downloader.download(crate::BACKGROUND_FILE.as_path(), |_, _| {}) {
-            anyhow::bail!(err);
-        }
-
-        replace_cached_image = true;
-    }
-
-    // Workaround for GTK weakness
-    if info.uri.ends_with(".webp") {
-        Command::new("dwebp")
-            .arg(crate::BACKGROUND_FILE.as_path())
-            .arg("-o")
-            .arg(crate::PROCESSED_BACKGROUND_FILE.as_path())
-            .spawn()?
-            .wait()?;
-
-        // If it failed to re-code the file - just copy it
-        // Will happen with HSR because devs apparently named
-        // their background image ".webp" while it's JPEG
-        if replace_cached_image || !crate::PROCESSED_BACKGROUND_FILE.exists() {
-            std::fs::copy(crate::BACKGROUND_FILE.as_path(), crate::PROCESSED_BACKGROUND_FILE.as_path())?;
-        }
-    }
-
-    else {
-        std::fs::copy(crate::BACKGROUND_FILE.as_path(), crate::PROCESSED_BACKGROUND_FILE.as_path())?;
+    if let Err(err) = downloader.download(path, |_, _| {}) {
+        anyhow::bail!(err);
     }
 
     Ok(())

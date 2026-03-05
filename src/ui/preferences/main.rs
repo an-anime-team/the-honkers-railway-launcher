@@ -28,6 +28,8 @@ pub enum PreferencesAppMsg {
     SetMainPatch(Option<(Version, JadeitePatchStatusVariant)>),
 
     SetLauncherStyle(LauncherStyle),
+    SetVideoBackground(bool),
+    SetBackgroundIndex(u8),
 
     UpdateLauncherState,
     RepairGame,
@@ -128,6 +130,16 @@ impl SimpleAsyncComponent for PreferencesApp {
             #[allow(unused_must_use)]
             PreferencesAppMsg::SetLauncherStyle(style) => {
                 let _ = sender.output(Self::Output::SetLauncherStyle(style));
+            }
+
+            #[allow(unused_must_use)]
+            PreferencesAppMsg::SetVideoBackground(use_video) => {
+                sender.output(Self::Output::SetVideoBackground(use_video));
+            }
+
+            #[allow(unused_must_use)]
+            PreferencesAppMsg::SetBackgroundIndex(background_index) => {
+                sender.output(Self::Output::SetBackgroundIndex(background_index));
             }
 
             PreferencesAppMsg::UpdateLauncherState => {

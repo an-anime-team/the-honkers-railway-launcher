@@ -56,8 +56,17 @@ lazy_static::lazy_static! {
     /// Path to `background` file. Standard is `$HOME/.local/share/honkers-railway-launcher/background`
     pub static ref BACKGROUND_FILE: PathBuf = LAUNCHER_FOLDER.join("background");
 
-    /// Path to the processed `background` file. Standard is `$HOME/.cache/anime-game-launcher/background`
+    /// Path to `background-overlay` file. Standard is `$HOME/.local/share/honkers-railway-launcher/background-overlay`
+    pub static ref BACKGROUND_OVERLAY_FILE: PathBuf = LAUNCHER_FOLDER.join("background-overlay");
+
+    /// Path to the processed `background` file. Standard is `$HOME/.cache/honkers-railway-launcher/background`
     pub static ref PROCESSED_BACKGROUND_FILE: PathBuf = CACHE_FOLDER.join("background");
+
+    /// Path to the processed `background-overlay` file. Standard is `$HOME/.cache/honkers-railway-launcher/background-overlay`
+    pub static ref PROCESSED_BACKGROUND_OVERLAY_FILE: PathBuf = CACHE_FOLDER.join("background-overlay");
+
+    /// Path to the processed `background-video` file. Standard is `$HOME/.cache/honkers-railway-launcher/background-video`
+    pub static ref BACKGROUND_VIDEO_FILE: PathBuf = CACHE_FOLDER.join("background-video");
 
     /// Path to `.keep-background` file. Used to mark launcher that it shouldn't update background picture
     ///
@@ -76,6 +85,12 @@ lazy_static::lazy_static! {
         }}
 
         window.classic-style {{
+            background: url(\"file://{}\"), url(\"file://{}\");
+            background-repeat: no-repeat, no-repeat;
+            background-size: cover, cover;
+        }}
+
+        .background-overlay {{
             background: url(\"file://{}\");
             background-repeat: no-repeat;
             background-size: cover;
@@ -97,7 +112,11 @@ lazy_static::lazy_static! {
         .round-bin {{
             border-radius: 24px;
         }}
-    ", PROCESSED_BACKGROUND_FILE.to_string_lossy());
+        ",
+        PROCESSED_BACKGROUND_OVERLAY_FILE.to_string_lossy(),
+        PROCESSED_BACKGROUND_FILE.to_string_lossy(),
+        PROCESSED_BACKGROUND_OVERLAY_FILE.to_string_lossy()
+        );
 }
 
 fn main() -> anyhow::Result<()> {

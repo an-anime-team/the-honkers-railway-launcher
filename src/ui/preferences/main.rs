@@ -1,15 +1,12 @@
 use relm4::prelude::*;
 use adw::prelude::*;
-
 use anime_launcher_sdk::anime_game_core::prelude::*;
 use anime_launcher_sdk::anime_game_core::star_rail::prelude::*;
-
 use anime_launcher_sdk::config::ConfigExt;
 use anime_launcher_sdk::star_rail::config::Config;
 use anime_launcher_sdk::star_rail::config::schema::launcher::LauncherStyle;
 
 use crate::tr;
-
 use super::general::*;
 use super::enhancements::*;
 
@@ -22,12 +19,12 @@ pub struct PreferencesApp {
 
 #[derive(Debug, Clone)]
 pub enum PreferencesAppMsg {
-    /// Supposed to be called automatically on app's run when the latest game version
-    /// was retrieved from the API
+    /// Supposed to be called automatically on app's run when the latest game
+    /// version was retrieved from the API
     SetGameDiff(Option<VersionDiff>),
 
-    /// Supposed to be called automatically on app's run when the latest main patch version
-    /// was retrieved from remote repos
+    /// Supposed to be called automatically on app's run when the latest main
+    /// patch version was retrieved from remote repos
     SetMainPatch(Option<(Version, JadeitePatchStatusVariant)>),
 
     SetLauncherStyle(LauncherStyle),
@@ -73,7 +70,11 @@ impl SimpleAsyncComponent for PreferencesApp {
         }
     }
 
-    async fn init(parent: Self::Init, root: Self::Root, sender: AsyncComponentSender<Self>) -> AsyncComponentParts<Self> {
+    async fn init(
+        parent: Self::Init,
+        root: Self::Root,
+        sender: AsyncComponentSender<Self>
+    ) -> AsyncComponentParts<Self> {
         tracing::info!("Initializing preferences window");
 
         let model = Self {
@@ -94,12 +95,17 @@ impl SimpleAsyncComponent for PreferencesApp {
             PREFERENCES_WINDOW = Some(widgets.preferences_window.clone());
         }
 
-        model.enhancements.emit(EnhancementsAppMsg::SetGamescopeParent);
+        model
+            .enhancements
+            .emit(EnhancementsAppMsg::SetGamescopeParent);
 
         model.general.emit(GeneralAppMsg::UpdateDownloadedWine);
         model.general.emit(GeneralAppMsg::UpdateDownloadedDxvk);
 
-        AsyncComponentParts { model, widgets }
+        AsyncComponentParts {
+            model,
+            widgets
+        }
     }
 
     async fn update(&mut self, msg: Self::Input, sender: AsyncComponentSender<Self>) {
@@ -114,7 +120,9 @@ impl SimpleAsyncComponent for PreferencesApp {
 
             #[allow(unused_must_use)]
             PreferencesAppMsg::SetMainPatch(patch) => {
-                self.general.sender().send(GeneralAppMsg::SetMainPatch(patch));
+                self.general
+                    .sender()
+                    .send(GeneralAppMsg::SetMainPatch(patch));
             }
 
             #[allow(unused_must_use)]
@@ -133,15 +141,18 @@ impl SimpleAsyncComponent for PreferencesApp {
                 PREFERENCES_WINDOW.as_ref().unwrap_unchecked().close();
 
                 let _ = sender.output(Self::Output::RepairGame);
-            }
+            },
 
             PreferencesAppMsg::RemakePrefix => unsafe {
                 PREFERENCES_WINDOW.as_ref().unwrap_unchecked().close();
 
                 let _ = sender.output(Self::Output::RemakePrefix);
-            }
+            },
 
-            PreferencesAppMsg::Toast { title, description } => unsafe {
+            PreferencesAppMsg::Toast {
+                title,
+                description
+            } => unsafe {
                 let toast = adw::Toast::new(&title);
 
                 toast.set_timeout(4);
@@ -149,7 +160,11 @@ impl SimpleAsyncComponent for PreferencesApp {
                 if let Some(description) = description {
                     toast.set_button_label(Some(&tr!("details")));
 
-                    let dialog = adw::MessageDialog::new(PREFERENCES_WINDOW.as_ref(), Some(&title), Some(&description));
+                    let dialog = adw::MessageDialog::new(
+                        PREFERENCES_WINDOW.as_ref(),
+                        Some(&title),
+                        Some(&description)
+                    );
 
                     dialog.add_response("close", &tr!("close", { "form" = "noun" }));
                     dialog.add_response("save", &tr!("save"));
@@ -167,7 +182,10 @@ impl SimpleAsyncComponent for PreferencesApp {
                     });
                 }
 
-                PREFERENCES_WINDOW.as_ref().unwrap_unchecked().add_toast(toast);
+                PREFERENCES_WINDOW
+                    .as_ref()
+                    .unwrap_unchecked()
+                    .add_toast(toast);
             }
         }
     }

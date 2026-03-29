@@ -66,7 +66,7 @@ impl SimpleAsyncComponent for DependenciesApp {
                         },
 
                         gtk::Entry {
-                            set_text: "sudo pacman -Syu git p7zip libwebp-utils winetricks",
+                            set_text: "sudo pacman -Syu git p7zip libwebp-utils",
                             set_editable: false
                         }
                     },
@@ -83,7 +83,7 @@ impl SimpleAsyncComponent for DependenciesApp {
                         },
 
                         gtk::Entry {
-                            set_text: "sudo apt install git p7zip-full webp winetricks",
+                            set_text: "sudo apt install git p7zip-full webp",
                             set_editable: false
                         }
                     },
@@ -100,7 +100,7 @@ impl SimpleAsyncComponent for DependenciesApp {
                         },
 
                         gtk::Entry {
-                            set_text: "sudo dnf install git p7zip libwebp-tools winetricks",
+                            set_text: "sudo dnf install git p7zip libwebp-tools",
                             set_editable: false
                         }
                     },
@@ -123,10 +123,6 @@ impl SimpleAsyncComponent for DependenciesApp {
 
                             adw::ActionRow {
                                 set_title: "libwebp"
-                            },
-
-                            adw::ActionRow {
-                                set_title: "winetricks"
                             }
                         }
                     }
@@ -200,7 +196,7 @@ impl SimpleAsyncComponent for DependenciesApp {
         match msg {
             #[allow(unused_must_use)]
             DependenciesAppMsg::Continue => {
-                let packages = ["git", "dwebp", "winetricks"];
+                let packages = ["git", "dwebp"];
 
                 for package in packages {
                     if !is_available(package) {

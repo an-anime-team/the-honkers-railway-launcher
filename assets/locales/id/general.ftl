@@ -3,6 +3,8 @@ modern = Modern
 classic = Klasik
 update-background = Perbarui gambar latar belakang 
 update-background-description = Unduh gambar resmi untuk launcher. Anda bisa menonaktifkannya dan menggunakan gambar Anda sendiri
+video-background = Use video background
+video-background-description = Download and display official animated background for the launcher
 
 launcher-language = Tampilan bahasa Launcher
 launcher-language-description = Efektif setelah muat ulang

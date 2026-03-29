@@ -3,6 +3,8 @@ modern = Modern
 classic = Klassisk
 update-background = Uppdatera bakgrundsbild
 update-background-description = Ladda ner officiell bakgrundsbild för startprogrammet. Du kan inaktivera den för att använda din egna anpassade bild istället
+video-background = Use video background
+video-background-description = Download and display official animated background for the launcher
 
 launcher-language = Språk för starthanterare
 launcher-language-description = Appliceras efter omstart

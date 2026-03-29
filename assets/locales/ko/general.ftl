@@ -3,6 +3,8 @@ modern = 모던
 classic = 클래식
 update-background = 배경 화면 변경
 update-background-description = 런처용 공식 배경 화면을 다운로드합니다. 대신 사용자 지정 이미지를 사용하도록 비활성화할 수 있습니다
+video-background = Use video background
+video-background-description = Download and display official animated background for the launcher
 
 launcher-language = 런처 언어
 launcher-language-description = 런처 재시작 후 적용됩니다

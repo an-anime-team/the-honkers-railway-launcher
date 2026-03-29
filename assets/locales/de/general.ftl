@@ -3,6 +3,8 @@ modern = Modern
 classic = Klassisch
 update-background = Hintergrundbild aktualisieren
 update-background-description = Lädt das offizielle Hintergrundbild für den Launcher herunter. Deaktivieren Sie dies für eine benutzerdefiniertes Hintergrundbild. 
+video-background = Use video background
+video-background-description = Download and display official animated background for the launcher
 
 launcher-language = Launcher-Sprache
 launcher-language-description = Gilt nach Neustart

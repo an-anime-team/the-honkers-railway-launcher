@@ -3,6 +3,9 @@ modern = Hiện đại
 classic = Cổ điển
 update-background = Cập nhật ảnh nền
 update-background-description = Tải xuống ảnh nền chính thức cho Launcher. Nhưng bạn cũng có thể tắt nó để sử dụng hình ảnh của mình
+video-background = Use video background
+video-background-description = Download and display official animated background for the launcher
+
 launcher-language = Ngôn ngữ Launcher
 launcher-language-description = Áp dụng sau khi khởi động lại
 

@@ -17,6 +17,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Fixed a panic when the launcher folder is a broken symlink, the launcher will exit with an
   error message instead
 
+### Changed
+
+- Changed mfc140 installation method to not use winetricks
+
 ## [1.14.4] - 2026-02-13
 
 ### Added

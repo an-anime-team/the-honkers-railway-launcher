@@ -98,9 +98,8 @@ impl SimpleAsyncComponent for TosWarningApp {
                     "exit" => relm4::main_application().quit(),
 
                     "continue" => {
-                        let installed = is_available("git")
-                            && is_available("dwebp")
-                            && (is_available("7z") || is_available("7za"));
+                        let installed =
+                            is_available("git") && (is_available("7z") || is_available("7za"));
 
                         if installed {
                             sender.output(Self::Output::ScrollToDefaultPaths);

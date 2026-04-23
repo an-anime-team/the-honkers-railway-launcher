@@ -1,5 +1,4 @@
 use relm4::prelude::*;
-
 use anime_launcher_sdk::VERSION as SDK_VERSION;
 use anime_launcher_sdk::anime_game_core::VERSION as CORE_VERSION;
 
@@ -94,19 +93,44 @@ impl SimpleComponent for AboutDialog {
                 "<p>Added</p>",
 
                 "<ul>",
-                    "<li>Added mfc140 dependency installation</li>",
-                    "<li>Added 'remake prefix' button</li>",
+                    "<li>Added support for layered and animated backgrounds. You can disable video background in settings.</li>",
+                "</ul>",
+
+                "<p>Fixed</p>",
+
+                "<ul>",
+                    "<li>Fixed parts of the game update function to handle new files</li>",
+                    "<li>Fixed a panic when the launcher folder is a broken symlink, the launcher will exit with an error message instead</li>",
+                "</ul>",
+
+                "<p>Changed</p>",
+
+                "<ul>",
+                    "<li>Changed mfc140 installation method to not use winetricks</li>",
+                "</ul>",
+
+                "<p>Removed</p>",
+
+                "<ul>",
+                    "<li>Removed dependency on dwebp/libwebp-utils</li>",
                 "</ul>"
             ].join("\n")
         }
     }
 
-    fn init(_init: Self::Init, root: Self::Root, _sender: ComponentSender<Self>) -> ComponentParts<Self> {
+    fn init(
+        _init: Self::Init,
+        root: Self::Root,
+        _sender: ComponentSender<Self>
+    ) -> ComponentParts<Self> {
         tracing::info!("Initializing about dialog");
 
         let model = Self;
         let widgets = view_output!();
 
-        ComponentParts { model, widgets }
+        ComponentParts {
+            model,
+            widgets
+        }
     }
 }

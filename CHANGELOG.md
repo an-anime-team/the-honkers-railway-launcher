@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.14.5] - 2026-04-23
+
 ### Added
 
 - Added support for layered and animated backgrounds. You can disable video background in settings.
@@ -479,7 +481,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 <br>
 
-[unreleased]: https://github.com/an-anime-team/the-honkers-railway-launcher/compare/1.14.4...next
+[unreleased]: https://github.com/an-anime-team/the-honkers-railway-launcher/compare/1.14.5...next
+[1.14.5]: https://github.com/an-anime-team/the-honkers-railway-launcher/compare/1.14.4...1.14.5
 [1.14.4]: https://github.com/an-anime-team/the-honkers-railway-launcher/compare/1.14.3...1.14.4
 [1.14.3]: https://github.com/an-anime-team/the-honkers-railway-launcher/compare/1.14.2...1.14.3
 [1.14.2]: https://github.com/an-anime-team/the-honkers-railway-launcher/compare/1.14.1...1.14.2

@@ -47,6 +47,14 @@
   </categories>
   <content_rating type="oars-1.1" />
   <releases>
+    <release version="1.14.5" date="2026-04-23">
+      <description>
+        <p>Added support for layered and animated backgrounds. You can disable video background in settings.</p>
+        <p>Fixed parts of the game update function to handle new files</p>
+        <p>Fixed a panic when the launcher folder is a broken symlink, the launcher will exit with an error message instead</p>
+        <p>Changed mfc140 installation method to not use winetricks</p>
+      </description>
+    </release>
     <release version="1.14.4" date="2026-02-13">
       <description>
         <p>Added mfc140 dependency installation</p>

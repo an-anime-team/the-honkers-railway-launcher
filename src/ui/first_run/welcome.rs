@@ -2,7 +2,6 @@ use relm4::prelude::*;
 use adw::prelude::*;
 
 use crate::*;
-
 use super::main::FirstRunAppMsg;
 
 pub struct WelcomeApp;
@@ -39,7 +38,7 @@ impl SimpleAsyncComponent for WelcomeApp {
 
                 gtk::Label {
                     set_label: &tr!("welcome-page-message"),
-    
+
                     set_justify: gtk::Justification::Center,
                     set_wrap: true,
                     set_margin_top: 32
@@ -49,12 +48,12 @@ impl SimpleAsyncComponent for WelcomeApp {
             add = &adw::PreferencesGroup {
                 set_valign: gtk::Align::Center,
                 set_vexpand: true,
-    
+
                 gtk::Box {
                     set_orientation: gtk::Orientation::Horizontal,
                     set_halign: gtk::Align::Center,
                     set_spacing: 8,
-    
+
                     gtk::Button {
                         set_label: &tr!("continue"),
                         set_css_classes: &["suggested-action", "pill"],
@@ -66,11 +65,18 @@ impl SimpleAsyncComponent for WelcomeApp {
         }
     }
 
-    async fn init(_init: Self::Init, root: Self::Root, _sender: AsyncComponentSender<Self>) -> AsyncComponentParts<Self> {
+    async fn init(
+        _init: Self::Init,
+        root: Self::Root,
+        _sender: AsyncComponentSender<Self>
+    ) -> AsyncComponentParts<Self> {
         let model = Self;
         let widgets = view_output!();
 
-        AsyncComponentParts { model, widgets }
+        AsyncComponentParts {
+            model,
+            widgets
+        }
     }
 
     async fn update(&mut self, msg: Self::Input, sender: AsyncComponentSender<Self>) {

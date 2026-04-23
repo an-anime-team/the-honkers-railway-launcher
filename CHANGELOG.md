@@ -7,6 +7,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.14.5] - 2026-04-23
+
+### Added
+
+- Added support for layered and animated backgrounds. You can disable video background in settings.
+
+### Fixed
+
+- Fixed parts of the game update function to handle new files
+- Fixed a panic when the launcher folder is a broken symlink, the launcher will exit with an
+  error message instead
+
+### Changed
+
+- Changed mfc140 installation method to not use winetricks
+
+### Removed
+
+- Removed dependency on dwebp/libwebp-utils
+
 ## [1.14.4] - 2026-02-13
 
 ### Added
@@ -461,7 +481,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 <br>
 
-[unreleased]: https://github.com/an-anime-team/the-honkers-railway-launcher/compare/1.14.4...next
+[unreleased]: https://github.com/an-anime-team/the-honkers-railway-launcher/compare/1.14.5...next
+[1.14.5]: https://github.com/an-anime-team/the-honkers-railway-launcher/compare/1.14.4...1.14.5
 [1.14.4]: https://github.com/an-anime-team/the-honkers-railway-launcher/compare/1.14.3...1.14.4
 [1.14.3]: https://github.com/an-anime-team/the-honkers-railway-launcher/compare/1.14.2...1.14.3
 [1.14.2]: https://github.com/an-anime-team/the-honkers-railway-launcher/compare/1.14.1...1.14.2

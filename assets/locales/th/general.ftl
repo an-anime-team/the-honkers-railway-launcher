@@ -3,6 +3,8 @@ modern = โมเดิร์น
 classic = คลาสสิค
 update-background = อัพเดตภาพพื้นหลัง
 update-background-description = ดาวน์โหลดภาพพื้นหลังสำหรับ launcher คุณสามารถปิดการใช้งานเพื่อใช้รูปภาพที่คุณกำหนดเองแทนได้
+video-background = Use video background
+video-background-description = Download and display official animated background for the launcher
 
 launcher-language = ภาษาของ launcher
 launcher-language-description = ใช้หลังจากรีสตาร์ท launcher

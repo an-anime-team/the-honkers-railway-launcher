@@ -3,6 +3,8 @@ modern = Modern
 classic = Classic
 update-background = Update background picture
 update-background-description = Download official background picture for the launcher. You can disable it to use your custom image instead
+video-background = Use video background
+video-background-description = Download and display official animated background for the launcher
 
 launcher-language = Launcher language
 launcher-language-description = Applies after restart

@@ -3,6 +3,8 @@ modern = Moderna
 classic = Clásica
 update-background = Actualizar imagen de fondo
 update-background-description = Descarga la imagen de fondo oficial para el launcher. Puedes desactivarla para usar tu propia imagen en su lugar.
+video-background = Use video background
+video-background-description = Download and display official animated background for the launcher
 
 launcher-language = Idioma del launcher
 launcher-language-description = Se aplica tras un reinicio.

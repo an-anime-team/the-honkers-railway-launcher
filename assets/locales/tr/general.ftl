@@ -3,6 +3,8 @@ modern = Modern
 classic = Klasik
 update-background = Arkaplan imajını güncelle
 update-background-description = İstemci için resmi arka plan resmini indirin. Bunun yerine özel resminizi kullanmak için devre dışı bırakabilirsiniz.
+video-background = Use video background
+video-background-description = Download and display official animated background for the launcher
 
 launcher-language = İstemci dili
 launcher-language-description = Yeniden başlattıktan sonra uygulanır

@@ -3,6 +3,8 @@ modern = モダン
 classic = クラシック
 update-background = 背景画像を更新する
 update-background-description = ランチャーの公式背景画像をダウンロードします。 これを無効にすると、カスタム画像を利用することができます。
+video-background = Use video background
+video-background-description = Download and display official animated background for the launcher
 
 launcher-language = ランチャーの言語
 launcher-language-description = *再起動後に適用されます。

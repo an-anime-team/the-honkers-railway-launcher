@@ -1,13 +1,9 @@
 use relm4::prelude::*;
 use adw::prelude::*;
-
 use anime_launcher_sdk::is_available;
 
 use crate::*;
-
-use super::main::FirstRunAppMsg;
-
-use super::main::MAIN_WINDOW;
+use super::main::{FirstRunAppMsg, MAIN_WINDOW};
 
 pub struct TosWarningApp;
 
@@ -75,12 +71,15 @@ impl SimpleAsyncComponent for TosWarningApp {
     async fn init(
         _init: Self::Init,
         root: Self::Root,
-        _sender: AsyncComponentSender<Self>,
+        _sender: AsyncComponentSender<Self>
     ) -> AsyncComponentParts<Self> {
         let model = Self;
         let widgets = view_output!();
 
-        AsyncComponentParts { model, widgets }
+        AsyncComponentParts {
+            model,
+            widgets
+        }
     }
 
     async fn update(&mut self, msg: Self::Input, sender: AsyncComponentSender<Self>) {
@@ -93,31 +92,23 @@ impl SimpleAsyncComponent for TosWarningApp {
                     Some(&tr!("tos-dialog-message"))
                 );
 
-                dialog.add_responses(&[
-                    ("exit", &tr!("exit")),
-                    ("continue", &tr!("agree"))
-                ]);
+                dialog.add_responses(&[("exit", &tr!("exit")), ("continue", &tr!("agree"))]);
 
-                dialog.connect_response(None, move |_, response| {
-                    match response {
-                        "exit" => relm4::main_application().quit(),
+                dialog.connect_response(None, move |_, response| match response {
+                    "exit" => relm4::main_application().quit(),
 
-                        "continue" => {
-                            let installed =
-                                is_available("git") &&
-                                is_available("dwebp") &&
-                                is_available("winetricks") &&
-                                (is_available("7z") || is_available("7za"));
+                    "continue" => {
+                        let installed =
+                            is_available("git") && (is_available("7z") || is_available("7za"));
 
-                            if installed {
-                                sender.output(Self::Output::ScrollToDefaultPaths);
-                            } else {
-                                sender.output(Self::Output::ScrollToDependencies);
-                            }
+                        if installed {
+                            sender.output(Self::Output::ScrollToDefaultPaths);
+                        } else {
+                            sender.output(Self::Output::ScrollToDependencies);
                         }
-
-                        _ => unreachable!()
                     }
+
+                    _ => unreachable!()
                 });
 
                 dialog.present();

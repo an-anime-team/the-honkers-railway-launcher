@@ -2,7 +2,10 @@
 name = "honkers-railway-launcher"
 version = "1.14.4"
 description = "The Honkers Railway launcher"
-authors = ["Nikita Podvirnyi <krypt0nn@vk.com>"]
+authors = [
+    "Nikita Podvirnyi <krypt0nn@vk.com>",
+    "@JohnTheCoolingFan <https://github.com/JohnTheCoolingFan>"
+]
 homepage = "https://github.com/an-anime-team/the-honkers-railway-launcher"
 repository = "https://github.com/an-anime-team/the-honkers-railway-launcher"
 license = "GPL-3.0"

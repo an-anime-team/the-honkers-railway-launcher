@@ -33,7 +33,8 @@ impl SimpleComponent for AboutDialog {
             set_version: &APP_VERSION,
 
             set_developers: &[
-                "Nikita Podvirnyi https://github.com/krypt0nn"
+                "Nikita Podvirnyi https://github.com/krypt0nn",
+                "@JohnTheCoolingFan https://github.com/JohnTheCoolingFan"
             ],
 
             add_credit_section: (Some("Patch credits"), &[
@@ -47,7 +48,8 @@ impl SimpleComponent for AboutDialog {
                 "Luna Neff  https://github.com/lunaneff",
                 "Renaud Lepage https://github.com/cybik",
                 "Soham Nandy https://github.com/natimerry",
-                "@mkrsym1 https://github.com/mkrsym1"
+                "@mkrsym1 https://github.com/mkrsym1",
+                "@JohnTheCoolingFan https://github.com/JohnTheCoolingFan"
             ]),
 
             set_artists: &[

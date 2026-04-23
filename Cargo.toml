@@ -1,6 +1,6 @@
 [package]
 name = "honkers-railway-launcher"
-version = "1.14.4"
+version = "1.14.5"
 description = "The Honkers Railway launcher"
 authors = [
     "Nikita Podvirnyi <krypt0nn@vk.com>",

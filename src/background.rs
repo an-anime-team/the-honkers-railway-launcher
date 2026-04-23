@@ -4,13 +4,21 @@ use std::process::Command;
 use anime_launcher_sdk::anime_game_core::installer::downloader::Downloader;
 use anime_launcher_sdk::is_available;
 use anime_launcher_sdk::anime_game_core::minreq;
-use anyhow::Context;
+use anyhow::{Context, anyhow};
 use md5::{Digest, Md5};
 
-pub fn download_background(with_video: bool, index: u8) -> anyhow::Result<()> {
+pub fn download_background(with_video: bool, _index: u8) -> anyhow::Result<()> {
     tracing::debug!("Downloading background picture");
 
-    let info = get_background_info(index)?;
+    let backgrounds = get_background_info_multiple()?;
+    #[allow(unused_parens, reason = "Clarity in the `find` condition")]
+    let info = backgrounds
+        .iter()
+        .find(|bginfo| (!with_video || matches!(bginfo, BackgroundSpec::Video { .. })))
+        .or(backgrounds.first())
+        .ok_or(anyhow!(
+            "Failed to get background information: no backgrounds in the API"
+        ))?;
 
     let regenerate_image = info.download(with_video)?;
 

@@ -148,12 +148,33 @@ impl SimpleAsyncComponent for ProgressBar {
                         SophonInstallerUpdate::CheckingFreeSpace(_)
                     ) => self.caption = Some(tr!("checking-free-space")),
 
-                    // downlaod started
+                    // files checking
+                    DiffUpdate::SophonInstallerUpdate(SophonInstallerUpdate::CheckingFiles {
+                        ..
+                    })
+                    | DiffUpdate::SophonPatcherUpdate(SophonPatcherUpdate::CheckingFilesStarted) => {
+                        self.caption = Some(tr!("verifying-files"));
+                        self.display_fraction = false;
+                    }
+
+                    DiffUpdate::SophonInstallerUpdate(
+                        SophonInstallerUpdate::CheckingFilesProgress {
+                            passed,
+                            total
+                        }
+                    ) => self.fraction = passed as f64 / total as f64,
+
+                    // download started
                     DiffUpdate::InstallerUpdate(InstallerUpdate::DownloadingStarted(_))
                     | DiffUpdate::SophonPatcherUpdate(SophonPatcherUpdate::DownloadingStarted(_))
                     | DiffUpdate::SophonInstallerUpdate(
-                        SophonInstallerUpdate::DownloadingStarted(_)
-                    ) => self.caption = Some(tr!("downloading")),
+                        SophonInstallerUpdate::DownloadingStarted {
+                            ..
+                        }
+                    ) => {
+                        self.caption = Some(tr!("downloading"));
+                        self.display_fraction = true;
+                    }
 
                     DiffUpdate::InstallerUpdate(InstallerUpdate::UpdatingPermissionsStarted(_)) => {
                         self.caption = Some(tr!("updating-permissions"))
@@ -162,9 +183,9 @@ impl SimpleAsyncComponent for ProgressBar {
                         self.caption = Some(tr!("unpacking"))
                     }
 
-                    // not emitted by the core
                     DiffUpdate::SophonPatcherUpdate(SophonPatcherUpdate::DeletingStarted) => {
-                        self.caption = Some(tr!("removing-outdated"))
+                        // messes with the progress bar label
+                        // self.caption = Some(tr!("removing-outdated"))
                     }
                     // not emitted by the core
                     DiffUpdate::SophonPatcherUpdate(SophonPatcherUpdate::PatchingStarted) => {
@@ -238,10 +259,9 @@ impl SimpleAsyncComponent for ProgressBar {
                     // file hash check errors
                     DiffUpdate::SophonPatcherUpdate(SophonPatcherUpdate::FileHashCheckFailed(
                         path
-                    ))
-                    | DiffUpdate::SophonInstallerUpdate(
-                        SophonInstallerUpdate::FileHashCheckFailed(path)
-                    ) => tracing::error!("File hash check failed on {path:?}"),
+                    )) => {
+                        tracing::error!("File hash check failed on {path:?}")
+                    }
 
                     DiffUpdate::InstallerUpdate(InstallerUpdate::DownloadingError(err)) => {
                         tracing::error!("Downloading error: {:?}", err)

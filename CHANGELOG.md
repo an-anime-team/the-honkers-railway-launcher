@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Changed .version file format to be an ascii text file that can be edited in a text editor.
+  Old format files will still work correctly and will be overwritten on game update.
+- Changed sophon download and update backend, introducing performance improvements and various fixes
+
 ## [1.14.5] - 2026-04-23
 
 ### Added

@@ -201,7 +201,8 @@ fn main() -> anyhow::Result<()> {
         .with_filter({
             if APP_DEBUG || force_debug {
                 LevelFilter::TRACE
-            } else {
+            }
+            else {
                 LevelFilter::WARN
             }
         })
@@ -304,7 +305,8 @@ fn main() -> anyhow::Result<()> {
             if game_path.join("UnityCrashHandler64.exe").exists() {
                 std::fs::remove_file(game_path.join("UnityCrashHandler64.exe.bak"))
                     .expect("Failed to delete 'UnityCrashHandler64.exe.bak' file");
-            } else {
+            }
+            else {
                 std::fs::rename(game_path.join("UnityCrashHandler64.exe.bak"), game_path.join("UnityCrashHandler64.exe"))
                     .expect("Failed to rename 'UnityCrashHandler64.exe.bak' file to 'UnityCrashHandler64.exe'");
             }

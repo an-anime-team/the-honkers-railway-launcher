@@ -17,3 +17,4 @@ single_line_let_else_max_width = 0
 struct_lit_single_line = false
 trailing_comma = "Never"
 use_field_init_shorthand = true
+control_brace_style = "ClosingNextLine"

@@ -1,12 +1,9 @@
 use relm4::prelude::*;
-
 use gtk::prelude::*;
 use adw::prelude::*;
-
 use anime_launcher_sdk::components::loader::ComponentsLoader;
 
 use crate::*;
-
 use super::welcome::*;
 use super::tos_warning::*;
 use super::dependencies::*;
@@ -115,7 +112,11 @@ impl SimpleComponent for FirstRunApp {
         }
     }
 
-    fn init(_parent: Self::Init, root: Self::Root, sender: ComponentSender<Self>) -> ComponentParts<Self> {
+    fn init(
+        _parent: Self::Init,
+        root: Self::Root,
+        sender: ComponentSender<Self>
+    ) -> ComponentParts<Self> {
         tracing::info!("Initializing first run window");
 
         let toast_overlay = adw::ToastOverlay::new();
@@ -166,7 +167,10 @@ impl SimpleComponent for FirstRunApp {
 
         tracing::info!("First run window initialized. App is ready");
 
-        ComponentParts { model, widgets } // will return soon
+        ComponentParts {
+            model,
+            widgets
+        } // will return soon
     }
 
     fn update(&mut self, msg: Self::Input, sender: ComponentSender<Self>) {
@@ -197,7 +201,9 @@ impl SimpleComponent for FirstRunApp {
 
             FirstRunAppMsg::ScrollToDownloadComponents => {
                 // Update components index
-                sender.input(FirstRunAppMsg::SetLoadingStatus(Some(Some(tr!("updating-components-index")))));
+                sender.input(FirstRunAppMsg::SetLoadingStatus(Some(Some(tr!(
+                    "updating-components-index"
+                )))));
 
                 let config = Config::get().unwrap_or_else(|_| CONFIG.clone());
 
@@ -247,7 +253,8 @@ impl SimpleComponent for FirstRunApp {
                 // This will happen in background behind StatusPage
                 self.title = tr!("download-components");
 
-                self.carousel.scroll_to(self.download_components.widget(), true);
+                self.carousel
+                    .scroll_to(self.download_components.widget(), true);
             }
 
             FirstRunAppMsg::ScrollToFinish => {
@@ -256,7 +263,10 @@ impl SimpleComponent for FirstRunApp {
                 self.carousel.scroll_to(self.finish.widget(), true);
             }
 
-            FirstRunAppMsg::Toast { title, description } => unsafe {
+            FirstRunAppMsg::Toast {
+                title,
+                description
+            } => unsafe {
                 let toast = adw::Toast::new(&title);
 
                 toast.set_timeout(4);
@@ -265,7 +275,11 @@ impl SimpleComponent for FirstRunApp {
                 if let Some(description) = description {
                     toast.set_button_label(Some(&tr!("details")));
 
-                    let dialog = adw::MessageDialog::new(MAIN_WINDOW.as_ref(), Some(&title), Some(&description));
+                    let dialog = adw::MessageDialog::new(
+                        MAIN_WINDOW.as_ref(),
+                        Some(&title),
+                        Some(&description)
+                    );
 
                     dialog.add_response("close", &tr!("close", { "form" = "noun" }));
                     dialog.add_response("save", &tr!("save"));

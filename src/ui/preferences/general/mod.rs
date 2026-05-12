@@ -677,7 +677,8 @@ impl SimpleAsyncComponent for GeneralApp {
                                     .input(GeneralAppMsg::SetVoicePackageSensitivity(index, true));
                                 sender.output(PreferencesAppMsg::UpdateLauncherState);
                             });
-                        } else {
+                        }
+                        else {
                             sender.input(GeneralAppMsg::SetVoicePackageSensitivity(index, true));
                         }
                     }

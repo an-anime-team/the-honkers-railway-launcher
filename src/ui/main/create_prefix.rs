@@ -1,12 +1,9 @@
 use relm4::prelude::*;
-
 use anime_launcher_sdk::wincompatlib::prelude::*;
-
 use anime_launcher_sdk::config::ConfigExt;
 use anime_launcher_sdk::star_rail::config::Config;
 
 use crate::*;
-
 use super::{App, AppMsg};
 
 pub fn create_prefix(sender: ComponentSender<App>) {
@@ -17,7 +14,11 @@ pub fn create_prefix(sender: ComponentSender<App>) {
             sender.input(AppMsg::DisableButtons(true));
 
             std::thread::spawn(move || {
-                let wine = wine.to_wine(config.components.path, Some(config.game.wine.builds.join(&wine.name)))
+                let wine = wine
+                    .to_wine(
+                        config.components.path,
+                        Some(config.game.wine.builds.join(&wine.name))
+                    )
                     .with_prefix(&config.game.wine.prefix)
                     .with_loader(WineLoader::Current);
 

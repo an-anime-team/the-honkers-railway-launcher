@@ -1,25 +1,18 @@
 use relm4::prelude::*;
 use relm4::Sender;
-
 use anime_launcher_sdk::anime_game_core::reqwest::blocking::Client;
 use anime_launcher_sdk::anime_game_core::sophon;
 use anime_launcher_sdk::anime_game_core::sophon::repairer::{
-    SophonRepairer,
-    Update as SophonRepairerUpdate
+    SophonRepairer, Update as SophonRepairerUpdate
 };
 
 use crate::*;
 use crate::ui::components::*;
-
 use super::{App, AppMsg};
 
 #[allow(unused_must_use)]
-pub fn repair_game(
-    sender: ComponentSender<App>,
-    progress_bar_input: Sender<ProgressBarMsg>
-) {
-    let config = Config::get()
-        .expect("failed to read launcher config");
+pub fn repair_game(sender: ComponentSender<App>, progress_bar_input: Sender<ProgressBarMsg>) {
+    let config = Config::get().expect("failed to read launcher config");
 
     progress_bar_input.send(ProgressBarMsg::UpdateCaption(Some(tr!("verifying-files"))));
     sender.input(AppMsg::SetDownloading(true));
@@ -27,10 +20,9 @@ pub fn repair_game(
     std::thread::spawn(move || {
         let client = Client::new();
 
-        let game_branches_info = sophon::get_game_branches_info(
-            &client,
-            config.launcher.edition.into()
-        ).expect("failed to get game branches info");
+        let game_branches_info =
+            sophon::get_game_branches_info(&client, config.launcher.edition.into())
+                .expect("failed to get game branches info");
 
         let latest_version = game_branches_info
             .latest_version_by_id(config.launcher.edition.api_game_id())
@@ -42,11 +34,17 @@ pub fn repair_game(
 
         let downloads = sophon::installer::get_game_download_sophon_info(
             &client,
-            game_branch_info.main.as_ref().expect("`None` case would've been caught earlier"),
+            game_branch_info
+                .main
+                .as_ref()
+                .expect("`None` case would've been caught earlier"),
             config.launcher.edition.into()
-        ).expect("failed to get game info");
+        )
+        .expect("failed to get game info");
 
-        let game_download_info = downloads.manifests.iter()
+        let game_download_info = downloads
+            .manifests
+            .iter()
             .find(|download_info| download_info.matching_field == "game")
             .cloned()
             .expect("failed to get game download info");
@@ -62,7 +60,9 @@ pub fn repair_game(
                 let locale = package.locale();
                 let locale = locale.to_code();
 
-                let download_info = downloads.manifests.iter()
+                let download_info = downloads
+                    .manifests
+                    .iter()
                     .find(|download_info| download_info.matching_field == locale)
                     .cloned();
 
@@ -76,47 +76,55 @@ pub fn repair_game(
             client,
             config.launcher.temp.unwrap_or_else(std::env::temp_dir),
             manifests
-        ).expect("failed to initialize sophon repairer");
+        )
+        .expect("failed to initialize sophon repairer");
 
-        let updater = move |msg: SophonRepairerUpdate| {
-            match msg {
-                SophonRepairerUpdate::VerifyingProgress { total, checked } => {
-                    tracing::trace!(checked, total, "Verification progress");
+        let updater = move |msg: SophonRepairerUpdate| match msg {
+            SophonRepairerUpdate::VerifyingProgress {
+                total,
+                checked
+            } => {
+                tracing::trace!(checked, total, "Verification progress");
 
-                    progress_bar_input.send(ProgressBarMsg::UpdateProgressCounter(checked, total));
-                }
+                progress_bar_input.send(ProgressBarMsg::UpdateProgressCounter(checked, total));
+            }
 
-                SophonRepairerUpdate::RepairingProgress { total, repaired } => {
-                    tracing::trace!(repaired, total, "Repairing progress");
+            SophonRepairerUpdate::RepairingProgress {
+                total,
+                repaired
+            } => {
+                tracing::trace!(repaired, total, "Repairing progress");
 
-                    progress_bar_input.send(ProgressBarMsg::UpdateProgressCounter(repaired, total));
-                }
+                progress_bar_input.send(ProgressBarMsg::UpdateProgressCounter(repaired, total));
+            }
 
-                SophonRepairerUpdate::VerifyingStarted => {
-                    tracing::trace!("Verification started");
-                }
+            SophonRepairerUpdate::VerifyingStarted => {
+                tracing::trace!("Verification started");
+            }
 
-                SophonRepairerUpdate::VerifyingFinished { broken } => {
-                    tracing::info!("Verification finished with {broken} broken files")
-                }
+            SophonRepairerUpdate::VerifyingFinished {
+                broken
+            } => {
+                tracing::info!("Verification finished with {broken} broken files")
+            }
 
-                SophonRepairerUpdate::RepairingStarted => {
-                    tracing::trace!("Repairing started");
+            SophonRepairerUpdate::RepairingStarted => {
+                tracing::trace!("Repairing started");
 
-                    progress_bar_input.send(ProgressBarMsg::UpdateCaption(Some(tr!("repairing-files"))));
-                }
+                progress_bar_input
+                    .send(ProgressBarMsg::UpdateCaption(Some(tr!("repairing-files"))));
+            }
 
-                SophonRepairerUpdate::RepairingFinished => {
-                    tracing::trace!("Repair finished");
-                }
+            SophonRepairerUpdate::RepairingFinished => {
+                tracing::trace!("Repair finished");
+            }
 
-                SophonRepairerUpdate::DownloadingError(err) => {
-                    tracing::error!(?err, "Error during repairing")
-                }
+            SophonRepairerUpdate::DownloadingError(err) => {
+                tracing::error!(?err, "Error during repairing")
+            }
 
-                SophonRepairerUpdate::FileHashCheckFailed(path) => {
-                    tracing::error!(?path, "File hash check error")
-                }
+            SophonRepairerUpdate::FileHashCheckFailed(path) => {
+                tracing::error!(?path, "File hash check error")
             }
         };
 

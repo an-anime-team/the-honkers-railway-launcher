@@ -9,7 +9,6 @@ pub use list::*;
 pub use group::*;
 pub use version::*;
 pub use progress_bar::*;
-
 use anime_launcher_sdk::components::*;
 
 #[derive(Debug, Clone, PartialEq, Eq)]
@@ -29,7 +28,11 @@ impl From<wine::Group> for ComponentsListGroup {
     fn from(group: wine::Group) -> Self {
         Self {
             title: group.title,
-            versions: group.versions.into_iter().map(|version| version.into()).collect()
+            versions: group
+                .versions
+                .into_iter()
+                .map(|version| version.into())
+                .collect()
         }
     }
 }
@@ -39,7 +42,11 @@ impl From<dxvk::Group> for ComponentsListGroup {
     fn from(group: dxvk::Group) -> Self {
         Self {
             title: group.title,
-            versions: group.versions.into_iter().map(|version| version.into()).collect()
+            versions: group
+                .versions
+                .into_iter()
+                .map(|version| version.into())
+                .collect()
         }
     }
 }

@@ -5,7 +5,6 @@ use adw::prelude::*;
 
 use crate::*;
 use crate::ui::components::progress_bar::*;
-
 use super::main::*;
 
 pub struct DefaultPathsApp {
@@ -274,7 +273,11 @@ impl SimpleAsyncComponent for DefaultPathsApp {
         }
     }
 
-    async fn init(_init: Self::Init, root: Self::Root, _sender: AsyncComponentSender<Self>) -> AsyncComponentParts<Self> {
+    async fn init(
+        _init: Self::Init,
+        root: Self::Root,
+        _sender: AsyncComponentSender<Self>
+    ) -> AsyncComponentParts<Self> {
         let model = Self {
             progress_bar: ProgressBar::builder()
                 .launch(ProgressBarInit {
@@ -297,73 +300,79 @@ impl SimpleAsyncComponent for DefaultPathsApp {
             components: CONFIG.components.path.clone(),
             patch: CONFIG.patch.path.clone(),
 
-            temp: CONFIG.launcher.temp.clone()
+            temp: CONFIG
+                .launcher
+                .temp
+                .clone()
                 .unwrap_or_else(std::env::temp_dir)
         };
 
         // Set progress bar width
-        model.progress_bar.widget()
-            .set_width_request(400);
+        model.progress_bar.widget().set_width_request(400);
 
         let widgets = view_output!();
 
-        AsyncComponentParts { model, widgets }
+        AsyncComponentParts {
+            model,
+            widgets
+        }
     }
 
     async fn update(&mut self, msg: Self::Input, sender: AsyncComponentSender<Self>) {
         match msg {
-            DefaultPathsAppMsg::ToggleShowAdditional => self.show_additional = !self.show_additional,
+            DefaultPathsAppMsg::ToggleShowAdditional => {
+                self.show_additional = !self.show_additional
+            }
 
             DefaultPathsAppMsg::ChoosePath(folder) => {
                 let result = rfd::AsyncFileDialog::new()
                     .set_directory(&self.launcher)
-                    .pick_folder().await;
+                    .pick_folder()
+                    .await;
 
                 if let Some(result) = result {
                     let result = result.path().to_path_buf();
 
                     match folder {
                         Folders::Launcher => {
-                            self.runners     = result.join("runners");
-                            self.dxvks       = result.join("dxvks");
-                            self.prefix      = result.join("prefix");
+                            self.runners = result.join("runners");
+                            self.dxvks = result.join("dxvks");
+                            self.prefix = result.join("prefix");
                             self.game_global = result.join("HSR");
-                            self.game_china  = result.join("HSR China"); // TODO change this
-                            self.components  = result.join("components");
-                            self.patch       = result.join("patch");
+                            self.game_china = result.join("HSR China"); // TODO change this
+                            self.components = result.join("components");
+                            self.patch = result.join("patch");
 
                             self.temp.clone_from(&result);
 
                             self.launcher = result;
                         }
 
-                        Folders::Runners    => self.runners     = result,
-                        Folders::DXVK       => self.dxvks       = result,
-                        Folders::Prefix     => self.prefix      = result,
+                        Folders::Runners => self.runners = result,
+                        Folders::DXVK => self.dxvks = result,
+                        Folders::Prefix => self.prefix = result,
                         Folders::GameGlobal => self.game_global = result,
-                        Folders::GameChina  => self.game_china  = result,
-                        Folders::Components => self.components  = result,
-                        Folders::Patch      => self.patch       = result,
-                        Folders::Temp       => self.temp        = result
+                        Folders::GameChina => self.game_china = result,
+                        Folders::Components => self.components = result,
+                        Folders::Patch => self.patch = result,
+                        Folders::Temp => self.temp = result
                     }
                 }
             }
 
             #[allow(unused_must_use)]
-            DefaultPathsAppMsg::Continue => {
-                match self.update_config() {
-                    Ok(_) => {
-                        sender.output(Self::Output::ScrollToDownloadComponents);
-                    }
-
-                    Err(err) => {
-                        sender.output(Self::Output::Toast {
-                            title: tr!("config-update-error"),
-                            description: Some(err.to_string())
-                        });
-                    }
+            DefaultPathsAppMsg::Continue => match self.update_config() {
+                Ok(_) => {
+                    sender.output(Self::Output::ScrollToDownloadComponents);
                 }
-            }
+
+                Err(err) => {
+                    sender.output(Self::Output::Toast {
+                        title: tr!("config-update-error"),
+                        description: Some(err.to_string())
+                    });
+                }
+            },
 
             DefaultPathsAppMsg::Exit => {
                 relm4::main_application().quit();

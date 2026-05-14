@@ -75,3 +75,5 @@ main-window--version-outdated-tooltip = Versionen är för utdaterad och kan int
 preferences = Preferenser
 general = Allmänt
 enhancements = Förbättringar
+
+import-game = Import game

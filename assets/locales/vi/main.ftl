@@ -79,3 +79,5 @@ main-window--version-outdated-tooltip = Phiên bản quá lỗi thời và khôn
 preferences = Sở thích
 general = Tổng quát
 enhancements = Cải tiến
+
+import-game = Import game

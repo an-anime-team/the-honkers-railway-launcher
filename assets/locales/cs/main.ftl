@@ -75,3 +75,5 @@ main-window--version-outdated-tooltip = Verze je příliš zastaralá a nelze ji
 preferences = Nastavení
 general = Obecné
 enhancements = Vylepšení
+
+import-game = Import game

@@ -3,8 +3,7 @@ use std::path::PathBuf;
 use relm4::prelude::*;
 use adw::prelude::*;
 
-use super::ComponentsListMsg;
-use super::ComponentVersionMsg;
+use super::{ComponentVersionMsg, ComponentsListMsg};
 
 pub struct ComponentGroup {
     pub title: String,
@@ -35,13 +34,15 @@ impl SimpleAsyncComponent for ComponentGroup {
     async fn init(
         init: Self::Init,
         root: Self::Root,
-        sender: AsyncComponentSender<Self>,
+        sender: AsyncComponentSender<Self>
     ) -> AsyncComponentParts<Self> {
         let model = ComponentGroup {
             title: init.0.title,
             show_recommended_only: true,
 
-            versions: init.0.versions
+            versions: init
+                .0
+                .versions
                 .into_iter()
                 .map(|version| {
                     super::ComponentVersion::builder()
@@ -57,7 +58,10 @@ impl SimpleAsyncComponent for ComponentGroup {
             widgets.group.add_row(version.widget());
         }
 
-        AsyncComponentParts { model, widgets }
+        AsyncComponentParts {
+            model,
+            widgets
+        }
     }
 
     async fn update(&mut self, msg: Self::Input, sender: AsyncComponentSender<Self>) {
@@ -67,7 +71,10 @@ impl SimpleAsyncComponent for ComponentGroup {
 
                 // todo
                 for version in &self.versions {
-                    version.sender().send(ComponentVersionMsg::ShowRecommendedOnly(state)).unwrap();
+                    version
+                        .sender()
+                        .send(ComponentVersionMsg::ShowRecommendedOnly(state))
+                        .unwrap();
                 }
             }
 

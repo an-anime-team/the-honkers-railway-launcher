@@ -4,7 +4,6 @@ use std::path::PathBuf;
 use relm4::prelude::*;
 
 use crate::*;
-
 use super::{App, AppMsg};
 
 pub fn disable_telemetry(sender: ComponentSender<App>) {
@@ -13,7 +12,9 @@ pub fn disable_telemetry(sender: ComponentSender<App>) {
     let config = Config::get().unwrap();
 
     std::thread::spawn(move || {
-        let telemetry = config.launcher.edition
+        let telemetry = config
+            .launcher
+            .edition
             .telemetry_servers()
             .iter()
             .map(|server| format!("echo '0.0.0.0 {server}' >> /etc/hosts"))
@@ -29,25 +30,30 @@ pub fn disable_telemetry(sender: ComponentSender<App>) {
             Command::new("pkexec")
                 .arg("bash")
                 .arg("-c")
-                .arg(format!("echo '' >> /etc/hosts ; {telemetry} ; echo '' >> /etc/hosts"))
+                .arg(format!(
+                    "echo '' >> /etc/hosts ; {telemetry} ; echo '' >> /etc/hosts"
+                ))
                 .spawn()
         }
-
         else {
             Command::new("bash")
                 .arg("-c")
-                .arg(format!("echo '' >> /etc/hosts ; {telemetry} ; echo '' >> /etc/hosts"))
+                .arg(format!(
+                    "echo '' >> /etc/hosts ; {telemetry} ; echo '' >> /etc/hosts"
+                ))
                 .spawn()
         };
 
         match output.and_then(|child| child.wait_with_output()) {
-            Ok(output) => if !output.status.success() {
-                tracing::error!("Failed to update /etc/hosts file");
+            Ok(output) => {
+                if !output.status.success() {
+                    tracing::error!("Failed to update /etc/hosts file");
 
-                sender.input(AppMsg::Toast {
-                    title: tr!("telemetry-servers-disabling-error"),
-                    description: None // stdout/err is empty
-                });
+                    sender.input(AppMsg::Toast {
+                        title: tr!("telemetry-servers-disabling-error"),
+                        description: None // stdout/err is empty
+                    });
+                }
             }
 
             Err(err) => {

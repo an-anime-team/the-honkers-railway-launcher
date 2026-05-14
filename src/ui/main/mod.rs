@@ -928,7 +928,8 @@ impl SimpleComponent for App {
                                                 description: Some(err.to_string())
                                             });
                                         }
-                                    } else {
+                                    }
+                                    else {
                                         tracing::error!("Couldn't find wishes URL: no url found");
 
                                         sender.input(AppMsg::Toast {
@@ -949,7 +950,8 @@ impl SimpleComponent for App {
                                     });
                                 }
                             }
-                        } else {
+                        }
+                        else {
                             tracing::error!("Couldn't find wishes URL: cache file doesn't exist");
 
                             sender.input(AppMsg::Toast {
@@ -1030,7 +1032,8 @@ impl SimpleComponent for App {
                                             title: tr!("components-index-updated"),
                                             description: if changes.is_empty() {
                                                 None
-                                            } else {
+                                            }
+                                            else {
                                                 Some(
                                                     changes
                                                         .into_iter()
@@ -1161,7 +1164,8 @@ impl SimpleComponent for App {
                     sender.input(AppMsg::SetLoadingStatus(Some(Some(tr!(
                         "loading-launcher-state"
                     )))));
-                } else {
+                }
+                else {
                     self.disabled_buttons = true;
                 }
 
@@ -1209,7 +1213,8 @@ impl SimpleComponent for App {
 
                 if show_status_page {
                     sender.input(AppMsg::SetLoadingStatus(None));
-                } else {
+                }
+                else {
                     self.disabled_buttons = false;
                 }
 

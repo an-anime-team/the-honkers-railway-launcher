@@ -94,3 +94,5 @@ main-window--version-outdated-tooltip = Версия слишком стара �
 preferences = Настройки
 general = Основное
 enhancements = Улучшения
+
+import-game = Import game

@@ -69,3 +69,7 @@ game-session-apply-failed = Failed to apply game session
 
 discord-rpc-icons-fetch-failed = Failed to fetch Discord RPC icons
 discord-rpc-icon-download-failed = Failed to download Discord RPC icon
+
+import-game-invalid-path = Selected folder doesn't contain a valid game installation
+import-game-error = Failed to import game
+import-game-path-runtime = This path is temporary (Flatpak portal or runtime dir) and won't be valid after the session ends

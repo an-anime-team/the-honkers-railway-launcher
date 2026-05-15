@@ -75,3 +75,5 @@ main-window--version-outdated-tooltip = Version is too outdated and can't be upd
 preferences = 버전이 너무 오래되어 업데이트할 수 없습니다
 general = 일반
 enhancements = 성능
+
+import-game = Import game

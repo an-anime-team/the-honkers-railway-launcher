@@ -79,3 +79,5 @@ main-window--version-outdated-tooltip = Ez a verzió túl elavult és nem lehet 
 preferences = Preferenciák
 general = Általános
 enhancements = Fejlesztések
+
+import-game = Import game

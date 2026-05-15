@@ -73,3 +73,5 @@ main-window--version-outdated-tooltip = Wersja jest zbyt przestarzała i nie mo�
 preferences = Preferencje
 general = Ogólne
 enhancements = Ulepszenia
+
+import-game = Import game

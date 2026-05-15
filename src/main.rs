@@ -37,6 +37,18 @@ pub fn is_ready() -> bool {
     READY.load(Ordering::Relaxed)
 }
 
+pub fn is_wayland_available() -> bool {
+    if std::env::var_os("WAYLAND_DISPLAY").is_some() {
+        return true;
+    }
+
+    let Some(runtime_dir) = std::env::var_os("XDG_RUNTIME_DIR") else {
+        return false;
+    };
+
+    std::path::Path::new(&runtime_dir).join("wayland-0").exists()
+}
+
 lazy_static::lazy_static! {
     /// Config loaded on the app's start. Use `Config::get()` to get up to date config instead.
     /// This one is used to prepare some launcher UI components on start

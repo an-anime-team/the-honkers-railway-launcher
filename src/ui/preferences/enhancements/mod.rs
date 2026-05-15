@@ -175,6 +175,30 @@ impl SimpleAsyncComponent for EnhancementsApp {
                     }
                 },
 
+                #[name = "winewayland_row"]
+                adw::ActionRow {
+                    set_title: &tr!("winewayland"),
+                    set_subtitle: &tr!("winewayland-description"),
+
+                    set_sensitive: is_wayland_available(),
+
+                    add_suffix = &gtk::Switch {
+                        set_valign: gtk::Align::Center,
+
+                        set_active: CONFIG.game.wine.winewayland,
+
+                        connect_state_notify => |switch| {
+                            if is_ready() {
+                                if let Ok(mut config) = Config::get() {
+                                    config.game.wine.winewayland = switch.is_active();
+
+                                    Config::update(config);
+                                }
+                            }
+                        }
+                    }
+                },
+
                 adw::ComboRow {
                     set_title: &tr!("virtual-desktop"),
 
@@ -453,6 +477,10 @@ impl SimpleAsyncComponent for EnhancementsApp {
         let environment_page = model.environment_page.widget();
 
         let widgets = view_output!();
+
+        if !is_wayland_available() {
+            widgets.winewayland_row.set_tooltip_text(Some(&tr!("winewayland-unavailable-tooltip")));
+        }
 
         AsyncComponentParts {
             model,

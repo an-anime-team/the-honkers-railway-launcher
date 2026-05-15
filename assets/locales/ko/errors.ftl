@@ -65,3 +65,7 @@ game-session-apply-failed = 게임 세션 적용에 실패했습니다
 
 discord-rpc-icons-fetch-failed = Discord RPC 아이콘을 가져오는 데 실패했습니다
 discord-rpc-icon-download-failed = Discord RPC 아이콘 다운로드를 실패했습니다
+
+import-game-invalid-path = Selected folder doesn't contain a valid game installation
+import-game-error = Failed to import game
+import-game-path-runtime = This path is temporary (Flatpak portal or runtime dir) and won't be valid after the session ends

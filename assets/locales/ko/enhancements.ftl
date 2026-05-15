@@ -56,3 +56,7 @@ borderless = 테두리 없는 창 모드
 headless = Headless
 popup = 팝업
 fullscreen = 전체 화면
+
+winewayland = Enable Winewayland
+winewayland-description = Use the Wayland driver instead of X11 (sets DISPLAY="")
+winewayland-unavailable-tooltip = Wayland is not available. If using Flatpak, make sure the app can access the Wayland socket from Flatseal.

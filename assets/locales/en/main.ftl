@@ -80,3 +80,5 @@ main-window--version-outdated-tooltip = Version is too outdated and can't be upd
 preferences = Preferences
 general = General
 enhancements = Enhancements
+
+import-game = Import game

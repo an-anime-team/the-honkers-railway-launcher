@@ -86,3 +86,5 @@ main-window--version-outdated-tooltip = Versi terlalu kadaluarsa dan tidak bisa 
 preferences = Preferensi
 general = Umum
 enhancements = Pembagusan
+
+import-game = Import game

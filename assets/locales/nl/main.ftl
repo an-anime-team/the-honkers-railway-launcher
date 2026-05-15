@@ -75,3 +75,5 @@ main-window--version-outdated-tooltip = De versie is te oud en kan niet worden b
 preferences = Voorkeuren
 general = Algemeen
 enhancements = Verbeteringen
+
+import-game = Import game

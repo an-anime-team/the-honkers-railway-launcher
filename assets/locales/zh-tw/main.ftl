@@ -70,3 +70,5 @@ main-window--version-outdated-tooltip = 版本太舊，無法更新
 preferences = 選項
 general = 常規
 enhancements = 增強
+
+import-game = Import game

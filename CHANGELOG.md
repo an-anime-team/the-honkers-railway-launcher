@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Added "Import game" button
+- Added setting to enable Winewayland to make the game use Wayland instead of X11
+
 ### Changed
 
 - Changed .version file format to be an ascii text file that can be edited in a text editor.

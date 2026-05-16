@@ -49,6 +49,16 @@
   </categories>
   <content_rating type="oars-1.1" />
   <releases>
+    <release version="1.15.0" date="2026-05-16">
+      <description>
+        <p>Added "Import game" button</p>
+        <p>Added setting to enable Winewayland to make the game use Wayland instead of X11</p>
+        <p>Added additional methods of detecting game version</p>
+        <p>Fixed game version detection through game files</p>
+        <p>Changed .version file format to be an ascii text file that can be edited in a text editor. Old format files will still work correctly and will be overwritten on game update.</p>
+        <p>Changed sophon download and update backend, introducing performance improvements and various fixes</p>
+      </description>
+    </release>
     <release version="1.14.5" date="2026-04-23">
       <description>
         <p>Added support for layered and animated backgrounds. You can disable video background in settings.</p>

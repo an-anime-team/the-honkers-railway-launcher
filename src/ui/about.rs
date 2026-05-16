@@ -92,29 +92,26 @@ impl SimpleComponent for AboutDialog {
 
             set_release_notes_version: &APP_VERSION,
             set_release_notes: &[
+
                 "<p>Added</p>",
 
                 "<ul>",
-                    "<li>Added support for layered and animated backgrounds. You can disable video background in settings.</li>",
+                    "<li>Added 'Import game' button</li>",
+                    "<li>Added setting to enable Winewayland to make the game use Wayland instead of X11</li>",
+                    "<li>Added additional methods of detecting game version</li>",
                 "</ul>",
 
                 "<p>Fixed</p>",
 
                 "<ul>",
-                    "<li>Fixed parts of the game update function to handle new files</li>",
-                    "<li>Fixed a panic when the launcher folder is a broken symlink, the launcher will exit with an error message instead</li>",
+                    "<li>Fixed game version detection through game files</li>",
                 "</ul>",
 
                 "<p>Changed</p>",
 
                 "<ul>",
-                    "<li>Changed mfc140 installation method to not use winetricks</li>",
-                "</ul>",
-
-                "<p>Removed</p>",
-
-                "<ul>",
-                    "<li>Removed dependency on dwebp/libwebp-utils</li>",
+                    "<li>Changed .version file format to be an ascii text file that can be edited in a text editor. Old format files will still work correctly and will be overwritten on game update.</li>",
+                    "<li>Changed sophon download and update backend, introducing performance improvements and various fixes</li>",
                 "</ul>"
             ].join("\n")
         }

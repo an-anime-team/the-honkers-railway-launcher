@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.15.0] - 2026-05-16
+
 ### Added
 
 - Added "Import game" button
@@ -497,7 +499,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 <br>
 
-[unreleased]: https://github.com/an-anime-team/the-honkers-railway-launcher/compare/1.14.5...next
+[unreleased]: https://github.com/an-anime-team/the-honkers-railway-launcher/compare/1.15.0...next
+[1.15.0]: https://github.com/an-anime-team/the-honkers-railway-launcher/compare/1.14.5...1.15.0
 [1.14.5]: https://github.com/an-anime-team/the-honkers-railway-launcher/compare/1.14.4...1.14.5
 [1.14.4]: https://github.com/an-anime-team/the-honkers-railway-launcher/compare/1.14.3...1.14.4
 [1.14.3]: https://github.com/an-anime-team/the-honkers-railway-launcher/compare/1.14.2...1.14.3

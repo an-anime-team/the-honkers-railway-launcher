@@ -1,6 +1,5 @@
 use relm4::prelude::*;
 use adw::prelude::*;
-
 use anime_launcher_sdk::anime_game_core::prelude::*;
 use anime_launcher_sdk::anime_game_core::star_rail::prelude::*;
 use anime_launcher_sdk::anime_game_core::sophon::installer::Update as SophonInstallerUpdate;
@@ -43,7 +42,7 @@ pub enum ProgressBarMsg {
     DisplayProgress(bool),
     DisplayFraction(bool),
 
-    /// (current bytes, total bytes) 
+    /// (current bytes, total bytes)
     UpdateProgress(u64, u64),
 
     /// (current items, total items)
@@ -96,7 +95,7 @@ impl SimpleAsyncComponent for ProgressBar {
     async fn init(
         init: Self::Init,
         root: Self::Root,
-        _sender: AsyncComponentSender<Self>,
+        _sender: AsyncComponentSender<Self>
     ) -> AsyncComponentParts<Self> {
         let model = ProgressBar {
             fraction: 0.0,
@@ -109,7 +108,10 @@ impl SimpleAsyncComponent for ProgressBar {
 
         let widgets = view_output!();
 
-        AsyncComponentParts { model, widgets }
+        AsyncComponentParts {
+            model,
+            widgets
+        }
     }
 
     async fn update(&mut self, msg: Self::Input, _sender: AsyncComponentSender<Self>) {
@@ -139,24 +141,51 @@ impl SimpleAsyncComponent for ProgressBar {
             ProgressBarMsg::UpdateFromState(state) => {
                 match state {
                     // checkign free space
-                    DiffUpdate::CheckingFreeSpace(_) |
-                    DiffUpdate::InstallerUpdate(InstallerUpdate::CheckingFreeSpace(_)) |
-                    DiffUpdate::SophonPatcherUpdate(SophonPatcherUpdate::CheckingFreeSpace(_)) |
-                    DiffUpdate::SophonInstallerUpdate(SophonInstallerUpdate::CheckingFreeSpace(_))
-                    => self.caption = Some(tr!("checking-free-space")),
+                    DiffUpdate::CheckingFreeSpace(_)
+                    | DiffUpdate::InstallerUpdate(InstallerUpdate::CheckingFreeSpace(_))
+                    | DiffUpdate::SophonPatcherUpdate(SophonPatcherUpdate::CheckingFreeSpace(_))
+                    | DiffUpdate::SophonInstallerUpdate(
+                        SophonInstallerUpdate::CheckingFreeSpace(_)
+                    ) => self.caption = Some(tr!("checking-free-space")),
 
-                    // downlaod started
-                    DiffUpdate::InstallerUpdate(InstallerUpdate::DownloadingStarted(_)) |
-                    DiffUpdate::SophonPatcherUpdate(SophonPatcherUpdate::DownloadingStarted(_)) |
-                    DiffUpdate::SophonInstallerUpdate(SophonInstallerUpdate::DownloadingStarted(_))
-                    => self.caption = Some(tr!("downloading")),
+                    // files checking
+                    DiffUpdate::SophonInstallerUpdate(SophonInstallerUpdate::CheckingFiles {
+                        ..
+                    })
+                    | DiffUpdate::SophonPatcherUpdate(SophonPatcherUpdate::CheckingFilesStarted) => {
+                        self.caption = Some(tr!("verifying-files"));
+                        self.display_fraction = false;
+                    }
 
-                    DiffUpdate::InstallerUpdate(InstallerUpdate::UpdatingPermissionsStarted(_)) => self.caption = Some(tr!("updating-permissions")),
-                    DiffUpdate::InstallerUpdate(InstallerUpdate::UnpackingStarted(_))           => self.caption = Some(tr!("unpacking")),
+                    DiffUpdate::SophonInstallerUpdate(
+                        SophonInstallerUpdate::CheckingFilesProgress {
+                            passed,
+                            total
+                        }
+                    ) => self.fraction = passed as f64 / total as f64,
 
-                    // not emitted by the core
+                    // download started
+                    DiffUpdate::InstallerUpdate(InstallerUpdate::DownloadingStarted(_))
+                    | DiffUpdate::SophonPatcherUpdate(SophonPatcherUpdate::DownloadingStarted(_))
+                    | DiffUpdate::SophonInstallerUpdate(
+                        SophonInstallerUpdate::DownloadingStarted {
+                            ..
+                        }
+                    ) => {
+                        self.caption = Some(tr!("downloading"));
+                        self.display_fraction = true;
+                    }
+
+                    DiffUpdate::InstallerUpdate(InstallerUpdate::UpdatingPermissionsStarted(_)) => {
+                        self.caption = Some(tr!("updating-permissions"))
+                    }
+                    DiffUpdate::InstallerUpdate(InstallerUpdate::UnpackingStarted(_)) => {
+                        self.caption = Some(tr!("unpacking"))
+                    }
+
                     DiffUpdate::SophonPatcherUpdate(SophonPatcherUpdate::DeletingStarted) => {
-                        self.caption = Some(tr!("removing-outdated"))
+                        // messes with the progress bar label
+                        // self.caption = Some(tr!("removing-outdated"))
                     }
                     // not emitted by the core
                     DiffUpdate::SophonPatcherUpdate(SophonPatcherUpdate::PatchingStarted) => {
@@ -167,61 +196,82 @@ impl SimpleAsyncComponent for ProgressBar {
                         self.caption = Some(tr!("applying-hdiff"));
 
                         self.display_fraction = false;
-                    },
+                    }
 
                     DiffUpdate::RemovingOutdatedStarted => {
                         self.caption = Some(tr!("removing-outdated"));
 
                         self.display_fraction = false;
-                    },
-
-                    DiffUpdate::InstallerUpdate(InstallerUpdate::DownloadingProgress(curr, total)) |
-                    DiffUpdate::InstallerUpdate(InstallerUpdate::UpdatingPermissions(curr, total)) |
-                    DiffUpdate::InstallerUpdate(InstallerUpdate::UnpackingProgress(curr, total)) |
-                    DiffUpdate::ApplyingHdiffProgress(curr, total) |
-                    DiffUpdate::RemovingOutdatedProgress(curr, total) => {
-                        self.fraction = curr as f64 / total as f64;
-
-                        self.downloaded = Some((
-                            prettify_bytes(curr),
-                            prettify_bytes(total)
-                        ));
                     }
 
-                    DiffUpdate::InstallerUpdate(InstallerUpdate::DownloadingFinished) |
-                    DiffUpdate::SophonInstallerUpdate( SophonInstallerUpdate::DownloadingFinished) |
-                    DiffUpdate::SophonPatcherUpdate(SophonPatcherUpdate::DownloadingFinished)
-                    => tracing::info!("Downloading finished"),
+                    DiffUpdate::InstallerUpdate(InstallerUpdate::DownloadingProgress(
+                        curr,
+                        total
+                    ))
+                    | DiffUpdate::InstallerUpdate(InstallerUpdate::UpdatingPermissions(
+                        curr,
+                        total
+                    ))
+                    | DiffUpdate::InstallerUpdate(InstallerUpdate::UnpackingProgress(
+                        curr,
+                        total
+                    ))
+                    | DiffUpdate::ApplyingHdiffProgress(curr, total)
+                    | DiffUpdate::RemovingOutdatedProgress(curr, total) => {
+                        self.fraction = curr as f64 / total as f64;
 
-                    DiffUpdate::InstallerUpdate(InstallerUpdate::UpdatingPermissionsFinished) => tracing::info!("Updating permissions finished"),
-                    DiffUpdate::InstallerUpdate(InstallerUpdate::UnpackingFinished)           => tracing::info!("Unpacking finished"),
+                        self.downloaded = Some((prettify_bytes(curr), prettify_bytes(total)));
+                    }
 
-                    DiffUpdate::ApplyingHdiffFinished |
-                    DiffUpdate::SophonPatcherUpdate(SophonPatcherUpdate::PatchingFinished) 
-                    => tracing::info!("Applying hdiffs finished"),
+                    DiffUpdate::InstallerUpdate(InstallerUpdate::DownloadingFinished)
+                    | DiffUpdate::SophonInstallerUpdate(
+                        SophonInstallerUpdate::DownloadingFinished
+                    )
+                    | DiffUpdate::SophonPatcherUpdate(SophonPatcherUpdate::DownloadingFinished) => {
+                        tracing::info!("Downloading finished")
+                    }
 
-                    DiffUpdate::RemovingOutdatedFinished |
-                    DiffUpdate::SophonPatcherUpdate(SophonPatcherUpdate::DeletingFinished)
-                    => tracing::info!("Removing outdated files finished"),
+                    DiffUpdate::InstallerUpdate(InstallerUpdate::UpdatingPermissionsFinished) => {
+                        tracing::info!("Updating permissions finished")
+                    }
+                    DiffUpdate::InstallerUpdate(InstallerUpdate::UnpackingFinished) => {
+                        tracing::info!("Unpacking finished")
+                    }
+
+                    DiffUpdate::ApplyingHdiffFinished
+                    | DiffUpdate::SophonPatcherUpdate(SophonPatcherUpdate::PatchingFinished) => {
+                        tracing::info!("Applying hdiffs finished")
+                    }
+
+                    DiffUpdate::RemovingOutdatedFinished
+                    | DiffUpdate::SophonPatcherUpdate(SophonPatcherUpdate::DeletingFinished) => {
+                        tracing::info!("Removing outdated files finished")
+                    }
 
                     // downloading errors
                     DiffUpdate::SophonInstallerUpdate(SophonInstallerUpdate::DownloadingError(
                         err
                     ))
-                    | DiffUpdate::SophonPatcherUpdate(SophonPatcherUpdate::DownloadingError(err)) => {
+                    | DiffUpdate::SophonPatcherUpdate(SophonPatcherUpdate::DownloadingError(err)) =>
+                    {
                         tracing::error!("Downloading error: {err:?}")
                     }
                     // file hash check errors
                     DiffUpdate::SophonPatcherUpdate(SophonPatcherUpdate::FileHashCheckFailed(
                         path
-                    ))
-                    | DiffUpdate::SophonInstallerUpdate(
-                        SophonInstallerUpdate::FileHashCheckFailed(path)
-                    ) => tracing::error!("File hash check failed on {path:?}"),
+                    )) => {
+                        tracing::error!("File hash check failed on {path:?}")
+                    }
 
-                    DiffUpdate::InstallerUpdate(InstallerUpdate::DownloadingError(err)) => tracing::error!("Downloading error: {:?}", err),
-                    DiffUpdate::InstallerUpdate(InstallerUpdate::UnpackingError(err)) => tracing::error!("Unpacking error: {:?}", err),
-                    DiffUpdate::SophonPatcherUpdate(SophonPatcherUpdate::PatchingError(err)) => tracing::error!("Patching error: {err:?}"),
+                    DiffUpdate::InstallerUpdate(InstallerUpdate::DownloadingError(err)) => {
+                        tracing::error!("Downloading error: {:?}", err)
+                    }
+                    DiffUpdate::InstallerUpdate(InstallerUpdate::UnpackingError(err)) => {
+                        tracing::error!("Unpacking error: {:?}", err)
+                    }
+                    DiffUpdate::SophonPatcherUpdate(SophonPatcherUpdate::PatchingError(err)) => {
+                        tracing::error!("Patching error: {err:?}")
+                    }
 
                     // sophon download progress reports
                     DiffUpdate::SophonInstallerUpdate(

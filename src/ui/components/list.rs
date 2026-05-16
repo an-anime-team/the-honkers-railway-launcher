@@ -37,7 +37,7 @@ impl<T: std::fmt::Debug + Clone + 'static> SimpleAsyncComponent for ComponentsLi
     async fn init(
         init: Self::Init,
         root: Self::Root,
-        sender: AsyncComponentSender<Self>,
+        sender: AsyncComponentSender<Self>
     ) -> AsyncComponentParts<Self> {
         let init_copy = init.clone();
 
@@ -45,7 +45,9 @@ impl<T: std::fmt::Debug + Clone + 'static> SimpleAsyncComponent for ComponentsLi
             show_recommended_only: true,
             init: init_copy,
 
-            groups: init.pattern.groups
+            groups: init
+                .pattern
+                .groups
                 .into_iter()
                 .map(|group| {
                     super::ComponentGroup::builder()
@@ -61,7 +63,10 @@ impl<T: std::fmt::Debug + Clone + 'static> SimpleAsyncComponent for ComponentsLi
             widgets.group.add(group.widget());
         }
 
-        AsyncComponentParts { model, widgets }
+        AsyncComponentParts {
+            model,
+            widgets
+        }
     }
 
     async fn update(&mut self, msg: Self::Input, sender: AsyncComponentSender<Self>) {
@@ -71,18 +76,25 @@ impl<T: std::fmt::Debug + Clone + 'static> SimpleAsyncComponent for ComponentsLi
 
                 // todo
                 for group in &self.groups {
-                    group.sender().send(ComponentGroupMsg::ShowRecommendedOnly(state)).unwrap();
+                    group
+                        .sender()
+                        .send(ComponentGroupMsg::ShowRecommendedOnly(state))
+                        .unwrap();
                 }
             }
 
             #[allow(unused_must_use)]
-            ComponentsListMsg::CallOnDownloaded => if let Some(on_downloaded) = &self.init.on_downloaded {
-                sender.output(on_downloaded.to_owned());
+            ComponentsListMsg::CallOnDownloaded => {
+                if let Some(on_downloaded) = &self.init.on_downloaded {
+                    sender.output(on_downloaded.to_owned());
+                }
             }
 
             #[allow(unused_must_use)]
-            ComponentsListMsg::CallOnDeleted => if let Some(on_deleted) = &self.init.on_deleted {
-                sender.output(on_deleted.to_owned());
+            ComponentsListMsg::CallOnDeleted => {
+                if let Some(on_deleted) = &self.init.on_deleted {
+                    sender.output(on_deleted.to_owned());
+                }
             }
         }
     }

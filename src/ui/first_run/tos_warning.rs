@@ -103,7 +103,8 @@ impl SimpleAsyncComponent for TosWarningApp {
 
                         if installed {
                             sender.output(Self::Output::ScrollToDefaultPaths);
-                        } else {
+                        }
+                        else {
                             sender.output(Self::Output::ScrollToDependencies);
                         }
                     }

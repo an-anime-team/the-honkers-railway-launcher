@@ -1,20 +1,13 @@
-use relm4::{
-    prelude::*,
-    Sender
-};
-
+use relm4::Sender;
+use relm4::prelude::*;
 use gtk::glib::clone;
-
 use anime_launcher_sdk::wincompatlib::prelude::*;
-
 use anime_launcher_sdk::config::ConfigExt;
 use anime_launcher_sdk::star_rail::config::Config;
-
 use anime_launcher_sdk::components::dxvk::Version;
 
 use crate::*;
 use crate::ui::components::*;
-
 use super::{App, AppMsg};
 
 pub fn install_dxvk(sender: ComponentSender<App>, progress_bar_input: Sender<ProgressBarMsg>) {
@@ -25,14 +18,15 @@ pub fn install_dxvk(sender: ComponentSender<App>, progress_bar_input: Sender<Pro
             sender.input(AppMsg::DisableButtons(true));
 
             std::thread::spawn(clone!(
-                #[strong] sender,
+                #[strong]
+                sender,
                 move || {
                     let components_path = config.components.path.clone();
 
                     let wine = wine_config
                         .to_wine(
                             components_path.clone(),
-                            Some(config.game.wine.builds.join(&wine_config.name)),
+                            Some(config.game.wine.builds.join(&wine_config.name))
                         )
                         .with_prefix(config.game.wine.prefix)
                         .with_loader(WineLoader::Current);
@@ -43,7 +37,7 @@ pub fn install_dxvk(sender: ComponentSender<App>, progress_bar_input: Sender<Pro
                             tracing::error!("Failed to get latest DXVK version: {}", err);
                             sender.input(AppMsg::Toast {
                                 title: tr!("dxvk-install-failed"),
-                                description: Some(err.to_string()),
+                                description: Some(err.to_string())
                             });
                             sender.input(AppMsg::DisableButtons(false));
                             return;
@@ -61,34 +55,41 @@ pub fn install_dxvk(sender: ComponentSender<App>, progress_bar_input: Sender<Pro
 
                                 sender.input(AppMsg::SetDownloading(true));
 
-                                installer.install(&config.game.dxvk.builds, clone!(
-                                    #[strong] sender,
-                                    move |state| {
-                                        match state {
-                                            InstallerUpdate::DownloadingError(ref err) => {
-                                                tracing::error!("DXVK download failed: {err}");
-                                                sender.input(AppMsg::Toast {
-                                                    title: tr!("dxvk-download-error"),
-                                                    description: Some(err.to_string())
-                                                });
+                                installer.install(
+                                    &config.game.dxvk.builds,
+                                    clone!(
+                                        #[strong]
+                                        sender,
+                                        move |state| {
+                                            match state {
+                                                InstallerUpdate::DownloadingError(ref err) => {
+                                                    tracing::error!("DXVK download failed: {err}");
+                                                    sender.input(AppMsg::Toast {
+                                                        title: tr!("dxvk-download-error"),
+                                                        description: Some(err.to_string())
+                                                    });
+                                                }
+                                                InstallerUpdate::UnpackingError(ref err) => {
+                                                    tracing::error!("DXVK unpacking failed: {err}");
+                                                    sender.input(AppMsg::Toast {
+                                                        title: tr!("dxvk-unpack-error"),
+                                                        description: Some(err.clone())
+                                                    });
+                                                }
+                                                _ => {}
                                             }
-                                            InstallerUpdate::UnpackingError(ref err) => {
-                                                tracing::error!("DXVK unpacking failed: {err}");
-                                                sender.input(AppMsg::Toast {
-                                                    title: tr!("dxvk-unpack-error"),
-                                                    description: Some(err.clone())
-                                                });
-                                            }
-                                            _ => {}
-                                        }
 
-                                        #[allow(unused_must_use)] {
-                                            progress_bar_input.send(ProgressBarMsg::UpdateFromState(
-                                                DiffUpdate::InstallerUpdate(state)
-                                            ));
+                                            #[allow(unused_must_use)]
+                                            {
+                                                progress_bar_input.send(
+                                                    ProgressBarMsg::UpdateFromState(
+                                                        DiffUpdate::InstallerUpdate(state)
+                                                    )
+                                                );
+                                            }
                                         }
-                                    }
-                                ));
+                                    )
+                                );
 
                                 sender.input(AppMsg::SetDownloading(false));
                                 sender.input(AppMsg::UpdateLauncherState {
@@ -110,14 +111,14 @@ pub fn install_dxvk(sender: ComponentSender<App>, progress_bar_input: Sender<Pro
                         tracing::error!("Failed to install DXVK: {}", err);
                         sender.input(AppMsg::Toast {
                             title: tr!("dxvk-install-failed"),
-                            description: Some(err.to_string()),
+                            description: Some(err.to_string())
                         });
                     }
 
                     sender.input(AppMsg::DisableButtons(false));
                     sender.input(AppMsg::UpdateLauncherState {
                         perform_on_download_needed: false,
-                        show_status_page: true,
+                        show_status_page: true
                     });
                 }
             ));
@@ -127,7 +128,7 @@ pub fn install_dxvk(sender: ComponentSender<App>, progress_bar_input: Sender<Pro
             tracing::error!("Failed to get selected wine executable");
             sender.input(AppMsg::Toast {
                 title: tr!("failed-get-selected-wine"),
-                description: None,
+                description: None
             });
         }
 
@@ -135,9 +136,8 @@ pub fn install_dxvk(sender: ComponentSender<App>, progress_bar_input: Sender<Pro
             tracing::error!("Failed to get selected wine executable: {err}");
             sender.input(AppMsg::Toast {
                 title: tr!("failed-get-selected-wine"),
-                description: Some(err.to_string()),
+                description: Some(err.to_string())
             });
         }
     }
 }
-

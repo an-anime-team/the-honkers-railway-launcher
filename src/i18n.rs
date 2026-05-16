@@ -1,5 +1,6 @@
 use std::sync::OnceLock;
-use unic_langid::{langid, LanguageIdentifier};
+
+use unic_langid::{LanguageIdentifier, langid};
 
 fluent_templates::static_loader! {
     pub static LOCALES = {
@@ -40,12 +41,14 @@ pub static LANG: OnceLock<LanguageIdentifier> = OnceLock::new();
 
 /// Set launcher language
 pub fn set_lang(lang: LanguageIdentifier) -> anyhow::Result<()> {
-    if SUPPORTED_LANGUAGES.iter().any(|item| item.language == lang.language) {
+    if SUPPORTED_LANGUAGES
+        .iter()
+        .any(|item| item.language == lang.language)
+    {
         LANG.set(lang).expect("Can't overwrite language!");
 
         Ok(())
     }
-
     else {
         anyhow::bail!("Language '{lang}' is not supported")
     }
@@ -64,9 +67,10 @@ pub fn get_lang() -> &'static LanguageIdentifier {
 /// - `LANG`
 pub fn get_default_lang() -> &'static LanguageIdentifier {
     let current = std::env::var("LC_ALL")
-        .unwrap_or_else(|_| std::env::var("LC_MESSAGES")
-        .unwrap_or_else(|_| std::env::var("LANG")
-        .unwrap_or_else(|_| String::from("en_us"))))
+        .unwrap_or_else(|_| {
+            std::env::var("LC_MESSAGES")
+                .unwrap_or_else(|_| std::env::var("LANG").unwrap_or_else(|_| String::from("en_us")))
+        })
         .to_ascii_lowercase();
 
     for lang in SUPPORTED_LANGUAGES {

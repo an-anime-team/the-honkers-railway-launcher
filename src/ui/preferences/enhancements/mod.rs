@@ -1,12 +1,9 @@
 use relm4::prelude::*;
 use adw::prelude::*;
-
 use anime_launcher_sdk::config::ConfigExt;
 use anime_launcher_sdk::star_rail::config::Config;
 use anime_launcher_sdk::config::schema_blanks::prelude::*;
-
 use anime_launcher_sdk::is_available;
-
 use enum_ordinalize::Ordinalize;
 
 pub mod game;
@@ -18,7 +15,6 @@ use sandbox::*;
 use environment::*;
 
 use crate::*;
-
 use super::gamescope::*;
 use super::main::PreferencesAppMsg;
 
@@ -171,6 +167,30 @@ impl SimpleAsyncComponent for EnhancementsApp {
                             if is_ready() {
                                 if let Ok(mut config) = Config::get() {
                                     config.game.wine.borderless = switch.is_active();
+
+                                    Config::update(config);
+                                }
+                            }
+                        }
+                    }
+                },
+
+                #[name = "winewayland_row"]
+                adw::ActionRow {
+                    set_title: &tr!("winewayland"),
+                    set_subtitle: &tr!("winewayland-description"),
+
+                    set_sensitive: is_wayland_available(),
+
+                    add_suffix = &gtk::Switch {
+                        set_valign: gtk::Align::Center,
+
+                        set_active: CONFIG.game.wine.winewayland,
+
+                        connect_state_notify => |switch| {
+                            if is_ready() {
+                                if let Ok(mut config) = Config::get() {
+                                    config.game.wine.winewayland = switch.is_active();
 
                                     Config::update(config);
                                 }
@@ -432,14 +452,12 @@ impl SimpleAsyncComponent for EnhancementsApp {
     async fn init(
         _init: Self::Init,
         root: Self::Root,
-        sender: AsyncComponentSender<Self>,
+        sender: AsyncComponentSender<Self>
     ) -> AsyncComponentParts<Self> {
         tracing::info!("Initializing enhancements settings");
 
         let model = Self {
-            gamescope: GamescopeApp::builder()
-                .launch(())
-                .detach(),
+            gamescope: GamescopeApp::builder().launch(()).detach(),
 
             game_page: GamePage::builder()
                 .launch(())
@@ -460,7 +478,14 @@ impl SimpleAsyncComponent for EnhancementsApp {
 
         let widgets = view_output!();
 
-        AsyncComponentParts { model, widgets }
+        if !is_wayland_available() {
+            widgets.winewayland_row.set_tooltip_text(Some(&tr!("winewayland-unavailable-tooltip")));
+        }
+
+        AsyncComponentParts {
+            model,
+            widgets
+        }
     }
 
     async fn update(&mut self, msg: Self::Input, sender: AsyncComponentSender<Self>) {
@@ -468,46 +493,57 @@ impl SimpleAsyncComponent for EnhancementsApp {
         #[allow(static_mut_refs)]
         match msg {
             EnhancementsAppMsg::SetGamescopeParent => unsafe {
-                self.gamescope.widget().set_transient_for(super::main::PREFERENCES_WINDOW.as_ref());
-            }
+                self.gamescope
+                    .widget()
+                    .set_transient_for(super::main::PREFERENCES_WINDOW.as_ref());
+            },
 
             EnhancementsAppMsg::OpenGamescope => {
                 self.gamescope.widget().present();
             }
 
             EnhancementsAppMsg::OpenMainPage => unsafe {
-                PREFERENCES_WINDOW.as_ref()
+                PREFERENCES_WINDOW
+                    .as_ref()
                     .unwrap_unchecked()
                     .widget()
                     .pop_subpage();
-            }
+            },
 
             EnhancementsAppMsg::OpenGameSettingsPage => unsafe {
-                PREFERENCES_WINDOW.as_ref()
+                PREFERENCES_WINDOW
+                    .as_ref()
                     .unwrap_unchecked()
                     .widget()
                     .push_subpage(self.game_page.widget());
-            }
+            },
 
             EnhancementsAppMsg::OpenSandboxSettingsPage => unsafe {
-                PREFERENCES_WINDOW.as_ref()
+                PREFERENCES_WINDOW
+                    .as_ref()
                     .unwrap_unchecked()
                     .widget()
                     .push_subpage(self.sandbox_page.widget());
-            }
+            },
 
             EnhancementsAppMsg::OpenEnvironmentSettingsPage => unsafe {
-                PREFERENCES_WINDOW.as_ref()
+                PREFERENCES_WINDOW
+                    .as_ref()
                     .unwrap_unchecked()
                     .widget()
                     .push_subpage(self.environment_page.widget());
-            }
+            },
 
-            EnhancementsAppMsg::Toast { title, description } => {
-                sender.output(PreferencesAppMsg::Toast {
-                    title,
-                    description
-                }).unwrap();
+            EnhancementsAppMsg::Toast {
+                title,
+                description
+            } => {
+                sender
+                    .output(PreferencesAppMsg::Toast {
+                        title,
+                        description
+                    })
+                    .unwrap();
             }
         }
     }

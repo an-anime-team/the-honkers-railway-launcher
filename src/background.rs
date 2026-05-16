@@ -33,7 +33,8 @@ pub fn download_background(with_video: bool, _index: u8) -> anyhow::Result<()> {
                 )
                 .context("Copying background overlay file")?;
             }
-        } else {
+        }
+        else {
             tracing::info!("WebP GDK Pixbuf Loader is not installed, converting images to PNG");
             info.convert_and_copy()?;
         }
@@ -44,7 +45,8 @@ pub fn download_background(with_video: bool, _index: u8) -> anyhow::Result<()> {
             let _ = std::fs::remove_file(&*crate::PROCESSED_BACKGROUND_OVERLAY_FILE);
             let _ = std::fs::remove_file(&*crate::BACKGROUND_VIDEO_FILE);
         }
-    } else {
+    }
+    else {
         tracing::debug!("Not re-generating the background image, already latest")
     }
 
@@ -81,7 +83,8 @@ pub fn get_uri() -> String {
             ".com/hyp/hyp-connect/api/getAllGameBasicInfo?launcher_id=jGHBHlcOq1"
         )
         .to_owned()
-    } else {
+    }
+    else {
         let uri = concat!(
             "https://sg-hyp-api.",
             "ho",
@@ -160,7 +163,8 @@ impl BackgroundSpec {
                 video,
                 overlay
             })
-        } else {
+        }
+        else {
             Ok(Self::Normal {
                 background
             })
@@ -242,13 +246,15 @@ fn convert_image(from: &Path, to: &Path) -> anyhow::Result<()> {
             .arg(to)
             .spawn()?
             .wait()?;
-    } else if is_available("magick") {
+    }
+    else if is_available("magick") {
         Command::new("magick")
             .arg(from)
             .arg(format!("PNG:{}", to.display()))
             .spawn()?
             .wait()?;
-    } else {
+    }
+    else {
         tracing::warn!("Could not find `dwebp` or `magick` to convert the image file.");
     }
     Ok(())

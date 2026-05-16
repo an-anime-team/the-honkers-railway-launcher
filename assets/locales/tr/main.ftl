@@ -87,3 +87,5 @@ main-window--version-outdated-tooltip = Sürüm çok eski ve güncellenemez
 preferences = Tercihler
 general = Genel
 enhancements = Geliştirmeler
+
+import-game = Import game

@@ -13,17 +13,14 @@ pub fn move_files(from: impl AsRef<Path>, to: impl AsRef<Path>) -> Result<()> {
                     .and_then(|_| move_files(&source, &target))
                     .and_then(|_| std::fs::remove_dir_all(&source))?;
             }
-
             else if source.is_symlink() {
                 std::fs::read_link(&source)
                     .and_then(|link_target| std::os::unix::fs::symlink(link_target, &target))
                     .and_then(|_| std::fs::remove_file(&source))?;
             }
-
             else {
-                std::fs::copy(&source, &target)
-                    .and_then(|_| std::fs::remove_file(&source))?;
-            } 
+                std::fs::copy(&source, &target).and_then(|_| std::fs::remove_file(&source))?;
+            }
         }
     }
 

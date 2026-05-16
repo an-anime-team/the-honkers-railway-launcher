@@ -7,6 +7,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.15.0] - 2026-05-16
+
+### Added
+
+- Added "Import game" button
+- Added setting to enable Winewayland to make the game use Wayland instead of X11
+- Added additional methods of detecting game version
+
+### Fixed
+
+- Fixed game version detection through game files
+
+### Changed
+
+- Changed .version file format to be an ascii text file that can be edited in a text editor.
+  Old format files will still work correctly and will be overwritten on game update.
+- Changed sophon download and update backend, introducing performance improvements and various fixes
+
 ## [1.14.5] - 2026-04-23
 
 ### Added
@@ -481,7 +499,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 <br>
 
-[unreleased]: https://github.com/an-anime-team/the-honkers-railway-launcher/compare/1.14.5...next
+[unreleased]: https://github.com/an-anime-team/the-honkers-railway-launcher/compare/1.15.0...next
+[1.15.0]: https://github.com/an-anime-team/the-honkers-railway-launcher/compare/1.14.5...1.15.0
 [1.14.5]: https://github.com/an-anime-team/the-honkers-railway-launcher/compare/1.14.4...1.14.5
 [1.14.4]: https://github.com/an-anime-team/the-honkers-railway-launcher/compare/1.14.3...1.14.4
 [1.14.3]: https://github.com/an-anime-team/the-honkers-railway-launcher/compare/1.14.2...1.14.3

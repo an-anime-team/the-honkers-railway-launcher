@@ -79,3 +79,5 @@ main-window--version-outdated-tooltip = Die Version ist zu veraltet und kann nic
 preferences = Einstellungen
 general = Allgemein
 enhancements = Verbesserungen
+
+import-game = Import game

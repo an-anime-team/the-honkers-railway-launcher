@@ -2,7 +2,6 @@ use relm4::prelude::*;
 use adw::prelude::*;
 
 use crate::*;
-
 use super::EnhancementsAppMsg;
 
 #[derive(Debug)]
@@ -13,10 +12,10 @@ struct Variable {
 
 #[relm4::factory(async)]
 impl AsyncFactoryComponent for Variable {
+    type CommandOutput = ();
     type Init = (String, String);
     type Input = EnvironmentPageMsg;
     type Output = EnvironmentPageMsg;
-    type CommandOutput = ();
     type ParentWidget = adw::PreferencesGroup;
 
     view! {
@@ -40,7 +39,7 @@ impl AsyncFactoryComponent for Variable {
     async fn init_model(
         init: Self::Init,
         _index: &DynamicIndex,
-        _sender: AsyncFactorySender<Self>,
+        _sender: AsyncFactorySender<Self>
     ) -> Self {
         Self {
             key: init.0,
@@ -144,7 +143,11 @@ impl SimpleAsyncComponent for EnvironmentPage {
         }
     }
 
-    async fn init(_init: Self::Init, root: Self::Root, sender: AsyncComponentSender<Self>) -> AsyncComponentParts<Self> {
+    async fn init(
+        _init: Self::Init,
+        root: Self::Root,
+        sender: AsyncComponentSender<Self>
+    ) -> AsyncComponentParts<Self> {
         tracing::info!("Initializing environment settings");
 
         let mut model = Self {
@@ -157,7 +160,10 @@ impl SimpleAsyncComponent for EnvironmentPage {
         };
 
         for (name, value) in &CONFIG.game.environment {
-            model.variables.guard().push_back((name.trim().to_string(), value.trim().to_string()));
+            model
+                .variables
+                .guard()
+                .push_back((name.trim().to_string(), value.trim().to_string()));
         }
 
         let variables = model.variables.widget();
@@ -167,7 +173,10 @@ impl SimpleAsyncComponent for EnvironmentPage {
 
         let widgets = view_output!();
 
-        AsyncComponentParts { model, widgets }
+        AsyncComponentParts {
+            model,
+            widgets
+        }
     }
 
     async fn update(&mut self, msg: Self::Input, _sender: AsyncComponentSender<Self>) {

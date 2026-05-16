@@ -11,6 +11,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Added "Import game" button
 - Added setting to enable Winewayland to make the game use Wayland instead of X11
+- Added additional methods of detecting game version
+
+### Fixed
+
+- Fixed game version detection through game files
 
 ### Changed
 

@@ -1,3 +1,5 @@
+use std::sync::atomic::AtomicU64;
+
 use relm4::prelude::*;
 use relm4::Sender;
 use anime_launcher_sdk::anime_game_core::reqwest::blocking::Client;
@@ -75,6 +77,9 @@ pub fn repair_game(sender: ComponentSender<App>, progress_bar_input: Sender<Prog
                 .expect("failed to initialize sophon repairer");
             repairer.mode_repair = true;
 
+            let total_files_to_repair = AtomicU64::new(0);
+            let total_to_repair = &total_files_to_repair;
+
             let updater = |msg: SophonRepairerUpdate| match msg {
                 SophonRepairerUpdate::CheckingFilesProgress {
                     total,
@@ -86,14 +91,17 @@ pub fn repair_game(sender: ComponentSender<App>, progress_bar_input: Sender<Prog
                 }
 
                 SophonRepairerUpdate::DownloadingProgressFiles {
-                    total_files,
-                    downloaded_files
+                    downloaded_files, ..
                 } => {
-                    tracing::trace!(downloaded_files, total_files, "Repairing progress");
+                    tracing::trace!(
+                        downloaded_files,
+                        total_to_repair = total_to_repair.load(Ordering::Acquire),
+                        "Repairing progress"
+                    );
 
                     progress_bar_input.send(ProgressBarMsg::UpdateProgressCounter(
                         downloaded_files,
-                        total_files
+                        total_to_repair.load(Ordering::Acquire)
                     ));
                 }
 
@@ -104,9 +112,11 @@ pub fn repair_game(sender: ComponentSender<App>, progress_bar_input: Sender<Prog
                 }
 
                 SophonRepairerUpdate::DownloadingStarted {
-                    ..
+                    total_files, ..
                 } => {
                     tracing::trace!("Repairing started");
+
+                    total_to_repair.store(total_files, Ordering::Release);
 
                     progress_bar_input
                         .send(ProgressBarMsg::UpdateCaption(Some(tr!("repairing-files"))));

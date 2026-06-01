@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.15.1] - 2026-06-02
+
+### Fixed
+
+- Fixed repair progress reporting
+- Fixed several minor inefficiencies in download/repair
+
+### Changed
+
+- Improved repair progress bar by changing the total amount to the amount of files that didn't pass the check
+
 ## [1.15.0] - 2026-05-16
 
 ### Added
@@ -499,7 +510,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 <br>
 
-[unreleased]: https://github.com/an-anime-team/the-honkers-railway-launcher/compare/1.15.0...next
+[unreleased]: https://github.com/an-anime-team/the-honkers-railway-launcher/compare/1.15.1...next
+[1.15.1]: https://github.com/an-anime-team/the-honkers-railway-launcher/compare/1.15.0...1.15.1
 [1.15.0]: https://github.com/an-anime-team/the-honkers-railway-launcher/compare/1.14.5...1.15.0
 [1.14.5]: https://github.com/an-anime-team/the-honkers-railway-launcher/compare/1.14.4...1.14.5
 [1.14.4]: https://github.com/an-anime-team/the-honkers-railway-launcher/compare/1.14.3...1.14.4

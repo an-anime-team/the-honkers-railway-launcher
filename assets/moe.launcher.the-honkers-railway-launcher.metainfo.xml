@@ -49,6 +49,13 @@
   </categories>
   <content_rating type="oars-1.1" />
   <releases>
+    <release version="1.15.1" date="2026-06-02">
+      <description>
+        <p>Fixed repair progress reporting</p>
+        <p>Fixed several minor inefficiencies in download/repair</p>
+        <p>Improved repair progress bar by changing the total amount to the amount of files that didn't pass the check</p>
+      </description>
+    </release>
     <release version="1.15.0" date="2026-05-16">
       <description>
         <p>Added "Import game" button</p>

@@ -91,29 +91,20 @@ impl SimpleComponent for AboutDialog {
             ].join("\n"),
 
             set_release_notes_version: &APP_VERSION,
-            set_release_notes: &[
+            set_release_notes: r#"
+                <p>Fixed</p>
 
-                "<p>Added</p>",
+                <ul>
+                    <li>Fixed repair progress reporting</li>
+                    <li>Fixed several minor inefficiencies in download/repair</li>
+                </ul>
 
-                "<ul>",
-                    "<li>Added 'Import game' button</li>",
-                    "<li>Added setting to enable Winewayland to make the game use Wayland instead of X11</li>",
-                    "<li>Added additional methods of detecting game version</li>",
-                "</ul>",
+                <p>Changed</p>
 
-                "<p>Fixed</p>",
-
-                "<ul>",
-                    "<li>Fixed game version detection through game files</li>",
-                "</ul>",
-
-                "<p>Changed</p>",
-
-                "<ul>",
-                    "<li>Changed .version file format to be an ascii text file that can be edited in a text editor. Old format files will still work correctly and will be overwritten on game update.</li>",
-                    "<li>Changed sophon download and update backend, introducing performance improvements and various fixes</li>",
-                "</ul>"
-            ].join("\n")
+                <ul>
+                    <li>Improved repair progress bar by changing the total amount to the amount of files that didn't pass the check</li>
+                </ul>
+                "#
         }
     }
 

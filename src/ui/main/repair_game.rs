@@ -80,7 +80,7 @@ pub fn repair_game(sender: ComponentSender<App>, progress_bar_input: Sender<Prog
             let total_files_to_repair = AtomicU64::new(0);
             let total_to_repair = &total_files_to_repair;
 
-            let updater = |msg: SophonRepairerUpdate| match msg {
+            let updater = Box::new(|msg: SophonRepairerUpdate| match msg {
                 SophonRepairerUpdate::CheckingFilesProgress {
                     total,
                     passed
@@ -131,7 +131,7 @@ pub fn repair_game(sender: ComponentSender<App>, progress_bar_input: Sender<Prog
                 }
 
                 _ => {}
-            };
+            });
 
             repairer.install(
                 game_path,

@@ -92,17 +92,16 @@ impl SimpleComponent for AboutDialog {
 
             set_release_notes_version: &APP_VERSION,
             set_release_notes: r#"
+                <p>Added</p>
+
+                <ul>
+                    <li>Added option to skip telemetry disabling</li>
+                </ul>
+
                 <p>Fixed</p>
 
                 <ul>
-                    <li>Fixed repair progress reporting</li>
-                    <li>Fixed several minor inefficiencies in download/repair</li>
-                </ul>
-
-                <p>Changed</p>
-
-                <ul>
-                    <li>Improved repair progress bar by changing the total amount to the amount of files that didn't pass the check</li>
+                    <li>Fixed mfc140 installation</li>
                 </ul>
                 "#
         }

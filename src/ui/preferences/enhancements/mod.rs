@@ -18,6 +18,42 @@ use crate::*;
 use super::gamescope::*;
 use super::main::PreferencesAppMsg;
 
+/// Vulkan ICD files. Forcing VK_ICD_FILENAMES hides the other GPU entirely,
+/// which is what actually makes a hybrid laptop use the selected GPU — without
+/// it DXVK tends to grab the discrete device regardless of PRIME offload vars.
+const NVIDIA_ICD: &str = "/usr/share/vulkan/icd.d/nvidia_icd.json";
+const INTEL_ICD: &str = "/usr/share/vulkan/icd.d/intel_icd.json";
+
+/// NVIDIA PRIME render-offload vars, applied together with the NVIDIA ICD.
+const GPU_PRIME_VARS: [(&str, &str); 3] = [
+    ("__NV_PRIME_RENDER_OFFLOAD", "1"),
+    ("__VK_LAYER_NV_optimus", "NVIDIA_only"),
+    ("__GLX_VENDOR_LIBRARY_NAME", "nvidia"),
+];
+
+fn gpu_is_dedicated(env: &std::collections::HashMap<String, String>) -> bool {
+    env.get("VK_ICD_FILENAMES")
+        .map(|v| v.contains("nvidia"))
+        .unwrap_or(false)
+        || env.contains_key("__NV_PRIME_RENDER_OFFLOAD")
+}
+
+fn set_gpu_env(env: &mut std::collections::HashMap<String, String>, dedicated: bool) {
+    if dedicated {
+        env.insert("VK_ICD_FILENAMES".to_string(), NVIDIA_ICD.to_string());
+
+        for (k, v) in GPU_PRIME_VARS {
+            env.insert(k.to_string(), v.to_string());
+        }
+    } else {
+        env.insert("VK_ICD_FILENAMES".to_string(), INTEL_ICD.to_string());
+
+        for (k, _) in GPU_PRIME_VARS {
+            env.remove(k);
+        }
+    }
+}
+
 pub struct EnhancementsApp {
     gamescope: AsyncController<GamescopeApp>,
     game_page: AsyncController<GamePage>,
@@ -317,6 +353,29 @@ impl SimpleAsyncComponent for EnhancementsApp {
 
             add = &adw::PreferencesGroup {
                 set_title: &tr!("game"),
+
+                adw::ComboRow {
+                    set_title: &tr!("gpu-device"),
+                    set_subtitle: &tr!("gpu-description"),
+
+                    #[wrap(Some)]
+                    set_model = &gtk::StringList::new(&[
+                        &tr!("gpu-integrated"),
+                        &tr!("gpu-dedicated-nvidia")
+                    ]),
+
+                    set_selected: if gpu_is_dedicated(&CONFIG.game.environment) { 1 } else { 0 },
+
+                    connect_selected_notify => |row| {
+                        if is_ready() {
+                            if let Ok(mut config) = Config::get() {
+                                set_gpu_env(&mut config.game.environment, row.selected() == 1);
+
+                                Config::update(config);
+                            }
+                        }
+                    }
+                },
 
                 adw::ComboRow {
                     set_title: &tr!("hud"),

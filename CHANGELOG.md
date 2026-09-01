@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Improved readability of progess bar text
+- Updated French locale
 
 ## [1.15.2] - 2026-06-30
 

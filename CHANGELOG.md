@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Added NTSync as a wine sync method (cosmetic/no-op, NTSync is used automatically on supported wine versions)
+- Added command-line arguments help text
+
+### Changed
+
+- Improved readability of progess bar text
+
 ## [1.15.2] - 2026-06-30
 
 ### Added

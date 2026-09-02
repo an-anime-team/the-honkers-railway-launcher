@@ -37,6 +37,11 @@ gamemode-description = Minden folyamat felett fusson a játék ( prioritás mind
 gamescope = Gamescope
 gamescope-description = A Gamescope-al egy külön Xwayland folyamatban fut a játék. Támogatja az Intel, AMD és Nvidia videókártyákat
 
+gpu-device = GPU
+gpu-description = Select which GPU to launch the game on. Forces the Vulkan device so the game uses the selected GPU on hybrid laptops. Restart the game to apply.
+gpu-integrated = Integrated (default)
+gpu-dedicated-nvidia = Dedicated (NVIDIA)
+
 discord-rpc = Discord RPC
 discord-rpc-description = Kiírja a Discord profilod alá hogy játszol a játékkal
 icon = Ikon

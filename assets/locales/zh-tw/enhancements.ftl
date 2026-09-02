@@ -37,6 +37,11 @@ gamemode-description = 提升遊戲相對其他程序的優先級
 gamescope = Gamescope
 gamescope-description = Gamescope 是 Valve 開發的工具，可以讓遊戲運行在一個單獨的 Xwayland 實例上。支持 AMD，Intel 和 Nvidia 的顯卡
 
+gpu-device = GPU
+gpu-description = Select which GPU to launch the game on. Forces the Vulkan device so the game uses the selected GPU on hybrid laptops. Restart the game to apply.
+gpu-integrated = Integrated (default)
+gpu-dedicated-nvidia = Dedicated (NVIDIA)
+
 discord-rpc = Discord RPC
 discord-rpc-description = Discord RPC 可以設置 Discord 狀態，讓你的好友知道你正在玩遊戲
 icon = 圖示

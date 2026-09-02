@@ -37,6 +37,11 @@ gamemode-description = Priorytetyzuj grę nad pozostałymi procesami
 gamescope = Gamescope
 gamescope-description = Gamescope to narzędzie od Valve, które umożliwia uruchamianie gier w izolowanej instancji Xwayland i obsługuje karty graficzne AMD, Intel i Nvidia
 
+gpu-device = GPU
+gpu-description = Select which GPU to launch the game on. Forces the Vulkan device so the game uses the selected GPU on hybrid laptops. Restart the game to apply.
+gpu-integrated = Integrated (default)
+gpu-dedicated-nvidia = Dedicated (NVIDIA)
+
 discord-rpc = Discord RPC
 discord-rpc-description = Discord RPC pozwala przekazać informacje Discordowi, że obecnie grasz w daną grę, aby poinformować swoich znajomych
 icon = Ikona

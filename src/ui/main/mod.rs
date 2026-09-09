@@ -70,7 +70,7 @@ pub enum AppMsg {
 
     /// Supposed to be called automatically on app's run when the latest game
     /// version was retrieved from the API
-    SetGameDiff(Option<VersionDiff>),
+    SetGameDiff(Option<Box<VersionDiff>>),
 
     /// Supposed to be called automatically on app's run when the latest main
     /// patch version was retrieved from remote repos
@@ -1164,7 +1164,7 @@ impl SimpleComponent for App {
                 sender,
                 move || {
                     sender.input(AppMsg::SetGameDiff(match GAME.try_get_diff() {
-                        Ok(diff) => Some(diff),
+                        Ok(diff) => Some(Box::new(diff)),
                         Err(err) => {
                             tracing::error!("Failed to find game diff: {err}");
 

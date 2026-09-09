@@ -93,7 +93,7 @@ pub struct GeneralApp {
     voice_packages: AsyncFactoryVecDeque<VoicePackageComponent>,
     components_page: AsyncController<ComponentsPage>,
 
-    game_diff: Option<VersionDiff>,
+    game_diff: Option<Box<VersionDiff>>,
     main_patch: Option<(Version, JadeitePatchStatusVariant)>,
 
     style: LauncherStyle,
@@ -106,7 +106,7 @@ pub struct GeneralApp {
 pub enum GeneralAppMsg {
     /// Supposed to be called automatically on app's run when the latest game
     /// version was retrieved from the API
-    SetGameDiff(Option<VersionDiff>),
+    SetGameDiff(Option<Box<VersionDiff>>),
 
     /// Supposed to be called automatically on app's run when the latest
     /// UnityPlayer patch version was retrieved from remote repos
@@ -346,7 +346,7 @@ impl SimpleAsyncComponent for GeneralApp {
                     add_suffix = &gtk::Label {
                         #[watch]
                         set_text: &match model.game_diff.as_ref() {
-                            Some(diff) => match diff {
+                            Some(diff) => match **diff {
                                 VersionDiff::Latest { version: current, .. } |
                                 VersionDiff::Predownload { current, .. } |
                                 VersionDiff::Diff { current, .. } |
@@ -360,7 +360,7 @@ impl SimpleAsyncComponent for GeneralApp {
 
                         #[watch]
                         set_css_classes: match model.game_diff.as_ref() {
-                            Some(diff) => match diff {
+                            Some(diff) => match **diff {
                                 VersionDiff::Latest { .. }       => &["success"],
                                 VersionDiff::Predownload { .. }  => &["accent"],
                                 VersionDiff::Diff { .. }         => &["warning"],
@@ -373,7 +373,7 @@ impl SimpleAsyncComponent for GeneralApp {
 
                         #[watch]
                         set_tooltip_text: Some(&match model.game_diff.as_ref() {
-                            Some(diff) => match diff {
+                            Some(diff) => match **diff {
                                 VersionDiff::Latest { .. } => String::new(),
 
                                 VersionDiff::Predownload { current, latest, .. } => tr!("game-predownload-available", {

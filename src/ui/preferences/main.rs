@@ -21,7 +21,7 @@ pub struct PreferencesApp {
 pub enum PreferencesAppMsg {
     /// Supposed to be called automatically on app's run when the latest game
     /// version was retrieved from the API
-    SetGameDiff(Option<VersionDiff>),
+    SetGameDiff(Option<Box<VersionDiff>>),
 
     /// Supposed to be called automatically on app's run when the latest main
     /// patch version was retrieved from remote repos

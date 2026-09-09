@@ -13,6 +13,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added command-line arguments help text
 - Added GPU selector for hybrid GPU systems
 
+### Fixed
+
+- Fixed %temp% and %game% command keywords being mixed up
+
 ### Changed
 
 - Improved readability of progess bar text

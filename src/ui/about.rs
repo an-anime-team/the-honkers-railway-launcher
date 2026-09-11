@@ -95,13 +95,22 @@ impl SimpleComponent for AboutDialog {
                 <p>Added</p>
 
                 <ul>
-                    <li>Added option to skip telemetry disabling</li>
+                    <li>Added NTSync as a wine sync method (cosmetic/no-op, NTSync is used automatically on supported wine versions)</li>
+                    <li>Added command-line arguments help text</li>
+                    <li>Added GPU selector for hybrid GPU systems</li>
                 </ul>
 
                 <p>Fixed</p>
 
                 <ul>
-                    <li>Fixed mfc140 installation</li>
+                    <li>Fixed %temp% and %game% command keywords being mixed up</li>
+                </ul>
+
+                <p>Changed</p>
+
+                <ul>
+                    <li>Improved readability of progess bar text</li>
+                    <li>Updated French locale</li>
                 </ul>
                 "#
         }

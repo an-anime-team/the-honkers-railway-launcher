@@ -49,6 +49,16 @@
   </categories>
   <content_rating type="oars-1.1" />
   <releases>
+    <release version="1.15.3" date="2026-09-11">
+      <description>
+        <p>Added NTSync as a wine sync method (cosmetic/no-op, NTSync is used automatically on supported wine versions)</p>
+        <p>Added command-line arguments help text</p>
+        <p>Added GPU selector for hybrid GPU systems</p>
+        <p>Fixed %temp% and %game% command keywords being mixed up</p>
+        <p>Improved readability of progess bar text</p>
+        <p>Updated French locale</p>
+      </description>
+    </release>
     <release version="1.15.2" date="2026-06-30">
       <description>
         <p>Added option to skip telemetry disabling</p>

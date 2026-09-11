@@ -37,6 +37,11 @@ gamemode-description = Oyunun işlem önceliğini arttırarak performansı artt�
 gamescope = Gamescope
 gamescope-description = Gamescope, oyunları izole edilmiş bir Xwayland içinde açmanıza yarayan Valve tarafından geliştirilmiş araçtır.
 
+gpu-device = GPU
+gpu-description = Select which GPU to launch the game on. Forces the Vulkan device so the game uses the selected GPU on hybrid laptops. Restart the game to apply.
+gpu-integrated = Integrated (default)
+gpu-dedicated-nvidia = Dedicated (NVIDIA)
+
 discord-rpc = Discord RPC
 discord-rpc-description = Discord RPC, Discord'a şu anda oyun oynadığınızı bildirmenizi sağlar. Bu sayede arkadaşlarınıza şu anda oyun oynadığınızı gösterebilirsiniz
 icon = İkon

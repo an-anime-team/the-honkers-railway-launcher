@@ -7,6 +7,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.15.3] - 2026-09-11
+
+### Added
+
+- Added NTSync as a wine sync method (cosmetic/no-op, NTSync is used automatically on supported wine versions)
+- Added command-line arguments help text
+- Added GPU selector for hybrid GPU systems
+
+### Fixed
+
+- Fixed %temp% and %game% command keywords being mixed up
+
+### Changed
+
+- Improved readability of progess bar text
+- Updated French locale
+
 ## [1.15.2] - 2026-06-30
 
 ### Added
@@ -520,7 +537,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 <br>
 
-[unreleased]: https://github.com/an-anime-team/the-honkers-railway-launcher/compare/1.15.2...next
+[unreleased]: https://github.com/an-anime-team/the-honkers-railway-launcher/compare/1.15.3...next
+[1.15.3]: https://github.com/an-anime-team/the-honkers-railway-launcher/compare/1.15.2...1.15.3
 [1.15.2]: https://github.com/an-anime-team/the-honkers-railway-launcher/compare/1.15.1...1.15.2
 [1.15.1]: https://github.com/an-anime-team/the-honkers-railway-launcher/compare/1.15.0...1.15.1
 [1.15.0]: https://github.com/an-anime-team/the-honkers-railway-launcher/compare/1.14.5...1.15.0

@@ -5,20 +5,20 @@ environment-settings-description = Spécifie les variables d'environnement et la
 wine = Wine
 
 synchronization = Synchronisation
-wine-sync-description = Technologie utilisé pour synchroniser les évènements wine internes
+wine-sync-description = Technologie utilisée pour synchroniser les évènements wine internes
 
 language = Langue
-wine-lang-description = Langue utilisé dans l'environnement wine. Peut résoudre des problèmes de clavier
+wine-lang-description = Langue utilisée dans l'environnement wine. Peut résoudre des problèmes de clavier
 system = Système
 
 borderless-window = Utiliser une fenêtre sans bordure
 virtual-desktop = Bureau virtuel
 
 map-drive-c = Map drive C:
-map-drive-c-description = Automatically symlink drive_c folder from the wine prefix to the dosdevices
+map-drive-c-description = Lien symbolique automatique du drive_c du préfixe wine vers celui de dosdevices
 
-map-game-folder = Map game folder
-map-game-folder-description = Automatically symlink game folder to the dosdevices
+map-game-folder = Dossier des maps de jeux
+map-game-folder-description = Lien symbolique automatique du dossier de jeu vers les dosdevices
 
 game = Jeu
 
@@ -37,6 +37,11 @@ gamemode-description = Donne la priorité au jeu sur le reste des processus du s
 gamescope = Gamescope
 gamescope-description = Gamescope est un outil fait par Valve qui permet aux jeux de se lancer dans une instance Xwayland isolée, et qui est compatible avec les cartes graphiques AMD, Intel et NVidia
 
+gpu-device = GPU
+gpu-description = Select which GPU to launch the game on. Forces the Vulkan device so the game uses the selected GPU on hybrid laptops. Restart the game to apply.
+gpu-integrated = Integrated (default)
+gpu-dedicated-nvidia = Dedicated (NVIDIA)
+
 discord-rpc = Activité Discord
 discord-rpc-description = Permet à Discord d'afficher à vos amis des informations sur le jeu auquel vous jouez actuellement
 icon = Icône
@@ -49,7 +54,7 @@ fps-unlocker-description = Enlève les limitations de FPS en modifiant la mémoi
 enabled = Activer
 
 fps-unlocker-interval = Overwrite interval
-fps-unlocker-interval-description = Delay in milliseconds between overwriting the FPS limit value. Periodic overwrites are necessary to prevent it from resetting
+fps-unlocker-interval-description = Délai en millisecondes entre les écrasages de la valeur limite de FPS. Des écrasages périodiques sont nécessaires l'empêcher de se réinitialiser
 
 window-mode = Type de fenêtre
 borderless = Sans bordure
@@ -57,6 +62,6 @@ headless = Sans fenêtre
 popup = Popup
 fullscreen = Plein écran
 
-winewayland = Enable Winewayland
-winewayland-description = Use the Wayland driver instead of X11 (sets DISPLAY="")
-winewayland-unavailable-tooltip = Wayland is not available. If using Flatpak, make sure the app can access the Wayland socket from Flatseal.
+winewayland = Activer Winewayland
+winewayland-description = Utiliser le pilote Wayland au lieu de X11 (définit DISPLAY="")
+winewayland-unavailable-tooltip = Wayland n'est pas disponible. Si vous utilisez flatpak, vérifiez dans FlatSeal que l'appli a bien accès au socket Wayland.

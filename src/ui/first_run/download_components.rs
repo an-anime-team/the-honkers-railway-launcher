@@ -1,8 +1,26 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
+//
+// the-honkers-railway-launcher
+// Copyright (C) 2021 - 2026  Nikita Podvirnyi <krypt0nn@dawn.wine>
+// Copyright (C) 2025 - 2026  @JohnTheCoolingFan <ivan8215145640@gmail.com>
+//
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
 use std::path::PathBuf;
 
-use relm4::prelude::*;
 use adw::prelude::*;
-use anime_launcher_sdk::anime_game_core::prelude::*;
+
 use anime_launcher_sdk::wincompatlib::prelude::*;
 use anime_launcher_sdk::components::*;
 use anime_launcher_sdk::config::ConfigExt;
@@ -80,7 +98,7 @@ impl SimpleAsyncComponent for DownloadComponentsApp {
                 set_vexpand: true,
 
                 gtk::Label {
-                    set_label: &tr!("download-components"),
+                    set_label: &i18n!("download-components"),
                     add_css_class: "title-1"
                 }
             },
@@ -94,7 +112,7 @@ impl SimpleAsyncComponent for DownloadComponentsApp {
 
                 #[local_ref]
                 wine_combo -> adw::ComboRow {
-                    set_title: &tr!("wine-version"),
+                    set_title: &i18n!("wine-version"),
 
                     #[watch]
                     set_model: Some(&gtk::StringList::new(model.wine_versions.iter()
@@ -105,7 +123,7 @@ impl SimpleAsyncComponent for DownloadComponentsApp {
 
                 #[local_ref]
                 dxvk_combo -> adw::ComboRow {
-                    set_title: &tr!("dxvk-version"),
+                    set_title: &i18n!("dxvk-version"),
 
                     #[watch]
                     set_model: Some(&gtk::StringList::new(model.dxvk_versions.iter()
@@ -128,14 +146,14 @@ impl SimpleAsyncComponent for DownloadComponentsApp {
                     set_spacing: 8,
 
                     gtk::Button {
-                        set_label: &tr!("download"),
+                        set_label: &i18n!("download"),
                         set_css_classes: &["suggested-action", "pill"],
 
                         connect_clicked => DownloadComponentsAppMsg::DownloadWine
                     },
 
                     gtk::Button {
-                        set_label: &tr!("exit"),
+                        set_label: &i18n!("exit"),
                         add_css_class: "pill",
 
                         connect_clicked => DownloadComponentsAppMsg::Exit
@@ -151,7 +169,7 @@ impl SimpleAsyncComponent for DownloadComponentsApp {
                 set_visible: model.downloading,
 
                 adw::ActionRow {
-                    set_title: &tr!("download-wine"),
+                    set_title: &i18n!("download-wine"),
 
                     #[watch]
                     set_subtitle: &model.downloading_wine_version,
@@ -174,7 +192,7 @@ impl SimpleAsyncComponent for DownloadComponentsApp {
                 },
 
                 adw::ActionRow {
-                    set_title: &tr!("create-prefix"),
+                    set_title: &i18n!("create-prefix"),
 
                     #[watch]
                     set_subtitle: &model.creating_prefix_path,
@@ -197,7 +215,7 @@ impl SimpleAsyncComponent for DownloadComponentsApp {
                 },
 
                 adw::ActionRow {
-                    set_title: &tr!("download-dxvk"),
+                    set_title: &i18n!("download-dxvk"),
 
                     #[watch]
                     set_subtitle: &model.downloading_dxvk_version,
@@ -220,7 +238,7 @@ impl SimpleAsyncComponent for DownloadComponentsApp {
                 },
 
                 adw::ActionRow {
-                    set_title: &tr!("apply-dxvk"),
+                    set_title: &i18n!("apply-dxvk"),
 
                     add_prefix = &gtk::Image {
                         #[watch]
@@ -363,7 +381,7 @@ impl SimpleAsyncComponent for DownloadComponentsApp {
                         tracing::error!("Failed to update config: {err}");
 
                         sender.output(Self::Output::Toast {
-                            title: tr!("config-update-error"),
+                            title: i18n!("config-update-error"),
                             description: Some(err.to_string())
                         });
                     }
@@ -390,7 +408,7 @@ impl SimpleAsyncComponent for DownloadComponentsApp {
                                             tracing::error!("Failed to download wine: {err}");
 
                                             sender.output(Self::Output::Toast {
-                                                title: tr!("wine-download-error"),
+                                                title: i18n!("wine-download-error"),
                                                 description: Some(err.to_string())
                                             });
                                         }
@@ -399,7 +417,7 @@ impl SimpleAsyncComponent for DownloadComponentsApp {
                                             tracing::error!("Failed to unpack wine: {err}");
 
                                             sender.output(Self::Output::Toast {
-                                                title: tr!("wine-unpack-errror"),
+                                                title: i18n!("wine-unpack-errror"),
                                                 description: Some(err.clone())
                                             });
                                         }
@@ -415,7 +433,7 @@ impl SimpleAsyncComponent for DownloadComponentsApp {
                                                 tracing::error!("Failed to update config: {err}");
 
                                                 sender.output(Self::Output::Toast {
-                                                    title: tr!("config-update-error"),
+                                                    title: i18n!("config-update-error"),
                                                     description: Some(err.to_string())
                                                 });
                                             }
@@ -436,7 +454,7 @@ impl SimpleAsyncComponent for DownloadComponentsApp {
                                 tracing::error!("Failed to initialize wine installer: {err}");
 
                                 sender.output(Self::Output::Toast {
-                                    title: tr!("wine-install-failed"),
+                                    title: i18n!("wine-install-failed"),
                                     description: Some(err.to_string())
                                 });
                             }
@@ -475,7 +493,7 @@ impl SimpleAsyncComponent for DownloadComponentsApp {
                             tracing::error!("Failed to create prefix: {err}");
 
                             sender.output(Self::Output::Toast {
-                                title: tr!("wine-prefix-update-failed"),
+                                title: i18n!("wine-prefix-update-failed"),
                                 description: Some(err.to_string())
                             });
                         }
@@ -520,7 +538,7 @@ impl SimpleAsyncComponent for DownloadComponentsApp {
                                             tracing::error!("Failed to download dxvk: {err}");
 
                                             sender.output(Self::Output::Toast {
-                                                title: tr!("dxvk-download-error"),
+                                                title: i18n!("dxvk-download-error"),
                                                 description: Some(err.to_string())
                                             });
                                         }
@@ -529,7 +547,7 @@ impl SimpleAsyncComponent for DownloadComponentsApp {
                                             tracing::error!("Failed to unpack dxvk: {err}");
 
                                             sender.output(Self::Output::Toast {
-                                                title: tr!("dxvk-unpack-error"),
+                                                title: i18n!("dxvk-unpack-error"),
                                                 description: Some(err.clone())
                                             });
                                         }
@@ -552,7 +570,7 @@ impl SimpleAsyncComponent for DownloadComponentsApp {
                                 tracing::error!("Failed to initialize dxvk installer: {err}");
 
                                 sender.output(Self::Output::Toast {
-                                    title: tr!("dxvk-install-failed"),
+                                    title: i18n!("dxvk-install-failed"),
                                     description: Some(err.to_string())
                                 });
                             }
@@ -599,7 +617,7 @@ impl SimpleAsyncComponent for DownloadComponentsApp {
                             tracing::error!("Failed to apply DXVK: {err}");
 
                             sender.output(Self::Output::Toast {
-                                title: tr!("dxvk-apply-error"),
+                                title: i18n!("dxvk-apply-error"),
                                 description: Some(err.to_string())
                             });
                         }

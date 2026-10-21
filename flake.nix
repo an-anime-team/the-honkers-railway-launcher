@@ -11,77 +11,76 @@
 
     outputs = { self, nixpkgs, flake-utils, rust-overlay }:
         flake-utils.lib.eachDefaultSystem (system:
-                let
-                    pkgs = import nixpkgs {
-                        inherit system;
+            let
+                pkgs = import nixpkgs {
+                    inherit system;
 
-                        overlays = [ rust-overlay.overlays.default ];
-                    };
+                    overlays = [ rust-overlay.overlays.default ];
+                };
 
-                    config = pkgs.lib.importTOML ./Cargo.toml;
+                config = pkgs.lib.importTOML ./Cargo.toml;
 
-                in {
-                    packages.default = pkgs.rustPlatform.buildRustPackage {
-                        pname = config.package.name;
-                        version = config.package.version;
+            in {
+                packages.default = pkgs.rustPlatform.buildRustPackage {
+                    pname = config.package.name;
+                    version = config.package.version;
 
-                        src = ./.;
-                        cargoLock.lockFile = ./Cargo.lock;
+                    src = ./.;
+                    cargoLock.lockFile = ./Cargo.lock;
 
-                        doCheck = false;
+                    doCheck = false;
 
-                        meta = with pkgs.lib; {
-                            description = config.package.description;
-                            homepage = config.package.homepage;
-                            license = licenses.gpl3Only;
+                    meta = with pkgs.lib; {
+                        description = config.package.description;
+                        homepage = config.package.homepage;
+                        license = licenses.gpl3Only;
 
-                            maintainers = [
-                                {
-                                    name = "Nikita Podvirnyi";
-                                    email = "krypt0nn@vk.com";
-                                    matrix = "@krypt0nn:mozilla.org";
-                                    github = "krypt0nn";
-                                    githubId = 29639507;
-                                }
-                                {
-                                    name = "@JohnTheCoolingFan";
-                                    email = "ivan8215145640@gmail.com";
-                                    github = "JohnTheCoolingFan";
-                                    githubId = 43478602;
-                                }
-                            ];
-                        };
-
-                        nativeBuildInputs = with pkgs; [
-                            rust-bin.stable.latest.minimal
-                            gcc
+                        maintainers = [
+                            {
+                                name = "Nikita Podvirnyi";
+                                email = "krypt0nn@dawn.wine";
+                                github = "krypt0nn";
+                                githubId = 29639507;
+                            }
+                            {
+                                name = "@JohnTheCoolingFan";
+                                email = "ivan8215145640@gmail.com";
+                                github = "JohnTheCoolingFan";
+                                githubId = 43478602;
+                            }
                         ];
                     };
 
-                    devShells.default = pkgs.mkShell {
-                        nativeBuildInputs = with pkgs; [
-                            (rust-bin.stable.latest.default.override {
-                                extensions = [ "rust-src" ];
-                            })
+                    nativeBuildInputs = with pkgs; [
+                        rust-bin.stable.latest.minimal
+                        gcc
+                    ];
+                };
 
-                            gcc
-                            cmake
-                            pkg-config
+                devShells.default = pkgs.mkShell {
+                    nativeBuildInputs = with pkgs; [
+                        (rust-bin.stable.latest.default.override {
+                            extensions = [ "rust-src" ];
+                        })
 
-                            git
-                            unzip
-                            p7zip
-                            libwebp
-                        ];
+                        gcc
+                        cmake
+                        pkg-config
 
-                        buildInputs = with pkgs; [
-                            gtk4
-                            glib
-                            gdk-pixbuf
-                            gobject-introspection
+                        git
+                        unzip
+                        p7zip
+                        libwebp
+                    ];
 
-                            libadwaita
-                        ];
-                    };
-                });
+                    buildInputs = with pkgs; [
+                        gtk4
+                        glib
+                        gdk-pixbuf
+                        gobject-introspection
+                        libadwaita
+                        protobuf
+                    ];
+                };
+            });
 }

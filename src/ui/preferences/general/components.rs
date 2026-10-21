@@ -1,12 +1,32 @@
-use relm4::prelude::*;
+// SPDX-License-Identifier: GPL-3.0-or-later
+//
+// the-honkers-railway-launcher
+// Copyright (C) 2021 - 2026  Nikita Podvirnyi <krypt0nn@dawn.wine>
+// Copyright (C) 2025 - 2026  @JohnTheCoolingFan <ivan8215145640@gmail.com>
+//
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
 use gtk::prelude::*;
 use adw::prelude::*;
+
 use anime_launcher_sdk::wincompatlib::prelude::*;
 use anime_launcher_sdk::components::*;
 
-use super::GeneralAppMsg;
-use crate::ui::components::*;
 use crate::*;
+use crate::ui::components::*;
+
+use super::GeneralAppMsg;
 
 pub struct ComponentsPage {
     wine_components: AsyncController<ComponentsList<ComponentsPageMsg>>,
@@ -52,16 +72,16 @@ impl SimpleAsyncComponent for ComponentsPage {
                 adw::HeaderBar {
                     #[wrap(Some)]
                     set_title_widget = &adw::WindowTitle {
-                        set_title: &tr!("components")
+                        set_title: &i18n!("components")
                     }
                 },
 
                 adw::PreferencesPage {
                     add = &adw::PreferencesGroup {
-                        set_title: &tr!("wine-version"),
+                        set_title: &i18n!("wine-version"),
 
                         adw::ComboRow {
-                            set_title: &tr!("selected-version"),
+                            set_title: &i18n!("selected-version"),
 
                             #[watch]
                             #[block_signal(wine_selected_notify)]
@@ -89,8 +109,8 @@ impl SimpleAsyncComponent for ComponentsPage {
                         },
 
                         adw::ActionRow {
-                            set_title: &tr!("recommended-only"),
-                            set_subtitle: &tr!("wine-recommended-description"),
+                            set_title: &i18n!("recommended-only"),
+                            set_subtitle: &i18n!("wine-recommended-description"),
 
                             add_suffix = &gtk::Switch {
                                 set_valign: gtk::Align::Center,
@@ -112,11 +132,11 @@ impl SimpleAsyncComponent for ComponentsPage {
                     },
 
                     add = &adw::PreferencesGroup {
-                        set_title: &tr!("wine-options"),
+                        set_title: &i18n!("wine-options"),
 
                         adw::ActionRow {
-                            set_title: &tr!("wine-use-shared-libraries"),
-                            set_subtitle: &tr!("wine-use-shared-libraries-description"),
+                            set_title: &i18n!("wine-use-shared-libraries"),
+                            set_subtitle: &i18n!("wine-use-shared-libraries-description"),
 
                             add_suffix = &gtk::Switch {
                                 set_valign: gtk::Align::Center,
@@ -125,20 +145,18 @@ impl SimpleAsyncComponent for ComponentsPage {
                                 set_active: CONFIG.game.wine.shared_libraries.wine,
 
                                 connect_state_notify => |switch| {
-                                    if is_ready() {
-                                        if let Ok(mut config) = Config::get() {
-                                            config.game.wine.shared_libraries.wine = switch.is_active();
+                                    if is_ready() && let Ok(mut config) = Config::get() {
+                                        config.game.wine.shared_libraries.wine = switch.is_active();
 
-                                            Config::update(config);
-                                        }
+                                        Config::update(config);
                                     }
                                 } @wine_shared_libraries_notify
                             }
                         },
 
                         adw::ActionRow {
-                            set_title: &tr!("gstreamer-use-shared-libraries"),
-                            set_subtitle: &tr!("gstreamer-use-shared-libraries-description"),
+                            set_title: &i18n!("gstreamer-use-shared-libraries"),
+                            set_subtitle: &i18n!("gstreamer-use-shared-libraries-description"),
 
                             add_suffix = &gtk::Switch {
                                 set_valign: gtk::Align::Center,
@@ -147,12 +165,10 @@ impl SimpleAsyncComponent for ComponentsPage {
                                 set_active: CONFIG.game.wine.shared_libraries.gstreamer,
 
                                 connect_state_notify => |switch| {
-                                    if is_ready() {
-                                        if let Ok(mut config) = Config::get() {
-                                            config.game.wine.shared_libraries.gstreamer = switch.is_active();
+                                    if is_ready() && let Ok(mut config) = Config::get() {
+                                        config.game.wine.shared_libraries.gstreamer = switch.is_active();
 
-                                            Config::update(config);
-                                        }
+                                        Config::update(config);
                                     }
                                 } @gstreamer_shared_libraries_notify
                             }
@@ -160,10 +176,10 @@ impl SimpleAsyncComponent for ComponentsPage {
                     },
 
                     add = &adw::PreferencesGroup {
-                        set_title: &tr!("dxvk-version"),
+                        set_title: &i18n!("dxvk-version"),
 
                         adw::ComboRow {
-                            set_title: &tr!("selected-version"),
+                            set_title: &i18n!("selected-version"),
 
                             #[watch]
                             #[block_signal(dxvk_selected_notify)]
@@ -191,8 +207,8 @@ impl SimpleAsyncComponent for ComponentsPage {
                         },
 
                         adw::ActionRow {
-                            set_title: &tr!("recommended-only"),
-                            set_subtitle: &tr!("dxvk-recommended-description"),
+                            set_title: &i18n!("recommended-only"),
+                            set_subtitle: &i18n!("dxvk-recommended-description"),
 
                             add_suffix = &gtk::Switch {
                                 set_valign: gtk::Align::Center,
@@ -385,44 +401,43 @@ impl SimpleAsyncComponent for ComponentsPage {
             }
 
             ComponentsPageMsg::SelectWine(index) => {
-                if let Ok(mut config) = Config::get() {
-                    if let Some((version, _features)) = self.downloaded_wine_versions.get(index) {
-                        if config.game.wine.selected.as_ref() != Some(&version.title) {
-                            self.selecting_wine_version = true;
+                if let Ok(mut config) = Config::get()
+                    && let Some((version, _features)) = self.downloaded_wine_versions.get(index)
+                    && config.game.wine.selected.as_ref() != Some(&version.title)
+                {
+                    self.selecting_wine_version = true;
 
-                            let wine = version
-                                .to_wine(
-                                    &config.components.path,
-                                    Some(&config.game.wine.builds.join(&version.name))
-                                )
-                                .with_prefix(&config.game.wine.prefix)
-                                .with_loader(WineLoader::Current)
-                                .with_arch(WineArch::Win64);
+                    let wine = version
+                        .to_wine(
+                            &config.components.path,
+                            Some(&config.game.wine.builds.join(&version.name))
+                        )
+                        .with_prefix(&config.game.wine.prefix)
+                        .with_loader(WineLoader::Current)
+                        .with_arch(WineArch::Win64);
 
-                            let wine_name = version.name.to_string();
+                    let wine_name = version.name.to_string();
 
-                            std::thread::spawn(move || {
-                                match wine.update_prefix(None::<&str>) {
-                                    Ok(_) => {
-                                        config.game.wine.selected = Some(wine_name);
+                    std::thread::spawn(move || {
+                        match wine.update_prefix(None::<&str>) {
+                            Ok(_) => {
+                                config.game.wine.selected = Some(wine_name);
 
-                                        Config::update(config);
-                                    }
+                                Config::update(config);
+                            }
 
-                                    Err(err) => {
-                                        sender
-                                            .output(GeneralAppMsg::Toast {
-                                                title: tr!("wine-prefix-update-failed"),
-                                                description: Some(err.to_string())
-                                            })
-                                            .unwrap();
-                                    }
-                                }
-
-                                sender.input(ComponentsPageMsg::ResetWineSelection(index));
-                            });
+                            Err(err) => {
+                                sender
+                                    .output(GeneralAppMsg::Toast {
+                                        title: i18n!("wine-prefix-update-failed"),
+                                        description: Some(err.to_string())
+                                    })
+                                    .unwrap();
+                            }
                         }
-                    }
+
+                        sender.input(ComponentsPageMsg::ResetWineSelection(index));
+                    });
                 }
             }
 
@@ -432,42 +447,35 @@ impl SimpleAsyncComponent for ComponentsPage {
             }
 
             ComponentsPageMsg::SelectDxvk(index) => {
-                if let Ok(config) = Config::get() {
-                    if let Some(version) = self.downloaded_dxvk_versions.get(index) {
-                        if let Ok(selected) = config.get_selected_dxvk() {
-                            if selected.is_none() || selected.unwrap().name != version.name {
-                                self.selecting_dxvk_version = true;
+                if let Ok(config) = Config::get()
+                    && let Some(version) = self.downloaded_dxvk_versions.get(index)
+                    && let Ok(selected) = config.get_selected_dxvk()
+                    && (selected.is_none() || selected.unwrap().name != version.name)
+                {
+                    self.selecting_dxvk_version = true;
 
-                                let mut wine = match config.get_selected_wine() {
-                                    Ok(Some(version)) => version.to_wine(
-                                        config.components.path,
-                                        Some(config.game.wine.builds.join(&version.name))
-                                    ),
-
-                                    _ => Wine::default()
-                                };
-
-                                wine = wine.with_prefix(config.game.wine.prefix);
-
-                                let dxvk_folder = config.game.dxvk.builds.join(&version.name);
-
-                                std::thread::spawn(move || {
-                                    if let Err(err) =
-                                        Dxvk::install(&wine, dxvk_folder, InstallParams::default())
-                                    {
-                                        sender
-                                            .output(GeneralAppMsg::Toast {
-                                                title: tr!("dxvk-install-failed"),
-                                                description: Some(err.to_string())
-                                            })
-                                            .unwrap();
-                                    }
-
-                                    sender.input(ComponentsPageMsg::ResetDxvkSelection(index));
-                                });
-                            }
+                    let mut wine = match config.get_selected_wine() {
+                        Ok(Some(version)) => {
+                            version.to_wine(config.components.path, Some(config.game.wine.builds.join(&version.name)))
                         }
-                    }
+
+                        _ => Wine::default()
+                    };
+
+                    wine = wine.with_prefix(config.game.wine.prefix);
+
+                    let dxvk_folder = config.game.dxvk.builds.join(&version.name);
+
+                    std::thread::spawn(move || {
+                        if let Err(err) = Dxvk::install(&wine, dxvk_folder, InstallParams::default()) {
+                            sender.output(GeneralAppMsg::Toast {
+                                title: i18n!("dxvk-install-failed"),
+                                description: Some(err.to_string())
+                            }).unwrap();
+                        }
+
+                        sender.input(ComponentsPageMsg::ResetDxvkSelection(index));
+                    });
                 }
             }
 

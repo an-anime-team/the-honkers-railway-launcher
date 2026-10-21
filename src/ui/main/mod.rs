@@ -272,7 +272,7 @@ impl SimpleComponent for App {
                                 set_visible: model.style == LauncherStyle::Modern,
 
                                 gtk::Picture {
-                                    set_resource: Some(&format!("{APP_RESOURCE_PATH}/icons/hicolor/scalable/apps/{APP_ID}.png")),
+                                    set_resource: Some(&format!("{APP_RESOURCE_PATH}/icons/scalable/apps/{APP_ID}.png")),
                                     set_vexpand: true,
                                     set_content_fit: gtk::ContentFit::ScaleDown
                                 },

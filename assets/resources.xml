@@ -5,7 +5,7 @@
     <file preprocess="xml-stripblanks">images/classic.svg</file>
   </gresource>
 
-  <gresource prefix="/moe/launcher/the-honkers-railway-launcher/icons/hicolor/scalable/apps">
+  <gresource prefix="/moe/launcher/the-honkers-railway-launcher/icons/scalable/apps">
     <file alias="moe.launcher.the-honkers-railway-launcher.png">images/icon.png</file>
   </gresource>
 
